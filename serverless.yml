@@ -1,2 +1,4 @@
-nextApp:
-  component: "@sls-next/serverless-component@1.18.0"
+myAppTest:
+  component: "@sls-next/serverless-component@latest"
+  inputs:
+    domain: ["teste", "eflorista.com.br"]

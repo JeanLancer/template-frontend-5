@@ -1,0 +1,13 @@
+{
+  "region": "us-east-1",
+  "privateZone": false,
+  "domain": "eflorista.com.br",
+  "subdomains": [
+    {
+      "domain": "teste.eflorista.com.br",
+      "distributionId": "E3KGR865BMLNHD",
+      "url": "https://d3txgzea5es0vc.cloudfront.net",
+      "type": "awsCloudFront"
+    }
+  ]
+}

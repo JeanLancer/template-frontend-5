@@ -1,5 +1,5 @@
 {
   "components": {
-    "nextApp": "/home/jean/.serverless/components/registry/npm/@sls-next/serverless-component@1.18.0/node_modules/@sls-next/serverless-component"
+    "myAppTest": "/home/jean/.serverless/components/registry/npm/@sls-next/serverless-component@1.19.0/node_modules/@sls-next/serverless-component"
   }
 }

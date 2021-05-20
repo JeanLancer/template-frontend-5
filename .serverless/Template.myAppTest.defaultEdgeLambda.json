@@ -1,0 +1,17 @@
+{
+  "name": "mqp32ck-jczhu4fl",
+  "hash": "K7YSIj8jn76C5IkVRDvBKiJfZKH1qcHhXP8gla7jK80=",
+  "description": "Default Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/home/jean/Projects/ecommerce-floricultura/.serverless_nextjs/default-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::566546893607:role/mqp32ck-nz9rxs9"
+  },
+  "arn": "arn:aws:lambda:us-east-1:566546893607:function:mqp32ck-jczhu4fl",
+  "region": "us-east-1"
+}

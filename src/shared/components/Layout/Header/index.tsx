@@ -4,7 +4,6 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 
-import logo from '../../../../assets/images/logo.png';
 import { HeaderStyles } from '../../../contexts/LayoutContext';
 import ButtonsBar from './ButtonsBar';
 import CategoryBar from './CategoryBar';
@@ -29,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
         <Box {...styles.logo}>
           <Image
             layout="responsive"
-            src={logo}
+            src="/images/logo.png"
             alt="TODO"
             width={styles.logo.width as any}
             height={styles.logo.height as any}

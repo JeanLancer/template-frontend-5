@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from "@chakra-ui/react";
 
-import { FooterStyles } from '../../../contexts/LayoutContext';
+import { FooterStyles } from "../../../contexts/LayoutContext";
 
 interface FooterProps {
   styles: FooterStyles;

@@ -31,8 +31,8 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
             layout="responsive"
             src={logo}
             alt="TODO"
-            width={styles.logo.width}
-            height={styles.logo.height}
+            width={styles.logo.width as any}
+            height={styles.logo.height as any}
           />
         </Box>
         <SearchBar style={styles.searchBar} />

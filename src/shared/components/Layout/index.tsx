@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { ChakraProvider, Flex } from "@chakra-ui/react";
 
-import { useLayout } from '../../contexts/LayoutContext';
-import Fonts from '../../styles/Fonts';
-import Footer from './Footer';
-import Header from './Header';
+import { useLayout } from "../../contexts/LayoutContext";
+import Fonts from "../../styles/Fonts";
+import Footer from "./Footer";
+import Header from "./Header";
 
 const Layout: React.FC = ({ children }) => {
   const { theme, layoutStyles } = useLayout();

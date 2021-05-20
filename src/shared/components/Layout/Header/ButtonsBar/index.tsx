@@ -1,7 +1,7 @@
-import React from 'react';
-import { BiCartAlt, BiHeart } from 'react-icons/bi';
+import React from "react";
+import { BiCartAlt, BiHeart } from "react-icons/bi";
 
-import { Divider, Icon, Stack } from '@chakra-ui/react';
+import { Divider, Icon, Stack } from "@chakra-ui/react";
 
 const ButtonsBar: React.FC = () => {
   return (

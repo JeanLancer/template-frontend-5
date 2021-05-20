@@ -14,7 +14,7 @@ interface MenuDropDownProps {
   slug: string;
 }
 
-const MenuDropDown: React.FC<MenuDropDownProps> = ({ name, slug }) => {
+const MenuDropDown: React.FC<MenuDropDownProps> = ({ name }) => {
   return (
     <Flex
       whiteSpace="nowrap"

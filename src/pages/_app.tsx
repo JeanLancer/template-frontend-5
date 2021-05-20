@@ -1,7 +1,7 @@
-import type { AppProps } from 'next/app';
+import type { AppProps } from "next/app";
 
-import Layout from '../shared/components/Layout';
-import { LayoutProvider } from '../shared/contexts/LayoutContext';
+import Layout from "../shared/components/Layout";
+import { LayoutProvider } from "../shared/contexts/LayoutContext";
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
@@ -12,6 +12,5 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
     </LayoutProvider>
   );
 };
-  
+
 export default MyApp;
- 

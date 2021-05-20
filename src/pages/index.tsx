@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from "@chakra-ui/react";
 
 const HomePage = (): JSX.Element => {
   return (
@@ -13,7 +13,7 @@ const HomePage = (): JSX.Element => {
         EM CONSTRUÇÃO
       </Text>
     </Flex>
-  ); 
+  );
 };
 
 export default HomePage;

@@ -1,9 +1,9 @@
-import React from 'react';
-import { BiChevronDown } from 'react-icons/bi';
+import React from "react";
+import { BiChevronDown } from "react-icons/bi";
 
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from "@chakra-ui/react";
 
-import { Style } from '../../../../contexts/LayoutContext';
+import { Style } from "../../../../contexts/LayoutContext";
 
 interface DropDownCitiesStyle {
   style: Style;

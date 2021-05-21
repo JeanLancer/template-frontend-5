@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { ImageProps } from 'next/image';
-
 import { extendTheme, FlexProps } from '@chakra-ui/react';
+import getConfig from 'next/config';
 
 export interface Style extends FlexProps {
   focusBorderColor?: string;
@@ -30,6 +30,7 @@ interface LayoutStyles {
 }
 
 interface ContextData {
+  globals: any;
   theme: any;
   layoutStyles: LayoutStyles;
 }
@@ -40,6 +41,8 @@ const LayoutProvider: React.FC = ({ children }) => {
   const globals = {
     paddingX: ['', '200px']
   };
+
+  const { publicRuntimeConfig } = getConfig();
 
   const theme = extendTheme({
     fonts: {
@@ -62,7 +65,8 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
 
       mainBar: {
-        backgroundColor: process.env.KEY === 'TESTE' ? 'blue.500' : 'gray.100',
+        backgroundColor:
+          publicRuntimeConfig.KEY === 'TESTE' ? 'blue.500' : 'gray.100',
         color: '8px',
         py: '16px',
         px: globals.paddingX,
@@ -72,11 +76,11 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
 
       searchBar: {
-        width: '100%',
-        maxWidth: '800px',
+        width: '60%',
+        maxWidth: '600px',
         backgroundColor: 'gray.200',
         focusBorderColor: 'none',
-        size: 'md',
+        size: 'sm',
         borderRadius: '2px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
         _placeholder: {
@@ -93,7 +97,7 @@ const LayoutProvider: React.FC = ({ children }) => {
       secondBar: {
         justifyContent: 'space-between',
         backgroundColor: 'gray.200',
-        height: '40px',
+        height: '32px',
         px: globals.paddingX
       },
 
@@ -126,13 +130,14 @@ const LayoutProvider: React.FC = ({ children }) => {
         backgroundColor: 'gray.200',
         flexDirection: 'column',
         px: globals.paddingX,
-        color: 'gray.600'
+        color: 'gray.600',
+        fontSize: '12px'
       }
     }
   };
 
   return (
-    <LayoutContext.Provider value={{ theme, layoutStyles }}>
+    <LayoutContext.Provider value={{ globals, theme, layoutStyles }}>
       {children}
     </LayoutContext.Provider>
   );

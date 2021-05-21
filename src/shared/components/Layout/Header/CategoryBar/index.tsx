@@ -21,13 +21,18 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ name }) => {
       px="8px"
       alignItems="center"
       color="gray.600"
-      mr="8px"
       _first={{
         pl: '0px'
       }}
       cursor="pointer"
     >
-      <Text fontSize="16px" textTransform="uppercase" mr="8px">
+      <Text
+        fontSize="12px"
+        textTransform="uppercase"
+        mr="4px"
+        _last={{ mr: '0px' }}
+        fontWeight="500"
+      >
         {name}
       </Text>
       <Icon as={BiChevronDown} fontSize="20px" />

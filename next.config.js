@@ -1,9 +1,6 @@
 const withImages = require('next-images');
 
 module.exports = withImages({
-  env: {
-    KEY: process.env.KEY
-  },
   images: {
     domains: [
       'localhost',
@@ -12,8 +9,11 @@ module.exports = withImages({
       'www.wsuite.com.br'
     ]
   },
+  publicRuntimeConfig: {
+    KEY: process.env.KEY
+  },
+  distDir: process.env.BUILD_DIR || '.next',
   webpack: config => {
     return config;
   }
 });
-  

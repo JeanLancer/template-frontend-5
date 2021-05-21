@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Global } from '@emotion/react';
 
 const Fonts = (): JSX.Element => (
@@ -25,4 +24,5 @@ const Fonts = (): JSX.Element => (
     `}
   />
 );
+
 export default Fonts;

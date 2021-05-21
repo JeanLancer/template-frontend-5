@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { BiSearchAlt2 } from "react-icons/bi";
+import React, { useRef } from 'react';
+import { BiSearchAlt2 } from 'react-icons/bi';
 
-import { Box, Flex, Icon, Input, InputProps } from "@chakra-ui/react";
+import { Box, Flex, Icon, Input, InputProps } from '@chakra-ui/react';
 
 interface Style {
   style: InputProps;

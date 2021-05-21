@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import React from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import Image from "next/image";
+import React from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
-import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 
-import { HeaderStyles } from '../../../contexts/LayoutContext';
-import ButtonsBar from './ButtonsBar';
-import CategoryBar from './CategoryBar';
-import DropDownCities from './DropDownCities';
-import SearchBar from './SearchBar';
+import { HeaderStyles } from "../../../contexts/LayoutContext";
+import ButtonsBar from "./ButtonsBar";
+import CategoryBar from "./CategoryBar";
+import DropDownCities from "./DropDownCities";
+import SearchBar from "./SearchBar";
 
 interface HeaderProps {
   styles: HeaderStyles;

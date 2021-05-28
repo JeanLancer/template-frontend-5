@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-const HomePage = ({ highlights, others }: any): JSX.Element => {
+const HomePage = ({ highlights }: any): JSX.Element => {
   const { globals } = useLayout();
 
   return (
@@ -43,7 +43,7 @@ const HomePage = ({ highlights, others }: any): JSX.Element => {
           <Box width="100%" backgroundColor="gray.400" height="300px" />
         </Flex>
 
-        <Flex flexDirection="column">
+        <Flex width="100%" maxWidth="1200px" flexDirection="column">
           <Flex width="100%" flexDirection="column" px="8px" mb="16px">
             <Text fontWeight="500" fontSize="20px" color="gray.800">
               Flores em Destaque
@@ -58,7 +58,7 @@ const HomePage = ({ highlights, others }: any): JSX.Element => {
           </Flex>
         </Flex>
 
-        <Flex flexDirection="column">
+        {/* <Flex flexDirection="column">
           <Flex width="100%" flexDirection="column" px="8px" mb="16px">
             <Text fontWeight="500" fontSize="20px" color="gray.800">
               Demais Produtos
@@ -71,7 +71,7 @@ const HomePage = ({ highlights, others }: any): JSX.Element => {
               <ProductCard key={product.id} product={product} />
             ))}
           </Flex>
-        </Flex>
+        </Flex> */}
       </Flex>
     </>
   );

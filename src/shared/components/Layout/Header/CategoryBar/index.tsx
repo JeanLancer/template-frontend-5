@@ -17,6 +17,7 @@ interface MenuDropDownProps {
 const MenuDropDown: React.FC<MenuDropDownProps> = ({ name }) => {
   return (
     <Flex
+      display="flex"
       whiteSpace="nowrap"
       px="8px"
       alignItems="center"

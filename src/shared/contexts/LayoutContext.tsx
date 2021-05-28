@@ -1,5 +1,4 @@
 import React, { createContext, useContext } from 'react';
-import { ImageProps } from 'next/image';
 import { extendTheme, FlexProps } from '@chakra-ui/react';
 import getConfig from 'next/config';
 
@@ -12,7 +11,7 @@ export interface Style extends FlexProps {
 export interface HeaderStyles {
   contactBar: Style;
   mainBar: Style;
-  logo: ImageProps;
+  logo: any;
   searchBar: Style;
   secondBar: Style;
   categoryBar: Style;
@@ -39,7 +38,7 @@ const LayoutContext = createContext({} as ContextData);
 
 const LayoutProvider: React.FC = ({ children }) => {
   const globals = {
-    paddingX: ['', '200px']
+    paddingX: ['16px', '16px', '24px', '48px', '0px']
   };
 
   const { publicRuntimeConfig } = getConfig();
@@ -48,18 +47,27 @@ const LayoutProvider: React.FC = ({ children }) => {
     fonts: {
       heading: 'CentraNube',
       body: 'CentraNube'
+    },
+    colors: {
+      green: {
+        500: '#1dd1a1'
+      },
+      blue: {
+        500: '#54a0ff'
+      }
     }
   });
 
   const layoutStyles: LayoutStyles = {
     header: {
       contactBar: {
+        display: ['none', 'none', 'flex'],
         backgroundColor: 'gray.200',
         height: '24px',
         justifyContent: 'space-between',
         px: globals.paddingX,
         fontWeight: '500',
-        fontSize: '14px',
+        fontSize: ['11px', '12px', '14px'],
         color: 'gray.600',
         alignItems: 'center'
       },
@@ -68,16 +76,13 @@ const LayoutProvider: React.FC = ({ children }) => {
         backgroundColor:
           publicRuntimeConfig.KEY === 'TESTE' ? 'blue.500' : 'gray.100',
         color: '8px',
-        py: '16px',
+        py: ['8px', '16px'],
         px: globals.paddingX,
-        flexDirection: ['column', 'row'],
         alignItems: 'center',
         justifyContent: 'space-between'
       },
 
       searchBar: {
-        width: '60%',
-        maxWidth: '600px',
         backgroundColor: 'gray.200',
         focusBorderColor: 'none',
         size: 'sm',
@@ -90,11 +95,12 @@ const LayoutProvider: React.FC = ({ children }) => {
 
       logo: {
         src: '',
-        width: '96px',
-        height: '56px'
+        width: ['56px', '64px', '96px'],
+        mr: '24px'
       },
 
       secondBar: {
+        display: ['none', 'none', 'flex'],
         justifyContent: 'space-between',
         backgroundColor: 'gray.200',
         height: '32px',
@@ -126,12 +132,12 @@ const LayoutProvider: React.FC = ({ children }) => {
     footer: {
       copyrightBar: {
         width: '100%',
-        py: '8px',
         backgroundColor: 'gray.200',
         flexDirection: 'column',
-        px: globals.paddingX,
         color: 'gray.600',
-        fontSize: '12px'
+        py: '8px',
+        px: globals.paddingX,
+        fontSize: ['10px', '12px']
       }
     }
   };

@@ -12,10 +12,14 @@ interface DropDownCitiesStyle {
 const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
   return (
     <Flex {...style} cursor="pointer">
-      <Text fontWeight="500" textTransform="uppercase" fontSize="12px">
+      <Text
+        fontWeight="500"
+        textTransform="uppercase"
+        fontSize={['11px', '12px']}
+      >
         Cidades Atendidas
       </Text>
-      <Icon as={BiChevronDown} fontSize="20px" />
+      <Icon as={BiChevronDown} fontSize="18px" />
     </Flex>
   );
 };

@@ -8,4 +8,12 @@ const apiGateway = axios.create({
   }
 });
 
+export const apiEflorista = axios.create({
+  baseURL: 'https://app.eflorista.com.br/api/v1',
+  // baseURL: 'http://localhost:3222/api/v1',
+  headers: {
+    store_id: '7431e723-90ad-406c-b98a-1a8c9818023d'
+  }
+});
+
 export default apiGateway;

@@ -10,12 +10,10 @@ interface Style {
 const SearchBar: React.FC<Style> = ({ style }) => {
   const ref = useRef(null);
 
-  const { width, maxWidth, ...rest } = style;
-
   return (
     <Flex
-      width={width}
-      maxWidth={maxWidth}
+      width="100%"
+      maxWidth={['600px', '600px', '600px', '800px']}
       position="relative"
       alignItems="center"
     >
@@ -24,20 +22,22 @@ const SearchBar: React.FC<Style> = ({ style }) => {
         name="query"
         placeholder="Pesquisar produtos"
         pr="64px"
-        {...rest}
+        fontSize="12px"
+        {...style}
       />
 
       <Box
         position="absolute"
         right="0"
-        px="16px"
+        px="8px"
         borderLeft="1px"
+        pr="4px"
         borderColor="gray.300"
         color="gray.500"
         zIndex={10}
         cursor="pointer"
       >
-        <Icon as={BiSearchAlt2} fontSize="24px" />
+        <Icon as={BiSearchAlt2} fontSize="20px" />
       </Box>
     </Flex>
   );

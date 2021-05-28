@@ -1,14 +1,61 @@
 import React from 'react';
-import { BiCartAlt, BiHeart } from 'react-icons/bi';
+import { BiCartAlt } from 'react-icons/bi';
+import { FiMenu, FiX } from 'react-icons/fi';
 
-import { Divider, Icon, Stack } from '@chakra-ui/react';
+import { Box, Flex, Icon, Stack } from '@chakra-ui/react';
+import Link from 'next/link';
+import { useCart } from '../../../../hooks/cart';
 
-const ButtonsBar: React.FC = () => {
+interface ButtonsBarProps {
+  isOpen: boolean;
+  menuButtonFunction: () => void;
+}
+
+const ButtonsBar: React.FC<ButtonsBarProps> = ({
+  isOpen,
+  menuButtonFunction
+}) => {
+  const { cartData } = useCart();
+
   return (
-    <Stack direction="row" fontSize="24px" color="gray.500" alignItems="center">
-      <Icon as={BiHeart} />
-      <Divider orientation="vertical" height="24px" borderColor="gray.400" />
-      <Icon as={BiCartAlt} />
+    <Stack
+      direction="row"
+      fontSize="24px"
+      color="gray.500"
+      alignItems="center"
+      ml="24px"
+    >
+      <Icon
+        as={isOpen ? FiX : FiMenu}
+        mr="4px"
+        display={['block', 'block', 'none']}
+        onClick={menuButtonFunction}
+      />
+
+      <Link href="/checkout">
+        <Box position="relative" cursor="pointer">
+          <Icon as={BiCartAlt} />
+
+          {cartData.itens.length > 0 && (
+            <Flex
+              width="16px"
+              height="16px"
+              borderRadius="50%"
+              backgroundColor="red.500"
+              alignItems="center"
+              justifyContent="center"
+              color="white"
+              position="absolute"
+              p="0px"
+              top="4px"
+              right="-6px"
+              fontSize="12px"
+            >
+              {cartData.itens.length}
+            </Flex>
+          )}
+        </Box>
+      </Link>
     </Stack>
   );
 };

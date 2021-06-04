@@ -38,11 +38,11 @@ const Select: React.FC<IProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Box width="100%" maxWidth={maxWidth} mb="4px">
+    <Box width="100%" maxWidth={maxWidth} mb="2px">
       <Flex width="100%" textAlign="center">
         <Text fontSize="12px">{label}</Text>
         {isRequired && (
-          <Text ml="8px" color="red.500">
+          <Text ml="4px" color="red.500">
             *
           </Text>
         )}
@@ -53,6 +53,13 @@ const Select: React.FC<IProps> = ({
         isInvalid={!!error}
         focusBorderColor="none"
         {...rest}
+        pl="0px"
+        size="sm"
+        border="2px solid"
+        borderColor="gray.200"
+        _placeholder={{
+          pl: '0px'
+        }}
       >
         {children}
       </ChakraSelect>

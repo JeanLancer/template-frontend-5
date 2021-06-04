@@ -4,8 +4,12 @@ import Input from '../../../../../shared/components/Form/Input';
 
 import 'react-day-picker/lib/style.css';
 import TextArea from '../../../../../shared/components/Form/TextArea';
+import { useCart } from '../../../../../shared/hooks/cart';
+import Checkbox from '../../../../../shared/components/Form/Checkbox';
 
 const DeliveryDestinataryFields: React.FC = () => {
+  const { cartForm, handleChangeCartForm } = useCart();
+
   return (
     <Flex
       width="100%"
@@ -40,6 +44,18 @@ const DeliveryDestinataryFields: React.FC = () => {
           Mensagem para ser impressa no cartão (Opcional)
         </Text>
         <TextArea name="card_message" />
+        <Checkbox
+          mt="8px"
+          name="identify_sender"
+          isChecked={cartForm.identifySender === true}
+          onChange={() =>
+            handleChangeCartForm('identifySender', !cartForm.identifySender)
+          }
+          size="sm"
+          colorScheme="green"
+        >
+          <Text fontSize="12px">Quero ser identificado no cartão</Text>
+        </Checkbox>
       </Flex>
     </Flex>
   );

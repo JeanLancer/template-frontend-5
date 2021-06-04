@@ -1,11 +1,28 @@
 import React from 'react';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import { Flex, Box, Text, Divider } from '@chakra-ui/react';
+import { Flex, Text, Divider } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { CarouselProps } from '@brainhubeu/react-carousel';
 import ProductCard from '../shared/components/ProductCard';
 import apiGateway from '../shared/services/apiGateway';
 import { useLayout } from '../shared/contexts/LayoutContext';
+import config from '../shared/config/index';
+import '@brainhubeu/react-carousel/lib/style.css';
+
+const Carousel = dynamic<CarouselProps>(
+  () => {
+    return import('@brainhubeu/react-carousel').then(mod => {
+      return mod.default;
+    });
+  },
+  {
+    ssr: false
+  }
+);
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await apiGateway.get('/catalog/home');
@@ -21,14 +38,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-const HomePage = ({ highlights }: any): JSX.Element => {
+const HomePage = ({ slides, highlights }: any): JSX.Element => {
   const { globals } = useLayout();
 
   return (
     <>
       <Head key="index">
-        <title>SITE TESTE</title>
-        <meta name="description" content="META DESCRIPTION TESTE" />
+        <title>{config.SEO.TITLE}</title>
+        <meta name="description" content={config.SEO.META_DESCRIPTION} />
       </Head>
       <Flex
         fontSize="32px"
@@ -39,8 +56,27 @@ const HomePage = ({ highlights }: any): JSX.Element => {
         px={globals.paddingX}
         flexDirection="column"
       >
-        <Flex width="100%" mb="32px">
-          <Box width="100%" backgroundColor="gray.400" height="300px" />
+        <Flex width="100%" maxWidth="1200px" mb="32px">
+          <Carousel plugins={slides.length > 1 ? ['arrows'] : []} draggable>
+            {slides.map((slide: any) => (
+              <Flex
+                width="1200px"
+                height="300px"
+                backgroundColor="gray.700"
+                alignItems="center"
+                justifyContent="center"
+                key={slide.name}
+                cursor={slide.link ? 'pointer' : 'default'}
+                onClick={() => {
+                  if (slide.link) {
+                    window.location.href = slide.link;
+                  }
+                }}
+              >
+                <Image layout="fill" src={slide.url_web} alt={slide.name} />
+              </Flex>
+            ))}
+          </Carousel>
         </Flex>
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">

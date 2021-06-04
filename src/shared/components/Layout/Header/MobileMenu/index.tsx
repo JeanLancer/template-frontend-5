@@ -1,15 +1,70 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { BiFilterAlt, BiHome } from 'react-icons/bi';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import { motion, Variants } from 'framer-motion';
+import { useRouter } from 'next/dist/client/router';
 import ArrowBox from '../../../ArrowBox';
+import { useData } from '../../../../hooks/data';
 
 export interface MobileMenuProps {
   isOpen: boolean;
+  setIsOpenMenu: (isOpen: boolean) => void;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
+const CategoryMenu: React.FC<any> = ({ category, handleClickMenu }) => {
+  const [showSubcategories, setShowSubcategories] = useState(false);
+
+  return (
+    <Flex
+      width="100%"
+      alignItems="center"
+      px="24px"
+      py="4px"
+      color="gray.800"
+      fontSize="12px"
+      flexDirection="column"
+    >
+      <Flex width="100%" alignItems="center">
+        <Text
+          ml="48px"
+          mr="16px"
+          onClick={() => handleClickMenu(`/categorias/${category.slug}`)}
+        >
+          {category.name}
+        </Text>
+
+        {category.subcategories.length > 0 && (
+          <Icon
+            as={showSubcategories ? FiChevronDown : FiChevronRight}
+            fontSize="16px"
+            onClick={() => setShowSubcategories(!showSubcategories)}
+          />
+        )}
+      </Flex>
+
+      {showSubcategories && (
+        <Flex width="100%" flexDirection="column" ml="40px" mt="8px">
+          {category.subcategories.map((subcategory: any) => (
+            <Flex py="2px">
+              <Text
+                ml="48px"
+                mr="4px"
+                onClick={() =>
+                  handleClickMenu(`/categorias/${subcategory.slug}`)
+                }
+              >
+                {subcategory.name}
+              </Text>
+            </Flex>
+          ))}
+        </Flex>
+      )}
+    </Flex>
+  );
+};
+
+const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
   const variants: Variants = {
     open: {
       opacity: 1
@@ -18,6 +73,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
       opacity: 0
     }
   };
+
+  const router = useRouter();
+
+  const handleClickMenu = useCallback(
+    (link = '/') => {
+      router.push(link).then(() => setIsOpenMenu(false));
+    },
+    [setIsOpenMenu, router]
+  );
+
+  const data = useData();
 
   return (
     <motion.nav
@@ -36,7 +102,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
       >
         <Flex width="100%" flexDirection="column" position="relative">
           <ArrowBox
-            right={['44px', '52px']}
+            right={['52px']}
             boxShadow="0 1px 3px rgba(0,0,0,0.12)"
             top="-8px"
             backgroundColor="gray.50"
@@ -68,10 +134,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
               py="8px"
               backgroundColor="gray.50"
               color="gray.800"
+              onClick={() => handleClickMenu()}
             >
               <Icon as={BiHome} mr="16px" fontSize="20px" />
               <Text fontSize="14px">Início</Text>
             </Flex>
+
             <Flex
               width="100%"
               alignItems="center"
@@ -82,33 +150,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
               <Icon as={BiFilterAlt} mr="16px" fontSize="20px" />
               <Text fontSize="14px">Categorias</Text>
             </Flex>
-            <Flex
-              width="100%"
-              alignItems="center"
-              px="24px"
-              py="4px"
-              color="gray.800"
-              fontSize="12px"
-            >
-              <Text ml="48px" mr="4px">
-                Arranjos
-              </Text>
-              <Icon as={FiChevronRight} mt="2px" />
-            </Flex>
 
-            <Flex
-              width="100%"
-              alignItems="center"
-              px="24px"
-              py="4px"
-              color="gray.800"
-              fontSize="12px"
-            >
-              <Text ml="48px" mr="4px">
-                Buquês
-              </Text>
-              <Icon as={FiChevronRight} mt="2px" />
-            </Flex>
+            {data.categories?.header.map(category => (
+              <CategoryMenu
+                key={category.id}
+                category={category}
+                handleClickMenu={handleClickMenu}
+              />
+            ))}
           </Flex>
         </Flex>
       </Flex>

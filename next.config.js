@@ -10,7 +10,12 @@ module.exports = withImages({
     ]
   },
   publicRuntimeConfig: {
-    KEY: process.env.KEY
+    STORE_KEY: process.env.STORE_KEY,
+    STORE_NAME: process.env.STORE_NAME,
+    STATE_LOCATION: process.env.STATE_LOCATION,
+    ZIPCODE_LOCATION: process.env.ZIPCODE_LOCATION,
+    TITLE: process.env.TITLE,
+    META_DESCRIPTION: process.env.META_DESCRIPTION,
   },
   distDir: process.env.BUILD_DIR || '.next',
   webpack: config => {

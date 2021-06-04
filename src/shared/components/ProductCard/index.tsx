@@ -1,4 +1,4 @@
-import { Flex, Box, Text, Icon } from '@chakra-ui/react';
+import { Flex, Text, Icon } from '@chakra-ui/react';
 import React, { memo } from 'react';
 import { BiCartAlt } from 'react-icons/bi';
 import Image from 'next/image';
@@ -37,17 +37,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         px="8px"
         pb="8px"
         alignItems="center"
+        cursor="pointer"
       >
         <Link href={`/${product.slug}`}>
-          <Box
-            width="100%"
-            maxWidth="200px"
-            height="200px"
-            position="relative"
-            cursor="pointer"
-          >
-            <Image layout="fill" src={product.url_thumb} alt={product.name} />
-          </Box>
+          <Image
+            layout="fixed"
+            width={280}
+            height={280}
+            src={product.url_thumb}
+            alt={product.name}
+          />
         </Link>
 
         <Link href={`/${product.slug}`}>

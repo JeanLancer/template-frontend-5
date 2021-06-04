@@ -3,6 +3,7 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import Layout from '../shared/components/Layout';
 import { LayoutProvider } from '../shared/contexts/LayoutContext';
+import Fonts from '../shared/styles/Fonts';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
@@ -18,6 +19,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
       </Head>
       <LayoutProvider>
         <Layout>
+          <Fonts />
           <Component {...pageProps} />
         </Layout>
       </LayoutProvider>

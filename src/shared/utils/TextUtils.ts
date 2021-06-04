@@ -1,3 +1,5 @@
+import Parser from 'react-html-parser';
+
 export default class TextUtils {
   static maskTelephone(value: string): string {
     const mask = `(${value.substring(0, 2)}) ${value.substring(
@@ -60,7 +62,7 @@ export default class TextUtils {
     }
   }
 
-  static mask(value: string, mask: string): string {
+  static mask(value: string, mask = '##.###.###/####-##'): string {
     let valueMasked = mask;
 
     for (let i = 0; i < value.length; i += 1) {
@@ -71,4 +73,6 @@ export default class TextUtils {
 
     return value.length === 0 ? value : finalValue;
   }
+
+  static clearHTMLString = (escapedHTML: string): any => Parser(escapedHTML);
 }

@@ -187,7 +187,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                     <Radio
                       colorScheme="green"
                       value="Noite"
-                      isDisabled={today.getHours() + 3 > 20}
+                      isDisabled={today.getHours() > 20}
                     >
                       <Text fontSize="12px">
                         Noite - entrega entre 18h até 20h

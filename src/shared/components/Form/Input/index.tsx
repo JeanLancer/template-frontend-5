@@ -62,7 +62,9 @@ const Input: React.FC<Props> = ({
               autoComplete="off"
               errorBorderColor="red.500"
               focusBorderColor="none"
-              size="xs"
+              size="sm"
+              border="2px solid"
+              borderColor="gray.200"
               {...inputProps}
               {...rest}
             />

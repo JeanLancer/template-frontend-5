@@ -30,6 +30,7 @@ interface CartForm {
     delivery_street: string;
     delivery_number: string;
     delivery_complement: string;
+    observations: string;
     destinatary_name: string;
     destinatary_telephone: string;
     card_message: string;
@@ -38,15 +39,18 @@ interface CartForm {
     deliveryDate: Date;
     deliveryHour: string;
   };
+  neighborhoodId: string;
+  identifySender: boolean;
 }
 
 interface ICartContextData {
   cartData: CartData;
   cartForm: CartForm;
+
+  addShippingValue: (value: number) => void;
   addToCart(product: any, quantity?: number, options?: any): void;
   removeToCart(product: any): void;
   hasOnCart(product: any): boolean;
-
   handleChangeCartForm: (key: string, value: any) => void;
 }
 
@@ -73,6 +77,7 @@ const CartProvider: React.FC = ({ children }) => {
           delivery_street: null,
           delivery_number: null,
           delivery_complement: null,
+          observations: null,
           destinatary_name: null,
           destinatary_telephone: null,
           card_message: null
@@ -80,7 +85,9 @@ const CartProvider: React.FC = ({ children }) => {
         deliverySchedule: {
           deliveryDate: null,
           deliveryHour: null
-        }
+        },
+        neighborhoodId: null,
+        identifySender: true
       } as any)
   );
 
@@ -89,6 +96,18 @@ const CartProvider: React.FC = ({ children }) => {
       return {
         ...oldState,
         [key]: value
+      };
+    });
+  }, []);
+
+  const addShippingValue = useCallback((value: number) => {
+    setCartData(oldState => {
+      const { totalProducts, discountsValue } = oldState;
+
+      return {
+        ...oldState,
+        shippingValue: value,
+        total: totalProducts + value - discountsValue
       };
     });
   }, []);
@@ -131,7 +150,7 @@ const CartProvider: React.FC = ({ children }) => {
           };
 
           localStorage.setItem(
-            `@eflorista-ecommerce:TESTE`,
+            `@eflorista-ecommerce:cart`,
             JSON.stringify(updatedCartData)
           );
 
@@ -181,7 +200,7 @@ const CartProvider: React.FC = ({ children }) => {
       };
 
       localStorage.setItem(
-        `@eflorista-ecommerce:TESTE`,
+        `@eflorista-ecommerce:cart`,
         JSON.stringify(updatedCartData)
       );
 
@@ -197,7 +216,7 @@ const CartProvider: React.FC = ({ children }) => {
   );
 
   useEffect(() => {
-    const sessionCartData = localStorage.getItem(`@eflorista-ecommerce:TESTE`);
+    const sessionCartData = localStorage.getItem(`@eflorista-ecommerce:cart`);
 
     if (sessionCartData) {
       setCartData(JSON.parse(sessionCartData));
@@ -209,10 +228,11 @@ const CartProvider: React.FC = ({ children }) => {
       value={{
         cartData,
         cartForm,
+
+        addShippingValue,
         addToCart,
         removeToCart,
         hasOnCart,
-
         handleChangeCartForm
       }}
     >

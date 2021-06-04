@@ -88,7 +88,9 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
         </Flex>
       </Flex>
       <Flex width="100%" position="relative">
-        {hasFirstClickMenuButton && <MobileMenu isOpen={isOpenMenu} />}
+        {hasFirstClickMenuButton && (
+          <MobileMenu setIsOpenMenu={setIsOpenMenu} isOpen={isOpenMenu} />
+        )}
       </Flex>
     </Flex>
   );

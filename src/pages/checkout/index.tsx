@@ -12,7 +12,7 @@ import ErrorUtils from '../../shared/utils/ErrorUtils';
 import ModalPaymentData from './components/ModalPaymentData';
 
 const CheckoutPage: React.FC = () => {
-  const { cartData, handleChangeCartForm } = useCart();
+  const { cartForm, cartData, handleChangeCartForm } = useCart();
   const { globals } = useLayout();
 
   const cartFormRef = useRef<FormHandles>(null);
@@ -44,21 +44,37 @@ const CheckoutPage: React.FC = () => {
           abortEarly: false
         });
 
-        handleChangeCartForm('deliveryFields', {
-          delivery_city: data.delivery_city,
-          delivery_neighborhood: data.delivery_neighborhood,
-          delivery_street: data.delivery_street,
-          delivery_number: data.delivery_number,
-          delivery_complement: data.delivery_complement,
-          destinatary_name: data.destinatary_name,
-          destinatary_telephone: data.destinatary_telephone,
-          card_message: data.card_message
-        });
+        if (
+          cartForm.deliverySchedule.deliveryDate &&
+          cartForm.deliverySchedule.deliveryHour
+        ) {
+          handleChangeCartForm('deliveryFields', {
+            delivery_city: data.delivery_city,
+            delivery_neighborhood: data.delivery_neighborhood,
+            delivery_street: data.delivery_street,
+            delivery_number: data.delivery_number,
+            delivery_complement: data.delivery_complement,
+            observations: data.observations,
+            destinatary_name: data.destinatary_name,
+            destinatary_telephone: data.destinatary_telephone,
+            card_message: data.card_message
+          });
 
-        onOpen();
+          onOpen();
+        } else {
+          toast({
+            title: 'Dados incompletos',
+            description: 'Agende o horario da sua entrega.',
+            status: 'error',
+            duration: 10000,
+            isClosable: true
+          });
+        }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const newErrors = ErrorUtils.getValidationErrors(err);
+
+          console.log(newErrors);
 
           if (cartFormRef.current && newErrors) {
             cartFormRef.current.setErrors(newErrors);
@@ -75,7 +91,7 @@ const CheckoutPage: React.FC = () => {
         }
       }
     },
-    [handleChangeCartForm, onOpen, toast]
+    [cartForm, handleChangeCartForm, onOpen, toast]
   );
 
   return (

@@ -56,11 +56,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               whiteSpace="inherit"
               my="8px"
               fontWeight="500"
-              color="gray.500"
+              color="brand.300"
               lineHeight="16px"
               cursor="pointer"
               _hover={{
-                color: 'gray.700'
+                color: 'brand.100'
               }}
             >
               {product.name}
@@ -82,7 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <Link href={`/${product.slug}`}>
             <Flex
-              backgroundColor="gray.500"
+              backgroundColor="brand.100"
               color="white"
               alignItems="center"
               px="8px"

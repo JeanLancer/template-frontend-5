@@ -26,6 +26,7 @@ const ButtonsBar: React.FC<ButtonsBarProps> = ({
       ml="24px"
     >
       <Icon
+        color="brand.100"
         as={isOpen ? FiX : FiMenu}
         mr="4px"
         display={['block', 'block', 'none']}
@@ -34,14 +35,14 @@ const ButtonsBar: React.FC<ButtonsBarProps> = ({
 
       <Link href="/checkout">
         <Box position="relative" cursor="pointer">
-          <Icon as={BiCartAlt} />
+          <Icon color="brand.100" as={BiCartAlt} />
 
           {cartData.itens.length > 0 && (
             <Flex
               width="16px"
               height="16px"
               borderRadius="50%"
-              backgroundColor="red.500"
+              backgroundColor="brand.200"
               alignItems="center"
               justifyContent="center"
               color="white"

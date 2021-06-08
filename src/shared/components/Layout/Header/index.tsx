@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 
@@ -13,6 +13,8 @@ import DropDownCities from './DropDownCities';
 import SearchBar from './SearchBar';
 
 import { MobileMenuProps } from './MobileMenu';
+import config from '../../../config/index';
+import { useData } from '../../../hooks/data';
 
 const MobileMenu = dynamic<MobileMenuProps>((): any => {
   return import('./MobileMenu');
@@ -25,6 +27,8 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ styles }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [hasFirstClickMenuButton, setHasFirstClickMenuButton] = useState(false);
+
+  const data = useData();
 
   const handleClickMenuButton = useCallback(() => {
     setHasFirstClickMenuButton(true);
@@ -40,10 +44,18 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           justifyContent="center"
         >
           <Flex width="100%" maxWidth="1200px" {...styles.contactBar}>
-            <Text>Atendimento das 8h as 24h</Text>
-            <Flex alignItems="center">
-              <Icon as={FaWhatsapp} mr="8px" />
-              <Text>84 23545689654</Text>
+            <Text>{config.HEADER_TEXT}</Text>
+
+            <Flex fontSize="14px">
+              <Flex alignItems="center" mr="24px">
+                <Icon as={FaPhone} mr="8px" />
+                <Text>{data?.general_settings?.telephone}</Text>
+              </Flex>
+
+              <Flex alignItems="center">
+                <Icon as={FaWhatsapp} mr="8px" />
+                <Text>{data?.general_settings?.whatsapp}</Text>
+              </Flex>
             </Flex>
           </Flex>
         </Flex>
@@ -56,13 +68,12 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           <Flex width="100%" maxWidth="1200px" {...styles.mainBar}>
             <Flex height="100%" alignItems="center">
               <Link href="/">
-                <Box {...styles.logo} cursor="pointer">
+                <Box cursor="pointer" {...styles.logo} position="relative">
                   <Image
-                    layout="responsive"
-                    src="/images/logo.png"
-                    alt="TODO"
-                    width="86"
-                    height="50"
+                    layout="fill"
+                    src={`/images/${styles.logo.src}`}
+                    alt={config.STORE.NAME}
+                    quality="100"
                   />
                 </Box>
               </Link>

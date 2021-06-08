@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import Head from 'next/head';
 import { useLayout } from '../../shared/contexts/LayoutContext';
 import { useCart } from '../../shared/hooks/cart';
 import EmptyCart from './components/EmptyCart';
@@ -10,6 +11,7 @@ import Cart from './components/Cart';
 import DeliveryForm from './components/DeliveryForm';
 import ErrorUtils from '../../shared/utils/ErrorUtils';
 import ModalPaymentData from './components/ModalPaymentData';
+import config from '../../shared/config/index';
 
 const CheckoutPage: React.FC = () => {
   const { cartForm, cartData, handleChangeCartForm } = useCart();
@@ -95,49 +97,56 @@ const CheckoutPage: React.FC = () => {
   );
 
   return (
-    <Flex
-      width="100%"
-      maxWidth="1200px"
-      py="24px"
-      px={globals.paddingX}
-      justifyContent="center"
-    >
-      <Form
-        ref={cartFormRef as any}
-        onSubmit={handleSubmitCartFields}
-        style={{ width: '100%', maxWidth: '900px' }}
+    <>
+      <Head>
+        {config.PAYMENT.PLATFORM === 'Mercado Pago' && (
+          <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js" />
+        )}
+      </Head>
+      <Flex
+        width="100%"
+        maxWidth="1200px"
+        py="24px"
+        px={globals.paddingX}
+        justifyContent="center"
       >
-        <Flex width="100%" flexDirection="column" mt="8px">
-          {cartData.itens.length > 0 && (
-            <>
-              <DeliveryForm />
-              <Cart />
-              <Flex width="100%" justifyContent="flex-end" mt="8px">
-                <Flex
-                  width={['100%', '100%', 'auto']}
-                  backgroundColor="green.500"
-                  px="24px"
-                  py="4px"
-                  color="white"
-                  borderRadius="2px"
-                  fontWeight="500"
-                  cursor="pointer"
-                  justifyContent="center"
-                  fontSize="14px"
-                  onClick={() => cartFormRef.current?.submitForm()}
-                >
-                  <Text>EFETUAR PAGAMENTO</Text>
+        <Form
+          ref={cartFormRef as any}
+          onSubmit={handleSubmitCartFields}
+          style={{ width: '100%', maxWidth: '900px' }}
+        >
+          <Flex width="100%" flexDirection="column" mt="8px">
+            {cartData.itens.length > 0 && (
+              <>
+                <DeliveryForm />
+                <Cart />
+                <Flex width="100%" justifyContent="flex-end" mt="8px">
+                  <Flex
+                    width={['100%', '100%', 'auto']}
+                    backgroundColor="green.500"
+                    px="24px"
+                    py="4px"
+                    color="white"
+                    borderRadius="2px"
+                    fontWeight="500"
+                    cursor="pointer"
+                    justifyContent="center"
+                    fontSize="14px"
+                    onClick={() => cartFormRef.current?.submitForm()}
+                  >
+                    <Text>EFETUAR PAGAMENTO</Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </>
-          )}
+              </>
+            )}
 
-          {cartData.itens.length <= 0 && <EmptyCart />}
-        </Flex>
-      </Form>
+            {cartData.itens.length <= 0 && <EmptyCart />}
+          </Flex>
+        </Form>
 
-      <ModalPaymentData isOpen={isOpen} onClose={onClose} />
-    </Flex>
+        <ModalPaymentData isOpen={isOpen} onClose={onClose} />
+      </Flex>
+    </>
   );
 };
 

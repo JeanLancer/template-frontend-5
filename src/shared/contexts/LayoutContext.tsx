@@ -49,8 +49,20 @@ const LayoutProvider: React.FC = ({ children }) => {
       body: 'CentraNube'
     },
     colors: {
+      brand: {
+        100: publicRuntimeConfig.PRIMARY_COLOR,
+        200: publicRuntimeConfig.SECOND_COLOR,
+        300: publicRuntimeConfig.THIRD_COLOR
+      },
+      white: publicRuntimeConfig.WHITE_COLOR,
+      gray: {
+        500: publicRuntimeConfig.GRAY_COLOR
+      },
+      red: {
+        500: '#FF224B'
+      },
       green: {
-        500: '#1dd1a1'
+        500: '#09B662'
       },
       blue: {
         500: '#54a0ff'
@@ -62,19 +74,18 @@ const LayoutProvider: React.FC = ({ children }) => {
     header: {
       contactBar: {
         display: ['none', 'none', 'flex'],
-        backgroundColor: 'gray.200',
+        backgroundColor: 'gray.500',
         height: '24px',
         justifyContent: 'space-between',
         px: globals.paddingX,
         fontWeight: '500',
         fontSize: ['11px', '12px', '14px'],
-        color: 'gray.600',
+        color: 'brand.300',
         alignItems: 'center'
       },
 
       mainBar: {
-        backgroundColor:
-          publicRuntimeConfig.KEY === 'TESTE' ? 'blue.500' : 'gray.100',
+        backgroundColor: 'white',
         color: '8px',
         py: ['8px', '16px'],
         px: globals.paddingX,
@@ -83,26 +94,27 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
 
       searchBar: {
-        backgroundColor: 'gray.200',
+        backgroundColor: 'white',
         focusBorderColor: 'none',
         size: 'sm',
         borderRadius: '2px',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
         _placeholder: {
-          color: 'gray.500'
+          color: 'brand.300'
         }
       },
 
       logo: {
-        src: '',
-        width: ['56px', '64px', '96px'],
+        src: publicRuntimeConfig.LOGO,
+        width: ['80px', '96px', publicRuntimeConfig.LOGO_WIDTH],
+        height: ['40px', '48px', publicRuntimeConfig.LOGO_HEIGHT],
         mr: '24px'
       },
 
       secondBar: {
         display: ['none', 'none', 'flex'],
         justifyContent: 'space-between',
-        backgroundColor: 'gray.200',
+        backgroundColor: 'gray.500',
         height: '32px',
         px: globals.paddingX
       },
@@ -115,7 +127,7 @@ const LayoutProvider: React.FC = ({ children }) => {
       dropDownCities: {
         px: '16px',
         height: '100%',
-        backgroundColor: 'gray.400',
+        backgroundColor: 'brand.100',
         color: 'white',
         whiteSpace: 'nowrap',
         alignItems: 'center',
@@ -123,8 +135,7 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
 
       categoryMenu: {
-        backgroundColor: 'red.500',
-        color: '8px',
+        color: 'brand.300',
         height: '20px'
       }
     },

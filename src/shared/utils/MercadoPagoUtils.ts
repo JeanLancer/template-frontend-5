@@ -97,23 +97,13 @@ export default class MercadoPagoUtils {
   static validateCreditcardData = async (
     data: any
   ): Promise<MercadoPagoResponse> => {
-    const expirationCardDate = data.expiration_date.split('/');
-
-    const creditcardData = {
-      cardholder_name: data.cardholder_name,
-      card_number: data.card_number,
-      security_code: data.security_code,
-      expiration_month: expirationCardDate[0],
-      expiration_year: expirationCardDate[1]
-    };
-
     const mercadopagoResponse = await MercadoPagoUtils.createToken({
-      docNumber: data.document.replace(/\D/g, ''),
-      cardholderName: creditcardData.cardholder_name,
-      cardNumber: creditcardData.card_number.replace(/\D/g, ''),
-      securityCode: creditcardData.security_code,
-      cardExpirationMonth: creditcardData.expiration_month,
-      cardExpirationYear: creditcardData.expiration_year
+      docNumber: data.buyer.document.replace(/\D/g, ''),
+      cardholderName: data.card.cardholder_name,
+      cardNumber: data.card.card_number.replace(/\D/g, ''),
+      securityCode: data.card.security_code,
+      cardExpirationMonth: data.card.expiration_month,
+      cardExpirationYear: data.card.expiration_year
     });
 
     return {

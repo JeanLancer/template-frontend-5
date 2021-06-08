@@ -58,6 +58,7 @@
     "class-methods-use-this": "off",
     "react/prop-types": "off",
     "no-use-before-define": "off",
+    "react/no-danger": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "react/jsx-props-no-spreading": "off",
     "react/static-property-placement": "off",

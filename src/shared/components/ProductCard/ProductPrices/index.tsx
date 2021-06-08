@@ -19,7 +19,7 @@ const ProductPrices: React.FC<PricesProps> = ({
         <Text color="gray.500" textDecoration="line-through">
           {`De ${NumberUtils.toCurrency(priceSale)}`}
         </Text>
-        <Text fontSize="14px" color="gray.800">
+        <Text fontSize="14px" color="brand.300">
           {`Por ${NumberUtils.toCurrency(pricePromotional)}`}
         </Text>
       </Flex>
@@ -28,7 +28,7 @@ const ProductPrices: React.FC<PricesProps> = ({
 
   return (
     <Flex flexDirection="column" fontSize="14px">
-      <Text color="gray.800">{NumberUtils.toCurrency(priceSale)}</Text>
+      <Text color="brand.300">{NumberUtils.toCurrency(priceSale)}</Text>
     </Flex>
   );
 };

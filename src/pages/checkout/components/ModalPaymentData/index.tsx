@@ -13,12 +13,14 @@ import {
   RadioGroup,
   Radio,
   Stack,
-  useToast
+  useToast,
+  Spinner
 } from '@chakra-ui/react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
+import { useRouter } from 'next/dist/client/router';
 import Input from '../../../../shared/components/Form/Input';
 import Select from '../../../../shared/components/Form/Select';
 import BoxCreditCard from './BoxCreditCard';
@@ -119,11 +121,16 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
   );
 
   const toast = useToast();
-  const { cartForm, cartData } = useCart();
+  const router = useRouter();
+
+  const { cartForm, cartData, clearCart } = useCart();
 
   const [paymentSettings, setPaymentSettings] = useState<SetupCheckout>(
     null as any
   );
+
+  const [orderCode, setOrderCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     apiGateway.get('/checkout/setup').then(response => {
@@ -137,166 +144,238 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
     });
   }, []);
 
+  const handleChangePaymentMethod = useCallback((method: any) => {
+    if (method === 'CREDITCARD') {
+      if (config.PAYMENT.PLATFORM === 'Mercado Pago') {
+        (window as any).Mercadopago.setPublishableKey(config.PAYMENT.KEY);
+      }
+    }
+
+    setPaymentMethod(method);
+  }, []);
+
   const handleSubmitPayment = useCallback(
     async (formData: any) => {
       try {
-        if (paymentFormRef.current) {
-          paymentFormRef.current.setErrors({});
-        }
+        if (!isLoading) {
+          setIsLoading(true);
 
-        const data = formData;
+          if (paymentFormRef.current) {
+            paymentFormRef.current.setErrors({});
+          }
 
-        data.payment_method_type = paymentMethod;
+          const data = formData;
 
-        const schema = Yup.object().shape({
-          // BUYER
-          first_name: Yup.string().required('Nome não informado'),
-          last_name: Yup.string().required('Sobrenome não informado'),
-          document: Yup.string().required('CPF não informado'),
-          email: Yup.string()
-            .email('E-mail inválido')
-            .required('E-mail não informado'),
-          telephone: Yup.string().required('Telefone não informado'),
+          data.payment_method_type = paymentMethod;
 
-          // PAYMENT
-          deposit: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: boolean, newSchema: any) => {
-              if (!payment_method_type) {
-                return newSchema.required();
+          const schema = Yup.object().shape({
+            // BUYER
+            first_name: Yup.string().required('Nome não informado'),
+            last_name: Yup.string().required('Sobrenome não informado'),
+            document: Yup.string().required('CPF não informado'),
+            email: Yup.string()
+              .email('E-mail inválido')
+              .required('E-mail não informado'),
+            telephone: Yup.string().required('Telefone não informado'),
+
+            // PAYMENT
+            deposit: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: boolean, newSchema: any) => {
+                if (!payment_method_type) {
+                  return newSchema.required();
+                }
+
+                return newSchema;
               }
+            ),
+            creditcard: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: boolean, newSchema: any) => {
+                if (!payment_method_type) {
+                  return newSchema.required();
+                }
 
-              return newSchema;
-            }
-          ),
-          creditcard: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: boolean, newSchema: any) => {
-              if (!payment_method_type) {
-                return newSchema.required();
+                return newSchema;
               }
+            ),
+            card_name: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: any, newSchema: any) => {
+                if (payment_method_type === 'CREDITCARD') {
+                  return newSchema.required(
+                    'Nome no cartão de crédito não informado'
+                  );
+                }
 
-              return newSchema;
-            }
-          ),
-          card_name: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: any, newSchema: any) => {
-              if (payment_method_type === 'CREDITCARD') {
-                return newSchema.required(
-                  'Nome no cartão de crédito não informado'
-                );
+                return newSchema;
               }
+            ),
+            card_number: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: any, newSchema: any) => {
+                if (payment_method_type === 'CREDITCARD') {
+                  return newSchema.required('Número do cartão não informado');
+                }
 
-              return newSchema;
-            }
-          ),
-          card_number: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: any, newSchema: any) => {
-              if (payment_method_type === 'CREDITCARD') {
-                return newSchema.required('Número do cartão não informado');
+                return newSchema;
               }
+            ),
+            card_code: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: any, newSchema: any) => {
+                if (payment_method_type === 'CREDITCARD') {
+                  return newSchema.required(
+                    'Cód. de segurança do cartão não informado'
+                  );
+                }
 
-              return newSchema;
-            }
-          ),
-          card_code: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: any, newSchema: any) => {
-              if (payment_method_type === 'CREDITCARD') {
-                return newSchema.required(
-                  'Cód. de segurança do cartão não informado'
-                );
+                return newSchema;
               }
+            ),
+            card_expiration: Yup.string().when(
+              'payment_method_type',
+              (payment_method_type: any, newSchema: any) => {
+                if (payment_method_type === 'CREDITCARD') {
+                  return newSchema.required(
+                    'Data de validade do cartão não informada'
+                  );
+                }
 
-              return newSchema;
-            }
-          ),
-          card_expiration: Yup.string().when(
-            'payment_method_type',
-            (payment_method_type: any, newSchema: any) => {
-              if (payment_method_type === 'CREDITCARD') {
-                return newSchema.required(
-                  'Data de validade do cartão não informada'
-                );
+                return newSchema;
               }
+            )
+          });
 
-              return newSchema;
-            }
-          )
-        });
+          await schema.validate(data, {
+            abortEarly: false
+          });
 
-        await schema.validate(data, {
-          abortEarly: false
-        });
-
-        const dataSubmitData: ICheckoutSubmitData = {
-          buyer: {
-            first_name: data.first_name,
-            last_name: data.last_name,
-            document: data.document,
-            telephone: `${DDI}${data.telephone}`,
-            email: data.email
-          },
-          delivery_address: {
-            zipcode: config.STORE.LOCATION.ZIPCODE,
-            country: 'BR',
-            state: config.STORE.LOCATION.STATE,
-            city: data.city,
-            neighborhood: data.neighborhood,
-            street: data.street,
-            number: data.number,
-            complement: data.complement
-          },
-          order_details: {
-            destinatary_name: cartForm.deliveryFields.destinatary_name,
-            destinatary_telephone:
-              cartForm.deliveryFields.destinatary_telephone,
-            card_message: cartForm.deliveryFields.card_message,
-            identify_sender: cartForm.identifySender,
-            observations: cartForm.deliveryFields.observations
-          },
-          delivery_date: format(
-            cartForm.deliverySchedule.deliveryDate,
-            'dd/MM/yyyy'
-          ),
-          delivery_hour: cartForm.deliverySchedule.deliveryHour,
-          order_products: cartData.itens.map(item => {
-            return {
-              product_id: item.product.id,
-              quantity: item.quantity
-            };
-          }),
-          payment_method_type: data.payment_method_type,
-          num_installments:
-            paymentMethod === 'CREDITCARD' ? data.num_installments : 1,
-          store_name: config.STORE.NAME,
-          platform_name: config.PAYMENT.PLATFORM,
-          neighborhood_id: cartForm.neighborhoodId
-        };
-
-        if (paymentMethod === 'CREDITCARD') {
-          const expirationCardDate = data.card_expiration.split('/');
-
-          dataSubmitData.card = {
-            cardholder_name: data.cardholder_name,
-            card_number: data.card_number,
-            security_code: data.security_code,
-            expiration_month: expirationCardDate[0],
-            expiration_year: expirationCardDate[1]
+          const dataSubmitData: ICheckoutSubmitData = {
+            buyer: {
+              first_name: data.first_name,
+              last_name: data.last_name,
+              document: data.document,
+              telephone: `${DDI}${data.telephone}`,
+              email: data.email
+            },
+            delivery_address: {
+              zipcode: config.STORE.LOCATION.ZIPCODE,
+              country: 'BR',
+              state: config.STORE.LOCATION.STATE,
+              city: cartForm.deliveryFields.delivery_city,
+              neighborhood: cartForm.deliveryFields.delivery_neighborhood,
+              street: cartForm.deliveryFields.delivery_street,
+              number: cartForm.deliveryFields.delivery_number,
+              complement: cartForm.deliveryFields.delivery_complement
+            },
+            order_details: {
+              destinatary_name: cartForm.deliveryFields.destinatary_name,
+              destinatary_telephone:
+                cartForm.deliveryFields.destinatary_telephone,
+              card_message: cartForm.deliveryFields.card_message,
+              identify_sender: cartForm.identifySender,
+              observations: cartForm.deliveryFields.observations
+            },
+            delivery_date: format(
+              cartForm.deliverySchedule.deliveryDate,
+              'dd/MM/yyyy'
+            ),
+            delivery_hour: cartForm.deliverySchedule.deliveryHour,
+            order_products: cartData.itens.map(item => {
+              return {
+                product_id: item.product.id,
+                quantity: item.quantity
+              };
+            }),
+            payment_method_type: data.payment_method_type,
+            num_installments:
+              paymentMethod === 'CREDITCARD' ? data.num_installments : 1,
+            store_name: config.STORE.NAME,
+            platform_name: config.PAYMENT.PLATFORM,
+            neighborhood_id: cartForm.neighborhoodId
           };
 
-          const response = await MercadoPagoUtils.validateCreditcardData(
-            dataSubmitData
-          );
+          if (paymentMethod === 'CREDITCARD') {
+            const expirationCardDate = data.card_expiration.split('/');
 
-          console.log(response);
+            dataSubmitData.card = {
+              cardholder_name: data.card_name,
+              card_number: data.card_number,
+              security_code: data.card_code,
+              expiration_month: expirationCardDate[0],
+              expiration_year: expirationCardDate[1]
+            };
+
+            if (config.PAYMENT.PLATFORM === 'Mercado Pago') {
+              const mercadopagoResponse =
+                await MercadoPagoUtils.validateCreditcardData(dataSubmitData);
+
+              if (!mercadopagoResponse.isError) {
+                dataSubmitData.payment_token = mercadopagoResponse.token;
+              } else {
+                toast({
+                  title: 'Verifique os dados do cartão',
+                  description: mercadopagoResponse.errorMessage,
+                  status: 'error',
+                  duration: 10000,
+                  isClosable: true
+                });
+
+                return;
+              }
+            }
+          }
+
+          let checkoutResponse = null;
+          if (orderCode) {
+            checkoutResponse = await apiGateway.put(
+              `/orders/${orderCode}`,
+              dataSubmitData
+            );
+          } else {
+            checkoutResponse = await apiGateway.post('/orders', dataSubmitData);
+          }
+
+          setIsLoading(false);
+          if (checkoutResponse.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+            const { order_code } = checkoutResponse.data;
+
+            if (checkoutResponse.data.status === 'APPROVED') {
+              clearCart();
+
+              router
+                .push(
+                  '/checkout/pedido-finalizado/[code]',
+                  `/checkout/pedido-finalizado/${order_code}`
+                )
+                .then(() => {
+                  window.scrollTo(0, 0);
+                });
+            } else if (checkoutResponse.data.status === 'PENDENT') {
+              toast({
+                title: 'Transação em Análise',
+                description: checkoutResponse.data.message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true
+              });
+            } else {
+              toast({
+                title: 'Ocorreu um problema',
+                description: checkoutResponse.data.message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true
+              });
+
+              setOrderCode(order_code);
+            }
+          }
         }
-
-        // await apiGateway.post('/orders', dataSubmitData);
       } catch (err) {
-        console.log(err);
+        setIsLoading(false);
+        console.log('erro', err);
         if (err instanceof Yup.ValidationError) {
           const newErrors = ErrorUtils.getValidationErrors(err);
 
@@ -317,7 +396,17 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
         }
       }
     },
-    [DDI, cartData, cartForm, paymentMethod, toast]
+    [
+      isLoading,
+      DDI,
+      cartData,
+      cartForm,
+      orderCode,
+      paymentMethod,
+      router,
+      toast,
+      clearCart
+    ]
   );
 
   return (
@@ -337,10 +426,6 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {config.PAYMENT.PLATFORM === 'Mercado Pago' && (
-            <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js" />
-          )}
-
           <Form
             ref={paymentFormRef}
             onSubmit={handleSubmitPayment}
@@ -1086,7 +1171,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                       border: 'none',
                       outline: 'none'
                     }}
-                    onChange={(value: any) => setPaymentMethod(value)}
+                    onChange={(value: any) => handleChangePaymentMethod(value)}
                   >
                     <Stack spacing={2} direction={['column', 'row']}>
                       {paymentSettings &&
@@ -1111,13 +1196,14 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                     color="white"
                     justifyContent="center"
                     borderRadius="2px"
-                    cursor="pointer"
+                    cursor={isLoading ? 'default' : 'pointer'}
                     fontWeight="500"
                     textTransform="uppercase"
-                    py="2px"
+                    py="4px"
                     onClick={() => paymentFormRef.current?.submitForm()}
                   >
-                    <Text>Finalizar Pagamento</Text>
+                    {!isLoading && <Text>Finalizar Pagamento</Text>}
+                    {isLoading && <Spinner size="md" />}
                   </Flex>
                 </Flex>
               </Flex>

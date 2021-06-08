@@ -48,7 +48,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
           justifyContent="center"
           px="8px"
           _hover={{
-            backgroundColor: 'gray.400',
+            backgroundColor: 'brand.100',
             color: 'white'
           }}
         >
@@ -96,7 +96,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
                 _last={{ mb: '0px' }}
                 flexDirection="column"
                 _hover={{
-                  backgroundColor: 'gray.400',
+                  backgroundColor: 'brand.100',
                   color: 'white'
                 }}
               >

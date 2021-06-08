@@ -51,8 +51,8 @@ const SearchBar: React.FC<Style> = ({ style }) => {
         px="8px"
         borderLeft="1px"
         pr="4px"
-        borderColor="gray.300"
-        color="gray.500"
+        borderColor="gray.500"
+        color="brand.100"
         zIndex={10}
         cursor="pointer"
         onClick={() => handleSearch()}

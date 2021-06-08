@@ -75,4 +75,17 @@ export default class TextUtils {
   }
 
   static clearHTMLString = (escapedHTML: string): any => Parser(escapedHTML);
+
+  static unescapeHTML = (html: string): string => {
+    const stripedHtml = html
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&');
+
+    if (stripedHtml) {
+      return Parser(stripedHtml)[0]?.props?.children[0];
+    }
+
+    return html;
+  };
 }

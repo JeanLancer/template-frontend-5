@@ -52,6 +52,7 @@ interface ICartContextData {
   removeToCart(product: any): void;
   hasOnCart(product: any): boolean;
   handleChangeCartForm: (key: string, value: any) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<ICartContextData>({} as ICartContextData);
@@ -215,6 +216,20 @@ const CartProvider: React.FC = ({ children }) => {
     [cartData]
   );
 
+  const clearCart = useCallback(() => {
+    const data: CartData = {
+      itens: [],
+      totalProducts: 0,
+      discountsValue: 0,
+      shippingValue: 0,
+      total: 0
+    };
+
+    setCartData(data);
+
+    localStorage.clear();
+  }, []);
+
   useEffect(() => {
     const sessionCartData = localStorage.getItem(`@eflorista-ecommerce:cart`);
 
@@ -233,7 +248,8 @@ const CartProvider: React.FC = ({ children }) => {
         addToCart,
         removeToCart,
         hasOnCart,
-        handleChangeCartForm
+        handleChangeCartForm,
+        clearCart
       }}
     >
       {children}

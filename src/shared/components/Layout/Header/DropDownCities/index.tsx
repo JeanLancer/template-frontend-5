@@ -5,6 +5,8 @@ import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 
 import { Style } from '../../../../contexts/LayoutContext';
 
+import config from '../../../../config/index';
+
 interface DropDownCitiesStyle {
   style: Style;
 }
@@ -34,25 +36,30 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
       {isHovered && (
         <Flex
           width="100%"
-          backgroundColor="gray.400"
+          backgroundColor="white"
           flexDirection="column"
           position="absolute"
           top="32px"
           fontSize="12px"
           textTransform="uppercase"
           fontWeight="500"
-          cursor="pointer"
+          zIndex={100000}
+          boxShadow="0 1px 3px rgba(0,0,0,0.12)"
         >
-          <Flex
-            width="100%"
-            color="white"
-            flexDirection="column"
-            px="16px"
-            _hover={{ backgroundColor: 'gray.600' }}
-          >
-            <Text>Tijucas</Text>
-            <Divider />
-          </Flex>
+          {config.CITIES.map((city: any) => (
+            <>
+              <Flex
+                width="100%"
+                color="brand.300"
+                flexDirection="column"
+                px="16px"
+                py="8px"
+              >
+                <Text>{city}</Text>
+                <Divider />
+              </Flex>
+            </>
+          ))}
         </Flex>
       )}
     </Flex>

@@ -4,8 +4,10 @@ import { BiFilterAlt, BiHome } from 'react-icons/bi';
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import { motion, Variants } from 'framer-motion';
 import { useRouter } from 'next/dist/client/router';
+import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 import ArrowBox from '../../../ArrowBox';
 import { useData } from '../../../../hooks/data';
+import config from '../../../../config/index';
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -117,8 +119,24 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
             px="16px"
             boxShadow="0 1px 3px rgba(0,0,0,0.12)"
           >
-            <Text>Atendimento das 8h as 24h</Text>
-            <Text>800 452 326</Text>
+            <Text width="50%">{config.HEADER_TEXT}</Text>
+            <Flex
+              fontSize="10px"
+              width="50%"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="flex-end"
+            >
+              <Flex alignItems="center">
+                <Icon as={FaPhone} mr="4px" />
+                <Text>{data?.general_settings?.telephone}</Text>
+              </Flex>
+
+              <Flex alignItems="center">
+                <Icon as={FaWhatsapp} mr="4px" />
+                <Text>{data?.general_settings?.whatsapp}</Text>
+              </Flex>
+            </Flex>
           </Flex>
 
           <Flex

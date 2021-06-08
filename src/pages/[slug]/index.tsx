@@ -3,7 +3,6 @@ import { Box, Text, Flex, Heading, Icon } from '@chakra-ui/react';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { FiMinus, FiPlus } from 'react-icons/fi';
-import ReactStars from 'react-stars';
 import Head from 'next/head';
 import apiGateway from '../../shared/services/apiGateway';
 import NumberUtils from '../../shared/utils/NumberUtils';
@@ -123,27 +122,17 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               fontWeight="500"
               fontSize={['20px', '20px', '24px']}
               textTransform="uppercase"
+              color="brand.300"
             >
               {product.name}
             </Heading>
-
-            <Flex alignItems="center">
-              <ReactStars
-                count={5.0}
-                onChange={() => null}
-                size={16}
-                color1="#e1e1e1"
-                color2="#ffd700"
-                value={4.5}
-                half
-              />
-            </Flex>
 
             <Text
               whiteSpace="pre-wrap"
               fontSize="14px"
               lineHeight="18px"
               mt="48px"
+              color="brand.300"
             >
               {product.description}
             </Text>

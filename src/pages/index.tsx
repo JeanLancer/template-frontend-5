@@ -121,7 +121,7 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
             {slides.map((slide: any) => (
               <Flex
                 width="1200px"
-                height="300px"
+                height="400px"
                 backgroundColor="gray.700"
                 alignItems="center"
                 justifyContent="center"

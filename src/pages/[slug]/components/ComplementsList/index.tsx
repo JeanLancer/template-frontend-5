@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
 import ProductCard from '../../../../shared/components/ProductCard';
 
 interface ComplementsListProps {
@@ -53,24 +53,38 @@ const ComplementsList: React.FC<ComplementsListProps> = ({ products }) => {
           fontWeight={500}
         >
           <Flex
-            backgroundColor="gray.200"
-            color="gray.600"
+            width="24px"
+            height="24px"
+            alignItems="center"
+            justifyContent="center"
+            backgroundColor="brand.100"
+            p="8px"
+            fontSize="18px"
             borderRadius="4px"
-            fontSize="32px"
+            color="white"
             cursor="pointer"
+            zIndex={100}
+            left="-10px"
             onClick={() => handleSlide(-1)}
           >
-            <Icon as={BiChevronLeft} />
+            <Icon as={BiChevronsLeft} />
           </Flex>
           <Flex
-            backgroundColor="gray.200"
-            color="gray.600"
+            width="24px"
+            height="24px"
+            alignItems="center"
+            justifyContent="center"
+            backgroundColor="brand.100"
+            p="8px"
+            fontSize="18px"
             borderRadius="4px"
-            fontSize="32px"
+            color="white"
             cursor="pointer"
+            zIndex={100}
+            left="-10px"
             onClick={() => handleSlide(1)}
           >
-            <Icon as={BiChevronRight} />
+            <Icon as={BiChevronsRight} />
           </Flex>
         </Flex>
       </Flex>

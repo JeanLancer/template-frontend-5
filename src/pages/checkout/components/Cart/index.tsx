@@ -1,12 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {
-  Flex,
-  Icon,
-  Text,
-  Image,
-  useDisclosure,
-  Input
-} from '@chakra-ui/react';
+import { Flex, Icon, Text, Image, useDisclosure } from '@chakra-ui/react';
 import { BiTrash } from 'react-icons/bi';
 import { useCart } from '../../../../shared/hooks/cart';
 import NumberUtils from '../../../../shared/utils/NumberUtils';
@@ -129,7 +122,7 @@ const Cart: React.FC = () => {
         alignItems="center"
         flexDirection={['column', 'column', 'row']}
       >
-        <Flex
+        {/* <Flex
           width={['100%', '100%', '50%']}
           mb={['8px', '8px', '0px']}
           flexDirection="column"
@@ -144,9 +137,10 @@ const Cart: React.FC = () => {
             placeholder="MEU CUPOM"
             color="gray.500"
           />
-        </Flex>
+        </Flex> */}
         <Flex
           width={['100%', '100%', '50%']}
+          ml={['0px', '0px', 'auto']}
           flexDirection="column"
           alignItems="flex-end"
           fontSize={['12px']}

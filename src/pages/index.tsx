@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Flex, Text, Divider, Icon } from '@chakra-ui/react';
@@ -41,6 +41,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
   const { globals } = useLayout();
+
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    const { innerWidth } = window;
+    setScreenWidth(innerWidth);
+  }, []);
 
   return (
     <>
@@ -126,7 +133,11 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
                   }
                 }}
               >
-                <Image layout="fill" src={slide.url_web} alt={slide.name} />
+                <Image
+                  layout="fill"
+                  src={screenWidth > 1024 ? slide.url_web : slide.url_mobile}
+                  alt={slide.name}
+                />
               </Flex>
             ))}
           </Carousel>
@@ -134,8 +145,8 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">
           <Flex width="100%" flexDirection="column" px="8px" mb="16px">
-            <Text fontWeight="500" fontSize="20px" color="gray.800">
-              Flores em Destaque
+            <Text fontWeight="500" fontSize="20px" color="brand.300">
+              Produtos em Destaque
             </Text>
             <Divider width="100%" size="md" />
           </Flex>
@@ -149,7 +160,7 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">
           <Flex width="100%" flexDirection="column" px="8px" mb="16px">
-            <Text fontWeight="500" fontSize="20px" color="gray.800">
+            <Text fontWeight="500" fontSize="20px" color="brand.300">
               Demais Produtos
             </Text>
             <Divider width="100%" size="md" />

@@ -31,6 +31,9 @@ var WHITE_COLOR = "#FFFFFF"
 
 var CITIES = ["Balneário Comboriú", "Bombinhas", "Comboriú", "Itapema", "Porto Belo", "Tijucas"]
 
+var SITE_IS_ENABLED = true
+var ENABLE_NIGHT_TURN = true
+
 var APP = "cassiaflores"
 var PORT = "3001"
 
@@ -73,7 +76,10 @@ module.exports = {
           GRAY_COLOR,
           WHITE_COLOR,
 
-          CITIES
+          CITIES,
+
+          SITE_IS_ENABLED,
+          ENABLE_NIGHT_TURN
         }
       }
   ]

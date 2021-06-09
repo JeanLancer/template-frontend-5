@@ -12,6 +12,8 @@ import DeliveryForm from './components/DeliveryForm';
 import ErrorUtils from '../../shared/utils/ErrorUtils';
 import ModalPaymentData from './components/ModalPaymentData';
 import config from '../../shared/config/index';
+import { useData } from '../../shared/hooks/data';
+import MinimumValueCart from './components/MinimunValueCart';
 
 const CheckoutPage: React.FC = () => {
   const { cartForm, cartData, handleChangeCartForm } = useCart();
@@ -19,6 +21,7 @@ const CheckoutPage: React.FC = () => {
 
   const cartFormRef = useRef<FormHandles>(null);
   const toast = useToast();
+  const dataConfig = useData();
 
   const { onOpen, isOpen, onClose } = useDisclosure();
 
@@ -118,6 +121,12 @@ const CheckoutPage: React.FC = () => {
           <Flex width="100%" flexDirection="column" mt="8px">
             {cartData.itens.length > 0 && (
               <>
+                {cartData.totalProducts <
+                  dataConfig.general_settings?.min_order_value && (
+                  <MinimumValueCart
+                    value={dataConfig.general_settings.min_order_value}
+                  />
+                )}
                 <DeliveryForm />
                 <Cart />
                 <Flex width="100%" justifyContent="flex-end" mt="8px">

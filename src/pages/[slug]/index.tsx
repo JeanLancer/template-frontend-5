@@ -69,6 +69,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
             <Flex flexDirection="column" mr={['0px', '0px', '8px']}>
               {product.images.map((image: any, index: any) => (
                 <Box
+                  key={image.id}
                   width={['56px', '64px', '72px', '80px']}
                   height={['56px', '64px', '72px', '80px']}
                   backgroundColor="gray.400"
@@ -96,7 +97,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               justifyContent="center"
               alignItems="center"
             >
-              <Box width="100%" maxWidth="294px">
+              <Box width="100%" maxWidth="294px" position="relative">
                 <Image
                   key={selectedImage}
                   src={selectedImage}

@@ -1151,7 +1151,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
 
               <Flex width={['100%', '100%', '60%']} flexDirection="column">
                 <Input label="E-mail" name="email" isRequired mb="0px" />
-                <Text fontSize="10px" color="gray.500">
+                <Text fontSize="10px" color="gray.600">
                   Email será necessário para acompanhar seu pedido.
                 </Text>
               </Flex>

@@ -100,14 +100,16 @@ const DeliveryAddressFields: React.FC = () => {
             </Select>
           </Flex>
 
-          {deliverySettings && (
-            <Flex width="48%">
-              <DeliveryNeighborhoodFields
-                deliveryMethodType={deliverySettings.deliveryMethod.type}
-                neighborhoods={selectedCity ? selectedCity.neighborhoods : []}
-              />
-            </Flex>
-          )}
+          <Flex width="48%">
+            <DeliveryNeighborhoodFields
+              deliveryMethodType={
+                deliverySettings
+                  ? deliverySettings.deliveryMethod.type
+                  : 'DISTRICT'
+              }
+              neighborhoods={selectedCity ? selectedCity.neighborhoods : []}
+            />
+          </Flex>
         </Flex>
 
         <Flex width="100%" justifyContent="space-between">

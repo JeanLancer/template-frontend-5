@@ -69,10 +69,14 @@ const CategoryMenu: React.FC<any> = ({ category, handleClickMenu }) => {
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
   const variants: Variants = {
     open: {
-      opacity: 1
+      opacity: 1,
+      zIndex: 1000,
+      height: '100vh'
     },
     closed: {
-      opacity: 0
+      opacity: 0,
+      zIndex: 1000,
+      height: '0px'
     }
   };
 
@@ -92,12 +96,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
       initial="closed"
       animate={isOpen ? 'open' : 'closed'}
       variants={variants}
+      transition={{
+        delay: 0.25
+      }}
     >
       <Flex
         display={['flex', 'flex', 'none']}
         width="100%"
         backgroundColor="white"
-        height="100vh"
+        height="100%"
         position="absolute"
         zIndex={1000}
         boxShadow="0 1px 3px rgba(0,0,0,0.12)"

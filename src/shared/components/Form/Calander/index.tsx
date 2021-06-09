@@ -8,13 +8,17 @@ interface IProps extends DayPickerProps {
   handleDateChange: any;
   handleMonthChange: any;
   isErrored: boolean;
+  disabledDaysOfWeek: number[];
+  disabledSpecificDays: Date[];
 }
 
 const Calander: React.FC<IProps> = ({
   selectedDate,
   handleDateChange,
   handleMonthChange,
-  isErrored = false
+  isErrored = false,
+  disabledDaysOfWeek,
+  disabledSpecificDays
 }) => (
   <Container isErrored={isErrored}>
     <DayPicker
@@ -25,8 +29,9 @@ const Calander: React.FC<IProps> = ({
           before: new Date()
         },
         {
-          daysOfWeek: [0]
-        }
+          daysOfWeek: disabledDaysOfWeek
+        },
+        ...disabledSpecificDays
       ]}
       fixedWeeks
       onMonthChange={handleMonthChange}

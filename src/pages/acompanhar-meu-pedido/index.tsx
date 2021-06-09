@@ -1,9 +1,9 @@
 import { Flex, Input, Text } from '@chakra-ui/react';
 import React, { useCallback, useRef, useState } from 'react';
+import OrderDetails from '../../shared/components/Order/OrderDetails';
 import { HTTP_RESPONSE } from '../../shared/constants';
 import { useLayout } from '../../shared/contexts/LayoutContext';
 import { apiEflorista } from '../../shared/services/apiGateway';
-import OrderDetails from './components/OrderDetails';
 
 const TrackOrderPage: React.FC = () => {
   const { globals } = useLayout();

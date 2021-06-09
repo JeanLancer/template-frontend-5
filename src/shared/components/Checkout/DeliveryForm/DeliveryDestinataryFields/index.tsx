@@ -1,11 +1,11 @@
 import { Divider, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
-import Input from '../../../../../shared/components/Form/Input';
+import Input from '../../../Form/Input';
 
 import 'react-day-picker/lib/style.css';
-import TextArea from '../../../../../shared/components/Form/TextArea';
-import { useCart } from '../../../../../shared/hooks/cart';
-import Checkbox from '../../../../../shared/components/Form/Checkbox';
+import TextArea from '../../../Form/TextArea';
+import { useCart } from '../../../../hooks/cart';
+import Checkbox from '../../../Form/Checkbox';
 
 const DeliveryDestinataryFields: React.FC = () => {
   const { cartForm, handleChangeCartForm } = useCart();

@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text, Divider, Flex, Collapse } from '@chakra-ui/react';
-import Input from '../../../../../shared/components/Form/Input';
-import Select from '../../../../../shared/components/Form/Select';
-import TextArea from '../../../../../shared/components/Form/TextArea';
-import Checkbox from '../../../../../shared/components/Form/Checkbox';
-import apiGateway from '../../../../../shared/services/apiGateway';
-import { HTTP_RESPONSE } from '../../../../../shared/constants';
+import Input from '../../../Form/Input';
+import Select from '../../../Form/Select';
+import TextArea from '../../../Form/TextArea';
+import Checkbox from '../../../Form/Checkbox';
+import apiGateway from '../../../../services/apiGateway';
+import { HTTP_RESPONSE } from '../../../../constants';
 import DeliveryNeighborhoodFields from './DeliveryNeighborhoodFields';
-import { useCart } from '../../../../../shared/hooks/cart';
+import { useCart } from '../../../../hooks/cart';
 
 export interface DeliveryNeighborhood {
   id: string;

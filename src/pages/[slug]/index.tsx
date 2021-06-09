@@ -9,7 +9,7 @@ import NumberUtils from '../../shared/utils/NumberUtils';
 import { useLayout } from '../../shared/contexts/LayoutContext';
 import { useCart } from '../../shared/hooks/cart';
 import config from '../../shared/config/index';
-import ComplementsList from './components/ComplementsList';
+import ComplementsList from '../../shared/components/ComplementsList';
 
 interface ProductDetailsPageProps {
   product: any;
@@ -41,11 +41,11 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
   const { addToCart, removeToCart, hasOnCart } = useCart();
 
-  const [selectedImage, setSelectedImage] = useState(product.url_web);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     setSelectedImage(product.url_web);
-  }, [product.url_web]);
+  }, [product]);
 
   return (
     <>
@@ -67,27 +67,28 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
         <Flex width="100%" flexDirection={['column', 'column', 'row']}>
           <Flex width={['100%', '100%', '50%']}>
             <Flex flexDirection="column" mr={['0px', '0px', '8px']}>
-              {product.images.map((image: any, index: any) => (
-                <Box
-                  key={image.id}
-                  width={['56px', '64px', '72px', '80px']}
-                  height={['56px', '64px', '72px', '80px']}
-                  backgroundColor="gray.400"
-                  mb="8px"
-                  _last={{ mb: '0px' }}
-                  position="relative"
-                  border="2px solid"
-                  borderColor="gray.200"
-                  cursor="pointer"
-                  onClick={() => setSelectedImage(image.url_web)}
-                >
-                  <Image
-                    layout="fill"
-                    src={image.url_thumb}
-                    alt={`thumb-${product.slug}-${index}`}
-                  />
-                </Box>
-              ))}
+              {product &&
+                product.images.map((image: any, index: any) => (
+                  <Box
+                    key={image.id}
+                    width={['56px', '64px', '72px', '80px']}
+                    height={['56px', '64px', '72px', '80px']}
+                    backgroundColor="gray.400"
+                    mb="8px"
+                    _last={{ mb: '0px' }}
+                    position="relative"
+                    border="2px solid"
+                    borderColor="gray.200"
+                    cursor="pointer"
+                    onClick={() => setSelectedImage(image.url_web)}
+                  >
+                    <Image
+                      layout="fill"
+                      src={image.url_thumb}
+                      alt={`thumb-${product.slug}-${index}`}
+                    />
+                  </Box>
+                ))}
             </Flex>
 
             <Flex
@@ -98,15 +99,17 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               alignItems="center"
             >
               <Box width="100%" maxWidth="294px" position="relative">
-                <Image
-                  key={selectedImage}
-                  src={selectedImage}
-                  layout="responsive"
-                  width="100%"
-                  height="100%"
-                  quality={100}
-                  alt={product.name}
-                />
+                {selectedImage && (
+                  <Image
+                    key={selectedImage}
+                    src={selectedImage as any}
+                    layout="responsive"
+                    width="100%"
+                    height="100%"
+                    quality={100}
+                    alt={product.name}
+                  />
+                )}
               </Box>
             </Flex>
           </Flex>

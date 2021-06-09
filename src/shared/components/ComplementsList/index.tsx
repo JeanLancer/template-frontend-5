@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
-import ProductCard from '../../../../shared/components/ProductCard';
+import ProductCard from '../ProductCard';
 
 interface ComplementsListProps {
   products: any[];

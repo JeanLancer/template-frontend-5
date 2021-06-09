@@ -11,7 +11,7 @@ import {
   ModalContent,
   ModalOverlay
 } from '@chakra-ui/react';
-import { useCart } from '../../../../../shared/hooks/cart';
+import { useCart } from '../../../../hooks/cart';
 
 interface ModalRemoveProductProps {
   isOpen: boolean;

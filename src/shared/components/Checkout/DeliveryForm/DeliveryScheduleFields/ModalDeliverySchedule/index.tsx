@@ -16,10 +16,10 @@ import {
 } from '@chakra-ui/react';
 
 import { DayModifiers } from 'react-day-picker';
-import Calander from '../../../../../../shared/components/Form/Calander';
-import DateUtils from '../../../../../../shared/utils/DateUtils';
-import { useCart } from '../../../../../../shared/hooks/cart';
-import config from '../../../../../../shared/config';
+import Calander from '../../../../Form/Calander';
+import DateUtils from '../../../../../utils/DateUtils';
+import { useCart } from '../../../../../hooks/cart';
+import config from '../../../../../config';
 
 interface ModalDeliveryScheduleProps {
   isOpen: boolean;

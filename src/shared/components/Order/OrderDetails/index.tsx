@@ -3,11 +3,11 @@ import React, { useCallback, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { BiCloudUpload } from 'react-icons/bi';
 import { FiAlertTriangle, FiCheck } from 'react-icons/fi';
-import { HTTP_RESPONSE } from '../../../../shared/constants';
-import { apiEflorista } from '../../../../shared/services/apiGateway';
-import DateUtils from '../../../../shared/utils/DateUtils';
-import NumberUtils from '../../../../shared/utils/NumberUtils';
-import TextUtils from '../../../../shared/utils/TextUtils';
+import { HTTP_RESPONSE } from '../../../constants';
+import { apiEflorista } from '../../../services/apiGateway';
+import DateUtils from '../../../utils/DateUtils';
+import NumberUtils from '../../../utils/NumberUtils';
+import TextUtils from '../../../utils/TextUtils';
 
 interface OrderDetailsProps {
   order: any;

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, Icon, Text, Image, useDisclosure } from '@chakra-ui/react';
 import { BiTrash } from 'react-icons/bi';
-import { useCart } from '../../../../shared/hooks/cart';
-import NumberUtils from '../../../../shared/utils/NumberUtils';
+import { useCart } from '../../../hooks/cart';
+import NumberUtils from '../../../utils/NumberUtils';
 import ModalRemoveProduct from './ModalRemoveProduct';
 
 const Cart: React.FC = () => {

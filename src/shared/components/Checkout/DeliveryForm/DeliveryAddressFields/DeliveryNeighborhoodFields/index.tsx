@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import Input from '../../../../../../shared/components/Form/Input';
-import Select from '../../../../../../shared/components/Form/Select';
-import { useCart } from '../../../../../../shared/hooks/cart';
+import Input from '../../../../Form/Input';
+import Select from '../../../../Form/Select';
+import { useCart } from '../../../../../hooks/cart';
 
 import { DeliveryNeighborhood } from '../index';
 

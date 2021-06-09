@@ -6,14 +6,14 @@ import * as Yup from 'yup';
 import Head from 'next/head';
 import { useLayout } from '../../shared/contexts/LayoutContext';
 import { useCart } from '../../shared/hooks/cart';
-import EmptyCart from './components/EmptyCart';
-import Cart from './components/Cart';
-import DeliveryForm from './components/DeliveryForm';
+import Cart from '../../shared/components/Checkout/Cart';
 import ErrorUtils from '../../shared/utils/ErrorUtils';
-import ModalPaymentData from './components/ModalPaymentData';
 import config from '../../shared/config/index';
 import { useData } from '../../shared/hooks/data';
-import MinimumValueCart from './components/MinimunValueCart';
+import MinimumValueCart from '../../shared/components/Checkout/MinimunValueCart';
+import DeliveryForm from '../../shared/components/Checkout/DeliveryForm';
+import EmptyCart from '../../shared/components/Checkout/EmptyCart';
+import ModalPaymentData from '../../shared/components/Checkout/ModalPaymentData';
 
 const CheckoutPage: React.FC = () => {
   const { cartForm, cartData, handleChangeCartForm } = useCart();

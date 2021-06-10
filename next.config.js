@@ -35,13 +35,14 @@ module.exports = withImages({
     GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
     GOOGLE_TAG_SEND_TO: process.env.GOOGLE_TAG_SEND_TO,
 
+    FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
+
     JIVOCHAT: process.env.JIVOCHAT,
 
     //colors
     PRIMARY_COLOR: process.env.PRIMARY_COLOR,
     SECOND_COLOR: process.env.SECOND_COLOR,
     THIRD_COLOR: process.env.THIRD_COLOR,
-    GRAY_COLOR: process.env.GRAY_COLOR,
     WHITE_COLOR: process.env.WHITE_COLOR,
   },
   distDir: process.env.BUILD_DIR || '.next',

@@ -116,7 +116,7 @@ const CheckoutPage: React.FC = () => {
         <Form
           ref={cartFormRef as any}
           onSubmit={handleSubmitCartFields}
-          style={{ width: '100%', maxWidth: '900px' }}
+          style={{ width: '100%', maxWidth: '1200px' }}
         >
           <Flex width="100%" flexDirection="column" mt="8px">
             {cartData.itens.length > 0 && (

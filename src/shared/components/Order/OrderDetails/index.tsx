@@ -105,89 +105,90 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
 
   return (
     <Flex width="100%" maxWidth="600px" flexDirection="column" p="16px">
-      {order.payment_status === 'AGUARDANDO_COMPROVANTE' && (
-        <Flex width="100%" flexDirection="column" mt="16px" mb="32px">
-          <Flex width="100%" flexDirection="column" mt="48px">
-            <Text color="blue.700">ANEXAR COMPROVANTE</Text>
+      {order.payment_method.type === 'DEPOSIT' &&
+        order.payment_status !== 'COMPROVANTE_EM_ANALISE' && (
+          <Flex width="100%" flexDirection="column" mt="16px" mb="32px">
+            <Flex width="100%" flexDirection="column" mt="48px">
+              <Text color="blue.700">ANEXAR COMPROVANTE</Text>
 
-            <Dropzone
-              accept={['image/*', 'application/pdf']}
-              onDropAccepted={handleUpload}
-            >
-              {({
-                getRootProps,
-                getInputProps,
-                isDragActive,
-                isDragReject
-              }) => (
-                <Flex
-                  width="100%"
-                  flexDirection="column"
-                  alignItems="center"
-                  mr="16px"
-                  {...getRootProps()}
-                  outline="none"
-                >
-                  <input {...getInputProps()} />
-                  <Box
-                    mt="4px"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    flexDirection="column"
-                    border="2px dashed"
-                    borderColor="gray.600"
+              <Dropzone
+                accept={['image/*', 'application/pdf']}
+                onDropAccepted={handleUpload}
+              >
+                {({
+                  getRootProps,
+                  getInputProps,
+                  isDragActive,
+                  isDragReject
+                }) => (
+                  <Flex
                     width="100%"
-                    py="8px"
-                    _hover={{
-                      cursor: 'pointer'
-                    }}
+                    flexDirection="column"
+                    alignItems="center"
+                    mr="16px"
+                    {...getRootProps()}
+                    outline="none"
                   >
-                    {!isDragActive && !isDragReject && (
-                      <>
-                        <BiCloudUpload size={40} />
-                        <Text fontSize="14px" mt="4px">
-                          Arraste ou clique aqui
-                        </Text>
-                      </>
-                    )}
+                    <input {...getInputProps()} />
+                    <Box
+                      mt="4px"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      flexDirection="column"
+                      border="2px dashed"
+                      borderColor="gray.600"
+                      width="100%"
+                      py="8px"
+                      _hover={{
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {!isDragActive && !isDragReject && (
+                        <>
+                          <BiCloudUpload size={40} />
+                          <Text fontSize="14px" mt="4px">
+                            Arraste ou clique aqui
+                          </Text>
+                        </>
+                      )}
 
-                    {isDragActive && !isDragReject && (
-                      <Flex
-                        flexDirection="column"
-                        color="green.500"
-                        alignItems="center"
-                      >
-                        <FiCheck size={40} />
-                        <Text fontSize="14px" mt="4px">
-                          Solte o arquivo aqui
-                        </Text>
-                      </Flex>
-                    )}
+                      {isDragActive && !isDragReject && (
+                        <Flex
+                          flexDirection="column"
+                          color="green.500"
+                          alignItems="center"
+                        >
+                          <FiCheck size={40} />
+                          <Text fontSize="14px" mt="4px">
+                            Solte o arquivo aqui
+                          </Text>
+                        </Flex>
+                      )}
 
-                    {isDragReject && (
-                      <Flex
-                        flexDirection="column"
-                        color="pink.500"
-                        alignItems="center"
-                      >
-                        <FiAlertTriangle size={40} />
-                        <Text fontSize="14px" mt="4px">
-                          Arquivo não suportado apenas PNG JPG ou PDF
-                        </Text>
-                      </Flex>
-                    )}
-                  </Box>
-                </Flex>
-              )}
-            </Dropzone>
+                      {isDragReject && (
+                        <Flex
+                          flexDirection="column"
+                          color="pink.500"
+                          alignItems="center"
+                        >
+                          <FiAlertTriangle size={40} />
+                          <Text fontSize="14px" mt="4px">
+                            Arquivo não suportado apenas PNG JPG ou PDF
+                          </Text>
+                        </Flex>
+                      )}
+                    </Box>
+                  </Flex>
+                )}
+              </Dropzone>
 
-            <Text color="red.500" fontSize="12px">
-              Atenção apenas fotos ou arquivos em PDF
-            </Text>
+              <Text color="red.500" fontSize="12px">
+                Atenção apenas fotos ou arquivos em PDF
+              </Text>
+            </Flex>
           </Flex>
-        </Flex>
-      )}
+        )}
 
       <Flex width="100%" height="100%" backgroundColor="white">
         <Flex
@@ -206,7 +207,12 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               <Flex>
                 <Text mr="8px">Status de Pagamento:</Text>
                 <Text color="blue.500" fontWeight="500">
-                  {TextUtils.convertStatusPayment(order.payment_status)}
+                  {TextUtils.convertStatusPayment(
+                    order.payment_method.type === 'DEPOSIT' &&
+                      order.payment_status === 'NEGADO'
+                      ? 'AGUARDANDO_COMPROVANTE'
+                      : order.payment_status
+                  )}
                 </Text>
               </Flex>
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, Icon, Text } from '@chakra-ui/react';
-import { BiFilterAlt, BiHome } from 'react-icons/bi';
+import { BiDetail, BiFilterAlt, BiHome } from 'react-icons/bi';
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi';
 import { motion, Variants } from 'framer-motion';
 import { useRouter } from 'next/dist/client/router';
@@ -32,6 +32,7 @@ const CategoryMenu: React.FC<any> = ({ category, handleClickMenu }) => {
           ml="48px"
           mr="16px"
           onClick={() => handleClickMenu(`/categorias/${category.slug}`)}
+          textTransform="uppercase"
         >
           {category.name}
         </Text>
@@ -55,6 +56,7 @@ const CategoryMenu: React.FC<any> = ({ category, handleClickMenu }) => {
                 onClick={() =>
                   handleClickMenu(`/categorias/${subcategory.slug}`)
                 }
+                textTransform="uppercase"
               >
                 {subcategory.name}
               </Text>
@@ -128,20 +130,39 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
           >
             <Text width="50%">{config.HEADER_TEXT}</Text>
             <Flex
-              fontSize="10px"
+              fontSize="12px"
               width="50%"
               flexDirection="column"
               justifyContent="center"
               alignItems="flex-end"
             >
-              <Flex alignItems="center">
+              <Flex
+                alignItems="center"
+                onClick={() => {
+                  window.location.href = `tel:+55${data.general_settings?.telephone?.replace(
+                    /\D/g,
+                    ''
+                  )}`;
+                }}
+              >
                 <Icon as={FaPhone} mr="4px" />
-                <Text>{data?.general_settings?.telephone}</Text>
+                <Text>{data.general_settings?.telephone}</Text>
               </Flex>
 
-              <Flex alignItems="center">
+              <Flex
+                alignItems="center"
+                onClick={() => {
+                  window.open(
+                    `https://api.whatsapp.com/send/?phone=55${data.general_settings?.whatsapp?.replace(
+                      /\D/g,
+                      ''
+                    )}&text&app_absent=0`,
+                    '_blank'
+                  );
+                }}
+              >
                 <Icon as={FaWhatsapp} mr="4px" />
-                <Text>{data?.general_settings?.whatsapp}</Text>
+                <Text>{data.general_settings?.whatsapp}</Text>
               </Flex>
             </Flex>
           </Flex>
@@ -157,12 +178,23 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
               alignItems="center"
               px="24px"
               py="8px"
-              backgroundColor="gray.50"
               color="gray.800"
               onClick={() => handleClickMenu()}
             >
               <Icon as={BiHome} mr="16px" fontSize="20px" />
               <Text fontSize="14px">Início</Text>
+            </Flex>
+
+            <Flex
+              width="100%"
+              alignItems="center"
+              px="24px"
+              py="8px"
+              color="gray.800"
+              onClick={() => handleClickMenu('acompanhar-meu-pedido')}
+            >
+              <Icon as={BiDetail} mr="16px" fontSize="20px" />
+              <Text fontSize="14px">Acompanhar Pedido</Text>
             </Flex>
 
             <Flex

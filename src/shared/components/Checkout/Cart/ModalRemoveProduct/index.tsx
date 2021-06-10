@@ -78,7 +78,7 @@ const ModalRemoveProduct: React.FC<ModalRemoveProductProps> = ({
               <Flex
                 px="16px"
                 py="4px"
-                backgroundColor="gray.600"
+                backgroundColor="brand.100"
                 borderRadius="2px"
                 cursor="pointer"
                 onClick={() => {

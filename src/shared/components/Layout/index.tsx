@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/dist/client/router';
 import { useLayout } from '../../contexts/LayoutContext';
 import Footer from './Footer';
 import Header from './Header';
@@ -13,9 +14,15 @@ const Layout: React.FC = ({ children }) => {
 
   const [isSiteEnabled] = useState(config.SITE_IS_ENABLED);
 
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(config.SITE_IS_ENABLED);
+  }, []);
+
   return (
     <ChakraProvider theme={theme}>
-      {isSiteEnabled && (
+      {(isSiteEnabled || router.pathname === '/acompanhar-meu-pedido') && (
         <ConfigProvider>
           <CartProvider>
             <Flex flexDirection="column" width="100%" minHeight="100vh">

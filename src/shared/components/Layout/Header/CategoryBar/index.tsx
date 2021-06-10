@@ -24,7 +24,6 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
 
   return (
     <Flex
-      minWidth="96px"
       display="flex"
       whiteSpace="nowrap"
       color="gray.600"
@@ -46,7 +45,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
           height="100%"
           alignItems="center"
           justifyContent="center"
-          px="8px"
+          px="12px"
           _hover={{
             backgroundColor: 'brand.100',
             color: 'white'
@@ -57,7 +56,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
             textTransform="uppercase"
             mr="4px"
             _last={{ mr: '0px' }}
-            fontWeight="500"
+            fontWeight="600"
             lineHeight="14PX"
           >
             {category.name}
@@ -117,6 +116,41 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
 
   return (
     <Flex {...style} flexWrap="wrap">
+      <Flex
+        display="flex"
+        whiteSpace="nowrap"
+        color="gray.600"
+        _first={{
+          pl: '0px'
+        }}
+        cursor="pointer"
+        position="relative"
+      >
+        <Link href="/">
+          <Flex
+            width="100%"
+            height="100%"
+            alignItems="center"
+            justifyContent="center"
+            px="12px"
+            _hover={{
+              backgroundColor: 'brand.100',
+              color: 'white'
+            }}
+          >
+            <Text
+              fontSize="10px"
+              textTransform="uppercase"
+              mr="4px"
+              _last={{ mr: '0px' }}
+              fontWeight="600"
+              lineHeight="14PX"
+            >
+              Início
+            </Text>
+          </Flex>
+        </Link>
+      </Flex>
       {data &&
         data.categories?.header.map(category => (
           <MenuDropDown key={category.id} category={category} />

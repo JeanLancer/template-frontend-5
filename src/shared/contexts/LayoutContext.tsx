@@ -56,7 +56,10 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
       white: publicRuntimeConfig.WHITE_COLOR,
       gray: {
-        500: publicRuntimeConfig.GRAY_COLOR
+        100: '#f3f3f3',
+        200: '#ebebeb',
+        300: '#8b8b92',
+        500: '#ebebeb'
       },
       red: {
         500: '#FF224B'
@@ -78,8 +81,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         height: '24px',
         justifyContent: 'space-between',
         px: globals.paddingX,
-        fontWeight: '500',
-        fontSize: ['11px', '12px', '14px'],
+        fontSize: ['11px', '12px'],
         color: 'brand.300',
         alignItems: 'center'
       },

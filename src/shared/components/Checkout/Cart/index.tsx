@@ -24,7 +24,7 @@ const Cart: React.FC = () => {
     <Flex width="100%" flexDirection="column">
       <Text
         textTransform="uppercase"
-        backgroundColor="gray.400"
+        backgroundColor="gray.300"
         px="8px"
         py="4px"
         color="white"
@@ -100,7 +100,6 @@ const Cart: React.FC = () => {
             color="white"
             p="2px"
             borderRadius="2px"
-            position="absolute"
             right="-8px"
             fontSize="12px"
             boxShadow="0 1px 3px rgba(0,0,0,0.12)"
@@ -170,10 +169,11 @@ const Cart: React.FC = () => {
         backgroundColor="gray.100"
         px="8px"
         py="2px"
-        color="gray.600"
+        color="brand.200"
         fontSize="14px"
         justifyContent="flex-end"
         fontWeight="500"
+        textTransform="uppercase"
       >
         <Text mr="16px">Total a Pagar</Text>
         <Text>{NumberUtils.toCurrency(cartData.total)}</Text>

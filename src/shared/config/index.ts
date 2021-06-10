@@ -15,8 +15,8 @@ export default {
 
   HEADER_TEXT: publicRuntimeConfig.HEADER_TEXT,
   CITIES: publicRuntimeConfig.CITIES,
-  SITE_IS_ENABLED: publicRuntimeConfig.SITE_IS_ENABLED,
-  ENABLE_NIGHT_TURN: publicRuntimeConfig.ENABLE_NIGHT_TURN,
+  SITE_IS_ENABLED: publicRuntimeConfig.SITE_IS_ENABLED === 'true',
+  ENABLE_NIGHT_TURN: publicRuntimeConfig.ENABLE_NIGHT_TURN === 'true',
 
   SEO: {
     TITLE: publicRuntimeConfig.TITLE,
@@ -31,6 +31,11 @@ export default {
     TAG: {
       ID: publicRuntimeConfig.GOOGLE_TAG_ID,
       SEND_TO: publicRuntimeConfig.GOOGLE_TAG_SEND_TO
+    }
+  },
+  FACEBOOK: {
+    PIXEL: {
+      ID: publicRuntimeConfig.FACEBOOK_PIXEL_ID
     }
   },
 

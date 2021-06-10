@@ -2,10 +2,11 @@ import { Flex, Box, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-
-// import { Container } from './styles';
+import getConfig from 'next/config';
 
 const DisabledSite: React.FC = () => {
+  const { publicRuntimeConfig } = getConfig();
+
   return (
     <Flex
       width="100%"
@@ -18,10 +19,10 @@ const DisabledSite: React.FC = () => {
       <Flex width="100%" flexDirection="column" alignItems="center">
         <Box mb="24px">
           <Image
-            src="/images/logo.png"
+            src={`/images/logo-${publicRuntimeConfig.LOGO}`}
             layout="fixed"
-            width="104px"
-            height="72px"
+            width={publicRuntimeConfig.LOGO_WIDTH}
+            height={publicRuntimeConfig.LOGO_HEIGHT}
           />
         </Box>
         <Text fontWeight="400" fontSize="18px" textAlign="center">
@@ -30,9 +31,10 @@ const DisabledSite: React.FC = () => {
 
         <Link href="/acompanhar-meu-pedido">
           <Text
-            color="gray.500"
+            color="brand.100"
             mt="64px"
             fontSize="12px"
+            fontWeight="500"
             textTransform="uppercase"
             textDecoration="underline"
             cursor="pointer"

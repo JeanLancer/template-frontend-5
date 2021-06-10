@@ -124,8 +124,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
             <Heading
               as="h1"
               fontWeight="500"
-              fontSize={['20px', '20px', '24px']}
-              textTransform="uppercase"
+              fontSize={['20px', '20px', '16px']}
               color="brand.300"
             >
               {product.name}
@@ -145,7 +144,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               <Flex>
                 {!product.is_promotional && (
                   <Flex>
-                    <Text color="gray.800" fontSize="16px">
+                    <Text color="brand.800" fontSize="18px">
                       {NumberUtils.toCurrency(product.price_sale * quantity)}
                     </Text>
                   </Flex>

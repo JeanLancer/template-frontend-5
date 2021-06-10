@@ -46,15 +46,27 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           <Flex width="100%" maxWidth="1200px" {...styles.contactBar}>
             <Text>{config.HEADER_TEXT}</Text>
 
-            <Flex fontSize="14px">
+            <Flex>
               <Flex alignItems="center" mr="24px">
                 <Icon as={FaPhone} mr="8px" />
-                <Text>{data?.general_settings?.telephone}</Text>
+                <Text>{data.general_settings?.telephone}</Text>
               </Flex>
 
-              <Flex alignItems="center">
+              <Flex
+                cursor="pointer"
+                alignItems="center"
+                onClick={() => {
+                  window.open(
+                    `https://api.whatsapp.com/send/?phone=55${data.general_settings?.whatsapp?.replace(
+                      /\D/g,
+                      ''
+                    )}&text&app_absent=0`,
+                    '_blank'
+                  );
+                }}
+              >
                 <Icon as={FaWhatsapp} mr="8px" />
-                <Text>{data?.general_settings?.whatsapp}</Text>
+                <Text>{data.general_settings?.whatsapp}</Text>
               </Flex>
             </Flex>
           </Flex>
@@ -65,13 +77,18 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           justifyContent="center"
           backgroundColor={styles.mainBar.backgroundColor}
         >
-          <Flex width="100%" maxWidth="1200px" {...styles.mainBar}>
+          <Flex
+            width="100%"
+            maxWidth="1200px"
+            {...styles.mainBar}
+            alignItems="center"
+          >
             <Flex height="100%" alignItems="center">
               <Link href="/">
                 <Box cursor="pointer" {...styles.logo} position="relative">
                   <Image
                     layout="fill"
-                    src={`/images/${styles.logo.src}`}
+                    src={`/images/logo-${styles.logo.src}`}
                     alt={config.STORE.NAME}
                     quality="100"
                   />
@@ -80,6 +97,26 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
             </Flex>
 
             <SearchBar style={styles.searchBar} />
+
+            <Flex display={['none', 'none', 'block']}>
+              <Link href="/acompanhar-meu-pedido">
+                <Text
+                  fontSize="10px"
+                  color="brand.100"
+                  textTransform="uppercase"
+                  fontWeight="500"
+                  cursor="pointer"
+                  ml="48px"
+                  textAlign="center"
+                  _hover={{
+                    textDecoration: 'underline'
+                  }}
+                >
+                  Acompanhar Pedido
+                </Text>
+              </Link>
+            </Flex>
+
             <ButtonsBar
               isOpen={isOpenMenu}
               menuButtonFunction={handleClickMenuButton}

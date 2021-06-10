@@ -2,8 +2,8 @@ import React from 'react';
 import { Divider, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
 import { BiCalendarEdit } from 'react-icons/bi';
 import ModalDeliverySchedule from './ModalDeliverySchedule';
-import { useCart } from '../../../../../shared/hooks/cart';
-import DateUtils from '../../../../../shared/utils/DateUtils';
+import { useCart } from '../../../../hooks/cart';
+import DateUtils from '../../../../utils/DateUtils';
 
 const DeliveryScheduleFields: React.FC = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -88,7 +88,7 @@ const DeliveryScheduleFields: React.FC = () => {
           <Flex width="100%" mt="16px">
             <Flex
               width={['100%', '100%', 'auto']}
-              backgroundColor="gray.600"
+              backgroundColor="brand.100"
               color="white"
               px="24px"
               py="4px"

@@ -21,15 +21,15 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 import { useRouter } from 'next/dist/client/router';
-import Input from '../../../../shared/components/Form/Input';
-import Select from '../../../../shared/components/Form/Select';
+import Input from '../../Form/Input';
+import Select from '../../Form/Select';
 import BoxCreditCard from './BoxCreditCard';
-import ErrorUtils from '../../../../shared/utils/ErrorUtils';
-import { useCart } from '../../../../shared/hooks/cart';
-import config from '../../../../shared/config/index';
-import apiGateway from '../../../../shared/services/apiGateway';
-import { HTTP_RESPONSE } from '../../../../shared/constants';
-import MercadoPagoUtils from '../../../../shared/utils/MercadoPagoUtils';
+import ErrorUtils from '../../../utils/ErrorUtils';
+import { useCart } from '../../../hooks/cart';
+import config from '../../../config/index';
+import apiGateway from '../../../services/apiGateway';
+import { HTTP_RESPONSE } from '../../../constants';
+import MercadoPagoUtils from '../../../utils/MercadoPagoUtils';
 
 interface ModalPaymentDataProps {
   isOpen: boolean;

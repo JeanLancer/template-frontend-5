@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
-import Input from '../../../../../shared/components/Form/Input';
-import Select from '../../../../../shared/components/Form/Select';
-import { useCart } from '../../../../../shared/hooks/cart';
-import NumberUtils from '../../../../../shared/utils/NumberUtils';
+import Input from '../../../Form/Input';
+import Select from '../../../Form/Select';
+import { useCart } from '../../../../hooks/cart';
+import NumberUtils from '../../../../utils/NumberUtils';
 
 interface BoxCreditCardProps {
   maxNumInstallmensts?: number;
@@ -52,7 +52,7 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
 
         <Flex width="40%">
           <Select
-            name="installments"
+            name="num_installments"
             label="Parcelas"
             isRequired
             size="xs"

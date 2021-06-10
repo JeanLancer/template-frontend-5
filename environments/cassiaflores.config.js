@@ -5,7 +5,7 @@ var STORE_DOMAIN = "https://www.cassiaflores.com.br/"
 var ZIPCODE_LOCATION = "88215-000"
 var STATE_LOCATION = "SC"
 
-var LOGO = "logo-cassiaflores.png"
+var LOGO = "cassiaflores.png"
 var LOGO_WIDTH = "144px"
 var LOGO_HEIGHT = "64px"
 

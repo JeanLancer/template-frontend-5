@@ -35,9 +35,12 @@ module.exports = withImages({
     GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
     GOOGLE_TAG_SEND_TO: process.env.GOOGLE_TAG_SEND_TO,
 
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
+
     FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
 
     JIVOCHAT: process.env.JIVOCHAT,
+    ZENDESK: process.env.ZENDESK,
 
     //colors
     PRIMARY_COLOR: process.env.PRIMARY_COLOR,

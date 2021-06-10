@@ -31,6 +31,9 @@ export default {
     TAG: {
       ID: publicRuntimeConfig.GOOGLE_TAG_ID,
       SEND_TO: publicRuntimeConfig.GOOGLE_TAG_SEND_TO
+    },
+    ANALYTICS: {
+      ID: publicRuntimeConfig.GOOGLE_ANALYTICS_ID
     }
   },
   FACEBOOK: {
@@ -39,5 +42,6 @@ export default {
     }
   },
 
-  JIVOCHAT: publicRuntimeConfig.JIVOCHAT
+  JIVOCHAT: publicRuntimeConfig.JIVOCHAT,
+  ZENDESK: publicRuntimeConfig.ZENDESK
 };

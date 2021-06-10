@@ -98,7 +98,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               justifyContent="center"
               alignItems="center"
             >
-              <Box width="100%" maxWidth="294px" position="relative">
+              <Box width="100%" maxWidth="80%" position="relative">
                 {selectedImage && (
                   <Image
                     key={selectedImage}

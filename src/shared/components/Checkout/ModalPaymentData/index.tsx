@@ -101,6 +101,7 @@ type PaymentMethod = 'CREDITCARD' | 'DEPOSIT' | 'PAY_IN_STORE';
 
 interface SetupCheckout {
   paymentMethods: any[];
+  platform: any;
 }
 
 const paymentMethodName: any = {
@@ -135,10 +136,11 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
   useEffect(() => {
     apiGateway.get('/checkout/setup').then(response => {
       if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
-        const { paymentMethods } = response.data as SetupCheckout;
+        const { paymentMethods, platform } = response.data as SetupCheckout;
 
         setPaymentSettings({
-          paymentMethods
+          paymentMethods,
+          platform
         });
       }
     });
@@ -292,7 +294,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
             num_installments:
               paymentMethod === 'CREDITCARD' ? data.num_installments : 1,
             store_name: config.STORE.NAME,
-            platform_name: config.PAYMENT.PLATFORM,
+            platform_name: paymentSettings.platform.name,
             neighborhood_id: cartForm.neighborhoodId
           };
 
@@ -405,7 +407,8 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
       paymentMethod,
       router,
       toast,
-      clearCart
+      clearCart,
+      paymentSettings
     ]
   );
 

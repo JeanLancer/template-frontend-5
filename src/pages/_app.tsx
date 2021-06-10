@@ -4,9 +4,9 @@ import getConfig from 'next/config';
 import type { AppProps } from 'next/app';
 import Layout from '../shared/components/Layout';
 import { LayoutProvider } from '../shared/contexts/LayoutContext';
-import Fonts from '../shared/styles/Fonts';
 import config from '../shared/config/index';
 import WhatsButton from '../shared/components/WhatsButton';
+import Fonts from '../shared/styles/Fonts';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { publicRuntimeConfig } = getConfig();
@@ -42,6 +42,27 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
                   gtag('config', '${config.GOOGLE.TAG.ID}');
                 `
+              }}
+            />
+          </>
+        )}
+
+        {config.GOOGLE.ANALYTICS.ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.GOOGLE.ANALYTICS.ID}`}
+            />
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${config.GOOGLE.ANALYTICS.ID}');
+              `
               }}
             />
           </>
@@ -83,12 +104,26 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
             </noscript>
           </>
         )}
+
+        {config.ZENDESK && config.SITE_IS_ENABLED && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+            d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+            $.src='//v2.zopim.com/?${config.ZENDESK}';z.t=+new Date;$.
+            type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+          `
+            }}
+          />
+        )}
       </Head>
       <LayoutProvider>
         <Layout>
-          <Fonts />
           <Component {...pageProps} />
           <WhatsButton />
+          <Fonts />
         </Layout>
       </LayoutProvider>
     </>

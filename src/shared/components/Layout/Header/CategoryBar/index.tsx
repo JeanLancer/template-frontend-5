@@ -52,11 +52,11 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
           }}
         >
           <Text
-            fontSize="10px"
+            fontSize="12px"
             textTransform="uppercase"
             mr="4px"
             _last={{ mr: '0px' }}
-            fontWeight="600"
+            fontWeight="500"
             lineHeight="14PX"
           >
             {category.name}
@@ -139,11 +139,11 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
             }}
           >
             <Text
-              fontSize="10px"
+              fontSize="12px"
               textTransform="uppercase"
               mr="4px"
               _last={{ mr: '0px' }}
-              fontWeight="600"
+              fontWeight="500"
               lineHeight="14PX"
             >
               Início

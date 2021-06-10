@@ -38,6 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         pb="8px"
         alignItems="center"
         cursor="pointer"
+        overflow="hidden"
       >
         <Link href={`/${product.slug}`}>
           <Image
@@ -50,9 +51,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         <Link href={`/${product.slug}`}>
-          <Flex width="100%" height="48px" alignItems="center">
+          <Flex
+            width="100%"
+            height="48px"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Text
-              fontSize="12.2px"
+              fontSize={['12.2px', '12px', '14px']}
               whiteSpace="inherit"
               my="8px"
               fontWeight="500"
@@ -62,6 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               _hover={{
                 color: 'brand.100'
               }}
+              textAlign="center"
             >
               {product.name}
             </Text>
@@ -86,7 +93,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               color="white"
               alignItems="center"
               px="8px"
-              py="4px"
+              py="8px"
               cursor="pointer"
               borderRadius="2px"
             >

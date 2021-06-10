@@ -144,8 +144,14 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
         </Flex>
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">
-          <Flex width="100%" flexDirection="column" px="8px" mb="16px">
-            <Text fontWeight="500" fontSize="20px" color="brand.300">
+          <Flex
+            width="100%"
+            flexDirection="column"
+            px="8px"
+            mb="16px"
+            alignItems="center"
+          >
+            <Text fontWeight="500" fontSize="26px" color="brand.300">
               Produtos em Destaque
             </Text>
             <Divider width="100%" size="md" />
@@ -159,8 +165,15 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
         </Flex>
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">
-          <Flex width="100%" flexDirection="column" px="8px" mb="16px">
-            <Text fontWeight="500" fontSize="20px" color="brand.300">
+          <Flex
+            width="100%"
+            flexDirection="column"
+            px="8px"
+            mb="16px"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text fontWeight="500" fontSize="26px" color="brand.300">
               Demais Produtos
             </Text>
             <Divider width="100%" size="md" />

@@ -47,6 +47,8 @@ module.exports = withImages({
     SECOND_COLOR: process.env.SECOND_COLOR,
     THIRD_COLOR: process.env.THIRD_COLOR,
     WHITE_COLOR: process.env.WHITE_COLOR,
+
+    SHOW_SPECIAL: process.env.SHOW_SPECIAL
   },
   distDir: process.env.BUILD_DIR || '.next',
   webpack: config => {

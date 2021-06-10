@@ -34,12 +34,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       slides: banners.slides,
       highlights: products.highlights,
-      others: products.others
+      others: products.others,
+      specials: products.specials
     }
   };
 };
 
-const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
+const HomePage = ({
+  slides,
+  highlights,
+  others,
+  specials
+}: any): JSX.Element => {
   const { globals } = useLayout();
 
   const [screenWidth, setScreenWidth] = useState(0);
@@ -156,6 +162,20 @@ const HomePage = ({ slides, highlights, others }: any): JSX.Element => {
             </Text>
             <Divider width="100%" size="md" />
           </Flex>
+
+          {config.SHOW_SPECIAL ? (
+            <Flex width="100%" flexWrap="wrap">
+              {specials.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Flex>
+          ) : (
+            <Flex width="100%" flexWrap="wrap">
+              {highlights.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Flex>
+          )}
 
           <Flex width="100%" flexWrap="wrap">
             {highlights.map((product: any) => (

@@ -43,5 +43,7 @@ export default {
   },
 
   JIVOCHAT: publicRuntimeConfig.JIVOCHAT,
-  ZENDESK: publicRuntimeConfig.ZENDESK
+  ZENDESK: publicRuntimeConfig.ZENDESK,
+
+  SHOW_SPECIAL: publicRuntimeConfig.SHOW_SPECIAL === 'true'
 };

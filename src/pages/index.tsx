@@ -176,35 +176,31 @@ const HomePage = ({
               ))}
             </Flex>
           )}
-
-          <Flex width="100%" flexWrap="wrap">
-            {highlights.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </Flex>
         </Flex>
 
-        <Flex width="100%" maxWidth="1200px" flexDirection="column">
-          <Flex
-            width="100%"
-            flexDirection="column"
-            px="8px"
-            mb="16px"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Text fontWeight="500" fontSize="26px" color="brand.300">
-              Demais Produtos
-            </Text>
-            <Divider width="100%" size="md" />
-          </Flex>
+        {!config.SHOW_SPECIAL && (
+          <Flex width="100%" maxWidth="1200px" flexDirection="column">
+            <Flex
+              width="100%"
+              flexDirection="column"
+              px="8px"
+              mb="16px"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Text fontWeight="500" fontSize="26px" color="brand.300">
+                Demais Produtos
+              </Text>
+              <Divider width="100%" size="md" />
+            </Flex>
 
-          <Flex width="100%" flexWrap="wrap">
-            {others.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            <Flex width="100%" flexWrap="wrap">
+              {others.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </Flex>
           </Flex>
-        </Flex>
+        )}
       </Flex>
     </>
   );

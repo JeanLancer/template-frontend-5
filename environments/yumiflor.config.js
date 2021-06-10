@@ -88,7 +88,8 @@ module.exports = {
           CITIES,
 
           SITE_IS_ENABLED,
-          ENABLE_NIGHT_TURN
+          ENABLE_NIGHT_TURN,
+          SHOW_SPECIAL
         }
       }
   ]

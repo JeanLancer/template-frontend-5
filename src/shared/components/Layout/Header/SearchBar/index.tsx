@@ -1,13 +1,13 @@
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 
 import { Flex, InputProps } from '@chakra-ui/react';
-import { useRouter } from 'next/dist/client/router';
+// import { useRouter } from 'next/dist/client/router';
 
 interface Style {
   style: InputProps;
 }
 
-const SearchBar: React.FC<Style> = ({ style }) => {
+const SearchBar: React.FC<Style> = () => {
   // const ref = useRef<any>(null);
   // const router = useRouter();
 

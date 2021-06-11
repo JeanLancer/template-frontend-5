@@ -1,7 +1,6 @@
 import React, { useCallback, useRef } from 'react';
-import { BiSearchAlt2 } from 'react-icons/bi';
 
-import { Box, Flex, Icon, Input, InputProps } from '@chakra-ui/react';
+import { Flex, InputProps } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 
 interface Style {
@@ -9,20 +8,20 @@ interface Style {
 }
 
 const SearchBar: React.FC<Style> = ({ style }) => {
-  const ref = useRef<any>(null);
-  const router = useRouter();
+  // const ref = useRef<any>(null);
+  // const router = useRouter();
 
-  const handleSearch = useCallback(() => {
-    if (ref) {
-      const query = ref.current.value;
+  // const handleSearch = useCallback(() => {
+  //   if (ref) {
+  //     const query = ref.current.value;
 
-      if (query && query.length > 0) {
-        if (query) {
-          router.push('/busca/[query]', `/busca/${query}`);
-        }
-      }
-    }
-  }, [router]);
+  //     if (query && query.length > 0) {
+  //       if (query) {
+  //         router.push('/busca/[query]', `/busca/${query}`);
+  //       }
+  //     }
+  //   }
+  // }, [router]);
 
   return (
     <Flex
@@ -31,7 +30,7 @@ const SearchBar: React.FC<Style> = ({ style }) => {
       position="relative"
       alignItems="center"
     >
-      <Input
+      {/* <Input
         ref={ref}
         name="query"
         placeholder="Pesquisar produtos"
@@ -58,7 +57,7 @@ const SearchBar: React.FC<Style> = ({ style }) => {
         onClick={() => handleSearch()}
       >
         <Icon as={BiSearchAlt2} fontSize="20px" />
-      </Box>
+      </Box> */}
     </Flex>
   );
 };

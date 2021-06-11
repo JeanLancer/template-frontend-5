@@ -108,8 +108,8 @@ const LayoutProvider: React.FC = ({ children }) => {
 
       logo: {
         src: publicRuntimeConfig.LOGO,
-        width: ['80px', '96px', publicRuntimeConfig.LOGO_WIDTH],
-        height: ['40px', '48px', publicRuntimeConfig.LOGO_HEIGHT],
+        width: ['64px', '80px', publicRuntimeConfig.LOGO_WIDTH],
+        height: ['64px', '80px', publicRuntimeConfig.LOGO_HEIGHT],
         mr: '24px'
       },
 

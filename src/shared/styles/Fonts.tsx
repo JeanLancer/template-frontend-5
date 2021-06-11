@@ -31,6 +31,18 @@ const Fonts = (): JSX.Element => (
       a:focus {
         outline: none;
       }
+
+      .wrap_2ad {
+        top: 142px !important;
+        right: 10px !important;
+        position: fixed !important;
+        width: 65px !important;
+        height: 65px !important;
+      }
+
+      .zopim {
+        bottom: 112px !important;
+      }
     `}
   />
 );

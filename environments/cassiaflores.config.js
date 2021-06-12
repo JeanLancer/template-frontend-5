@@ -37,6 +37,7 @@ var CITIES = ["Balneário Comboriú", "Bombinhas", "Comboriú", "Itapema", "Port
 
 var SITE_IS_ENABLED = true
 var ENABLE_NIGHT_TURN = true
+var SHOW_SPECIAL = false
 
 var APP = "cassiaflores"
 var PORT = "3001"
@@ -86,7 +87,8 @@ module.exports = {
           CITIES,
 
           SITE_IS_ENABLED,
-          ENABLE_NIGHT_TURN
+          ENABLE_NIGHT_TURN,
+          SHOW_SPECIAL
         }
       }
   ]

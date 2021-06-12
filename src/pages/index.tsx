@@ -40,7 +40,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-const HomePage = ({ slides, highlights, specials }: any): JSX.Element => {
+const HomePage = ({
+  slides,
+  highlights,
+  others,
+  specials
+}: any): JSX.Element => {
   const { globals } = useLayout();
 
   const [screenWidth, setScreenWidth] = useState(0);
@@ -173,7 +178,7 @@ const HomePage = ({ slides, highlights, specials }: any): JSX.Element => {
           )}
         </Flex>
 
-        {/* {!config.SHOW_SPECIAL && (
+        {!config.SHOW_SPECIAL && (
           <Flex width="100%" maxWidth="1200px" flexDirection="column">
             <Flex
               width="100%"
@@ -195,7 +200,7 @@ const HomePage = ({ slides, highlights, specials }: any): JSX.Element => {
               ))}
             </Flex>
           </Flex>
-        )} */}
+        )}
       </Flex>
     </>
   );

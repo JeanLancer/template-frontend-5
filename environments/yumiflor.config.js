@@ -73,7 +73,7 @@ module.exports = {
 
           GOOGLE_TAG_ID,
           //GOOGLE_TAG_SEND_TO,
-
+          GOOGLE_ANALYTICS_ID,
           //FACEBOOK_PIXEL_ID,
 
           //JIVOCHAT,

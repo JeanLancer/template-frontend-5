@@ -39,7 +39,7 @@ var CITIES = ["Alvorada", "Cachoeirinha", "Canoas", "Eldorado do Sul", "Esteio",
 var SITE_IS_ENABLED = true
 var ENABLE_NIGHT_TURN = true
 
-var SHOW_SPECIAL = true
+var SHOW_SPECIAL = false
 
 var APP = "yumiflor"
 var PORT = "3002"

@@ -78,7 +78,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
           flexDirection="column"
           backgroundColor="white"
           fontSize="12px"
-          top="8px"
+          top="16px"
           left="0px"
           position="absolute"
           boxShadow="0 1px 3px rgba(0,0,0,0.12)"

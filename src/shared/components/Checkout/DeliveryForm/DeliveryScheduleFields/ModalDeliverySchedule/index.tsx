@@ -51,7 +51,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
 
   const [scheduleSettings] = useState<ScheduleSettings>({
     disabled: {
-      daysOfWeek: [0],
+      daysOfWeek: [],
       specificDays: []
     },
 

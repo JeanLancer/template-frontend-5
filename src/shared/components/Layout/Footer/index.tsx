@@ -99,8 +99,8 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
             {data.options?.footer.show_document &&
               data.options?.footer.show_address && (
                 <Text textAlign="justify">
-                  {`CNPJ n.º ${data.general_settings.document} / ${data.general_settings.street}, nº ${data.general_settings.number}, ${data.general_settings.neighborhood},
-                ${data.general_settings.city}/${config.STORE.LOCATION.STATE}.`}
+                  {`CNPJ n.º ${data.general_settings.document} / ${data.general_settings.street}, nº ${data.general_settings.number}, ${data.general_settings.neighborhood}
+                  - ${data.general_settings.city}/${config.STORE.LOCATION.STATE}. Email: ${data.general_settings.email_contact}`}
                 </Text>
               )}
           </Flex>

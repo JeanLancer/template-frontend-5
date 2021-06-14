@@ -117,7 +117,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         display: ['none', 'none', 'flex'],
         justifyContent: 'space-between',
         backgroundColor: 'gray.500',
-        height: '32px',
+        height: '40px',
         px: globals.paddingX
       },
 
@@ -137,8 +137,7 @@ const LayoutProvider: React.FC = ({ children }) => {
       },
 
       categoryMenu: {
-        color: 'brand.300',
-        height: '20px'
+        color: 'brand.300'
       }
     },
 

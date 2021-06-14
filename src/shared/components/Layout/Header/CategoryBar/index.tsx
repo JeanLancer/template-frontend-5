@@ -74,7 +74,6 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({ category }) => {
 
       {isHovered && category.subcategories.length > 0 && (
         <Flex
-          width="100%"
           mt="24px"
           flexDirection="column"
           backgroundColor="white"

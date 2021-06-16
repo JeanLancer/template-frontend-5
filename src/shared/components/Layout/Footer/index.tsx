@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
             <Flex width="100%" flexDirection="column" fontSize="12px">
               {data.categories?.footer.map(category => (
                 <Link key={category.slug} href={`/categoria/${category.slug}`}>
-                  {category.name}
+                  <Text height="24px">{category.name}</Text>
                 </Link>
               ))}
             </Flex>
@@ -55,12 +55,12 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
 
             <Flex width="100%" flexDirection="column" fontSize="12px">
               <Link key="Acompanhar meu pedido" href="/acompanhar-meu-pedido">
-                Acompanhar meu Pedido
+                <Text height="24px">Acompanhar meu Pedido</Text>
               </Link>
 
               {data.pages?.map(page => (
                 <Link key={page.slug} href={`/paginas/${page.slug}`}>
-                  {page.title}
+                  <Text height="24px">{page.title}</Text>
                 </Link>
               ))}
             </Flex>
@@ -73,7 +73,13 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
           ml={['0px', '0px', 'auto']}
         >
           <Text>Pague com</Text>
-          <Image layout="fixed" src={paymentMethods} width={296} height={48} />
+          <Image
+            layout="fixed"
+            src={paymentMethods}
+            width={296}
+            height={48}
+            alt="Formas de Pagamento"
+          />
         </Flex>
       </Flex>
       <Flex

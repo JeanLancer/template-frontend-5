@@ -1,9 +1,11 @@
 import { Flex, Text, Icon } from '@chakra-ui/react';
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { BiCartAlt } from 'react-icons/bi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, Variants } from 'framer-motion';
 import ProductPrices from './ProductPrices';
+import ProductImageLoader from './ProductImageLoader';
 
 interface ProductDTO {
   id: string;
@@ -22,6 +24,17 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  const variants: Variants = {
+    loaded: {
+      opacity: 1
+    },
+    closed: {
+      opacity: 0
+    }
+  };
+
   return (
     <Flex
       width={['100%', '50%', '50%', '25%']}
@@ -39,15 +52,38 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         alignItems="center"
         cursor="pointer"
         overflow="hidden"
+        position="relative"
       >
+        {isImageLoaded === false && (
+          <Flex
+            width="280px"
+            height="280px"
+            top="0"
+            position="absolute"
+            mx="auto"
+          >
+            <ProductImageLoader />
+          </Flex>
+        )}
+
         <Link href={`/${product.slug}`}>
-          <Image
-            layout="fixed"
-            width={280}
-            height={280}
-            src={product.url_thumb}
-            alt={product.name}
-          />
+          <motion.nav
+            initial="closed"
+            animate={isImageLoaded ? 'loaded' : 'loading'}
+            variants={variants}
+            transition={{
+              delay: 0.1
+            }}
+          >
+            <Image
+              layout="fixed"
+              width={280}
+              height={280}
+              src={product.url_thumb}
+              alt={product.name}
+              onLoad={() => setIsImageLoaded(true)}
+            />
+          </motion.nav>
         </Link>
 
         <Link href={`/${product.slug}`}>

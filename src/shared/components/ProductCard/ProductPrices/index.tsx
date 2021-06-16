@@ -16,7 +16,7 @@ const ProductPrices: React.FC<PricesProps> = ({
   if (isPromotional) {
     return (
       <Flex flexDirection="column" fontSize="14px" lineHeight="14px" pb="4px">
-        <Text color="gray.500" textDecoration="line-through">
+        <Text color="gray.300" textDecoration="line-through">
           {`De ${NumberUtils.toCurrency(priceSale)}`}
         </Text>
         <Text fontSize="16px" color="brand.300">

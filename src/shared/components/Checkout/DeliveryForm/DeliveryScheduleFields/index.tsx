@@ -19,7 +19,7 @@ const DeliveryScheduleFields: React.FC = () => {
       </Flex>
 
       <Flex width="100%" flexDirection="column">
-        <Flex
+        {/* <Flex
           mt="8px"
           width="100%"
           backgroundColor="yellow.100"
@@ -36,7 +36,7 @@ const DeliveryScheduleFields: React.FC = () => {
           <Text fontWeight="500">
             O pedido deve ser pago no mínimo 3 horas antes do turno agendado.
           </Text>
-        </Flex>
+        </Flex> */}
 
         {cartForm.deliverySchedule.deliveryDate &&
           cartForm.deliverySchedule.deliveryHour && (

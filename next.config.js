@@ -25,7 +25,6 @@ module.exports = withImages({
     CITIES: JSON.parse(process.env.CITIES),
 
     SITE_IS_ENABLED: process.env.SITE_IS_ENABLED,
-    ENABLE_NIGHT_TURN: process.env.ENABLE_NIGHT_TURN,
 
     TITLE: process.env.TITLE,
     META_DESCRIPTION: process.env.META_DESCRIPTION,

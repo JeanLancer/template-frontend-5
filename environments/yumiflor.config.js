@@ -37,7 +37,6 @@ var WHITE_COLOR = "#FFFFFF"
 var CITIES = ["Alvorada", "Cachoeirinha", "Canoas", "Eldorado do Sul", "Esteio", "Gravataí", "Guaíba", "Porto Alegre", "Sapucaia do Sul", "Viamão"]
 
 var SITE_IS_ENABLED = true
-var ENABLE_NIGHT_TURN = true
 
 var SHOW_SPECIAL = false
 
@@ -89,7 +88,6 @@ module.exports = {
           CITIES,
 
           SITE_IS_ENABLED,
-          ENABLE_NIGHT_TURN,
           SHOW_SPECIAL
         }
       }

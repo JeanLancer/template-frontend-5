@@ -16,7 +16,6 @@ export default {
   HEADER_TEXT: publicRuntimeConfig.HEADER_TEXT,
   CITIES: publicRuntimeConfig.CITIES,
   SITE_IS_ENABLED: publicRuntimeConfig.SITE_IS_ENABLED === 'true',
-  ENABLE_NIGHT_TURN: publicRuntimeConfig.ENABLE_NIGHT_TURN === 'true',
 
   SEO: {
     TITLE: publicRuntimeConfig.TITLE,

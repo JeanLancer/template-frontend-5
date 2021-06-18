@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   Text,
@@ -19,7 +19,8 @@ import { DayModifiers } from 'react-day-picker';
 import Calander from '../../../../Form/Calander';
 import DateUtils from '../../../../../utils/DateUtils';
 import { useCart } from '../../../../../hooks/cart';
-import config from '../../../../../config';
+import apiGateway from '../../../../../services/apiGateway';
+import { HTTP_RESPONSE } from '../../../../../constants';
 
 interface ModalDeliveryScheduleProps {
   isOpen: boolean;
@@ -27,12 +28,36 @@ interface ModalDeliveryScheduleProps {
 }
 
 interface ScheduleSettings {
-  disabled: {
-    daysOfWeek: number[];
-    specificDays: Date[];
+  daysOfService: 'MON_FRY' | 'MON_SAT' | 'MON_SUN';
+  weekdayHours: string[];
+  weekendHour: string[];
+  daysOfWeekEnabled: {
+    sunday: boolean;
+    monday: boolean;
+    tuesday: boolean;
+    wednesday: boolean;
+    thursday: boolean;
+    friday: boolean;
+    saturday: boolean;
   };
+  turnsOfDay: {
+    morning: {
+      isEnabled: boolean;
+      lastHourAccepted: string;
+    };
+    evening: {
+      isEnabled: boolean;
+      lastHourAccepted: string;
+    };
+    night: {
+      isEnabled: boolean;
+      lastHourAccepted: string;
+    };
+  };
+  daysDisabled: Date[];
 
-  anticipationHourLimit: number;
+  daysOfWeekFormatted: number[];
+  daysDisabledFormatted: Date[];
 }
 
 const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
@@ -49,14 +74,9 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   const [deliveryDate, setDeliveryDate] = useState<Date>(null as any);
   const [deliveryHour, setDeliveryHour] = useState<string>(null as any);
 
-  const [scheduleSettings] = useState<ScheduleSettings>({
-    disabled: {
-      daysOfWeek: [],
-      specificDays: []
-    },
-
-    anticipationHourLimit: 2
-  });
+  const [scheduleSettings, setScheduleSettings] = useState<ScheduleSettings>(
+    null as any
+  );
 
   const handleDateChange = useCallback(
     (date: Date, modifiers: DayModifiers) => {
@@ -68,16 +88,15 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   );
 
   const checkIfHourIsAvailable = useCallback(
-    (maximumShiftTime: number): boolean => {
-      const predictedHours =
-        today.getHours() + scheduleSettings.anticipationHourLimit;
+    (hour: string): boolean => {
+      const hourLimit = Number(hour.split(':')[0]);
 
       return !!(
         deliveryDate.getDate() === today.getDate() &&
-        predictedHours > maximumShiftTime
+        today.getHours() >= hourLimit
       );
     },
-    [deliveryDate, scheduleSettings, today]
+    [deliveryDate, today]
   );
 
   const handleClickConfirm = useCallback(() => {
@@ -100,6 +119,46 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
     }
   }, [deliveryDate, deliveryHour, toast, handleChangeCartForm, onClose]);
 
+  useEffect(() => {
+    apiGateway.get('/checkout/schedule_setting').then(response => {
+      if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+        const { days_of_week_enabled, turns_of_day } = response.data;
+
+        const daysOfWeekFormated: any = Object.keys(days_of_week_enabled).map(
+          key => {
+            if (days_of_week_enabled[key] === false) {
+              switch (key) {
+                case 'sunday':
+                  return 0;
+                case 'monday':
+                  return 1;
+                case 'tuesday':
+                  return 2;
+                case 'wednesday':
+                  return 3;
+                case 'thursday':
+                  return 4;
+                case 'friday':
+                  return 5;
+                default:
+                  return 6;
+              }
+            }
+
+            return -1;
+          }
+        );
+
+        setScheduleSettings({
+          ...response.data,
+          turnsOfDay: turns_of_day,
+          daysOfWeekFormatted: daysOfWeekFormated,
+          daysDisabledFormatted: []
+        });
+      }
+    });
+  }, []);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -117,167 +176,182 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Flex
-            width="100%"
-            flexDirection={['column', 'column', 'row']}
-            justifyContent="space-between"
-          >
+          {scheduleSettings && (
             <Flex
-              width={['100%', '100%', '48%']}
-              flexDirection="column"
-              mb={['24px', '24px', '0px']}
+              width="100%"
+              flexDirection={['column', 'column', 'row']}
+              justifyContent="space-between"
             >
-              <Calander
-                isErrored={false}
-                selectedDate={deliveryDate}
-                handleDateChange={handleDateChange}
-                handleMonthChange={() => null}
-                disabledDaysOfWeek={scheduleSettings.disabled.daysOfWeek}
-                disabledSpecificDays={scheduleSettings.disabled.specificDays}
-              />
-
               <Flex
-                width="100%"
-                alignItems="center"
+                width={['100%', '100%', '48%']}
                 flexDirection="column"
-                mt="8px"
+                mb={['24px', '24px', '0px']}
               >
-                <Text fontSize="12px">Legendas:</Text>
+                <Calander
+                  isErrored={false}
+                  selectedDate={deliveryDate}
+                  handleDateChange={handleDateChange}
+                  handleMonthChange={() => null}
+                  disabledDaysOfWeek={scheduleSettings.daysOfWeekFormatted}
+                  disabledSpecificDays={[]}
+                />
 
-                <Flex flexDirection="row" fontSize="10px">
-                  <Flex alignItems="center" mr="8px">
-                    <Flex
-                      width="12px"
-                      height="12px"
-                      backgroundColor="gray.200"
-                      borderRadius="2px"
-                      mr="4px"
-                    />
+                <Flex
+                  width="100%"
+                  alignItems="center"
+                  flexDirection="column"
+                  mt="8px"
+                >
+                  <Text fontSize="12px">Legendas:</Text>
 
-                    <Text>Indisponível</Text>
-                  </Flex>
-
-                  <Flex mr="8px" alignItems="center">
-                    <Flex
-                      width="12px"
-                      height="12px"
-                      backgroundColor="green.500"
-                      borderRadius="2px"
-                      mr="4px"
-                    />
-
-                    <Text>Disponível</Text>
-                  </Flex>
-
-                  <Flex alignItems="center">
-                    <Flex
-                      width="12px"
-                      height="12px"
-                      backgroundColor="blue.500"
-                      borderRadius="2px"
-                      mr="4px"
-                    />
-
-                    <Text>Selecionado</Text>
-                  </Flex>
-                </Flex>
-              </Flex>
-            </Flex>
-
-            {deliveryDate && (
-              <Flex width={['100%', '100%', '48%']} flexDirection="column">
-                <Flex width="100%" flexDirection="column">
-                  <Text fontSize="14px" fontWeight="500">
-                    Selecione o turno de entrega
-                  </Text>
-
-                  <RadioGroup
-                    defaultValue={deliveryHour}
-                    mt="24px"
-                    _focus={{
-                      border: 'none',
-                      outline: 'none'
-                    }}
-                    onChange={value => setDeliveryHour(value)}
-                  >
-                    <Stack spacing={1} direction="column">
-                      <Radio
-                        colorScheme="green"
-                        value="Manhã"
-                        isDisabled={checkIfHourIsAvailable(12)}
-                      >
-                        <Text fontSize="12px">
-                          Manhã - entrega entre 8h até 12h
-                        </Text>
-                      </Radio>
-                      <Radio
-                        colorScheme="green"
-                        value="Tarde"
-                        isDisabled={checkIfHourIsAvailable(18)}
-                      >
-                        <Text fontSize="12px">
-                          Tarde - entrega entre 13h até 18h
-                        </Text>
-                      </Radio>
-
-                      {config.ENABLE_NIGHT_TURN && (
-                        <Radio
-                          colorScheme="green"
-                          value="Noite"
-                          isDisabled={checkIfHourIsAvailable(20)}
-                        >
-                          <Text fontSize="12px">
-                            Noite - entrega entre 18h até 20h
-                          </Text>
-                        </Radio>
-                      )}
-                    </Stack>
-                  </RadioGroup>
-
-                  <Flex width="100%" flexDirection="column" mt="48px">
-                    {deliveryDate && deliveryHour && (
+                  <Flex flexDirection="row" fontSize="10px">
+                    <Flex alignItems="center" mr="8px">
                       <Flex
-                        px="8px"
-                        py="4px"
-                        border="2px solid"
-                        borderColor="yellow.500"
-                        backgroundColor="yellow.100"
-                        fontSize="12px"
-                        flexDirection="column"
-                      >
-                        <Text fontWeight="400">Entrega agendada para:</Text>
+                        width="12px"
+                        height="12px"
+                        backgroundColor="gray.200"
+                        borderRadius="2px"
+                        mr="4px"
+                      />
 
-                        <Text fontWeight="500">
-                          {`${DateUtils.formatRelative(
-                            deliveryDate,
-                            today
-                          )} - ${deliveryHour}`}
-                        </Text>
-                      </Flex>
-                    )}
+                      <Text>Indisponível</Text>
+                    </Flex>
 
-                    <Flex
-                      width="100%"
-                      backgroundColor="green.500"
-                      fontSize="12px"
-                      justifyContent="center"
-                      color="white"
-                      py="8px"
-                      borderRadius="2px"
-                      mt="8px"
-                      textTransform="uppercase"
-                      cursor="pointer"
-                      fontWeight="500"
-                      boxShadow="0 1px 3px rgba(0,0,0,0.12)"
-                      onClick={() => handleClickConfirm()}
-                    >
-                      <Text>Confirmar Agendamento</Text>
+                    <Flex mr="8px" alignItems="center">
+                      <Flex
+                        width="12px"
+                        height="12px"
+                        backgroundColor="green.500"
+                        borderRadius="2px"
+                        mr="4px"
+                      />
+
+                      <Text>Disponível</Text>
+                    </Flex>
+
+                    <Flex alignItems="center">
+                      <Flex
+                        width="12px"
+                        height="12px"
+                        backgroundColor="blue.500"
+                        borderRadius="2px"
+                        mr="4px"
+                      />
+
+                      <Text>Selecionado</Text>
                     </Flex>
                   </Flex>
                 </Flex>
               </Flex>
-            )}
-          </Flex>
+
+              {deliveryDate && (
+                <Flex width={['100%', '100%', '48%']} flexDirection="column">
+                  <Flex width="100%" flexDirection="column">
+                    <Text fontSize="14px" fontWeight="500">
+                      Selecione o turno de entrega
+                    </Text>
+
+                    <RadioGroup
+                      defaultValue={deliveryHour}
+                      mt="24px"
+                      _focus={{
+                        border: 'none',
+                        outline: 'none'
+                      }}
+                      onChange={value => setDeliveryHour(value)}
+                    >
+                      <Stack spacing={1} direction="column">
+                        {scheduleSettings.turnsOfDay.morning.isEnabled && (
+                          <Radio
+                            colorScheme="green"
+                            value="Manhã"
+                            isDisabled={checkIfHourIsAvailable(
+                              scheduleSettings.turnsOfDay.morning
+                                .lastHourAccepted
+                            )}
+                          >
+                            <Text fontSize="12px">
+                              Manhã - entrega entre até ás 12h
+                            </Text>
+                          </Radio>
+                        )}
+
+                        {scheduleSettings.turnsOfDay.evening.isEnabled && (
+                          <Radio
+                            colorScheme="green"
+                            value="Tarde"
+                            isDisabled={checkIfHourIsAvailable(
+                              scheduleSettings.turnsOfDay.evening
+                                .lastHourAccepted
+                            )}
+                          >
+                            <Text fontSize="12px">
+                              Tarde - entrega entre até ás 18h
+                            </Text>
+                          </Radio>
+                        )}
+
+                        {scheduleSettings.turnsOfDay.night.isEnabled && (
+                          <Radio
+                            colorScheme="green"
+                            value="Noite"
+                            isDisabled={checkIfHourIsAvailable(
+                              scheduleSettings.turnsOfDay.night.lastHourAccepted
+                            )}
+                          >
+                            <Text fontSize="12px">
+                              Noite - entrega entre até ás 20h
+                            </Text>
+                          </Radio>
+                        )}
+                      </Stack>
+                    </RadioGroup>
+
+                    <Flex width="100%" flexDirection="column" mt="48px">
+                      {deliveryDate && deliveryHour && (
+                        <Flex
+                          px="8px"
+                          py="4px"
+                          border="2px solid"
+                          borderColor="yellow.500"
+                          backgroundColor="yellow.100"
+                          fontSize="12px"
+                          flexDirection="column"
+                        >
+                          <Text fontWeight="400">Entrega agendada para:</Text>
+
+                          <Text fontWeight="500">
+                            {`${DateUtils.formatRelative(
+                              deliveryDate,
+                              today
+                            )} - ${deliveryHour}`}
+                          </Text>
+                        </Flex>
+                      )}
+
+                      <Flex
+                        width="100%"
+                        backgroundColor="green.500"
+                        fontSize="12px"
+                        justifyContent="center"
+                        color="white"
+                        py="8px"
+                        borderRadius="2px"
+                        mt="8px"
+                        textTransform="uppercase"
+                        cursor="pointer"
+                        fontWeight="500"
+                        boxShadow="0 1px 3px rgba(0,0,0,0.12)"
+                        onClick={() => handleClickConfirm()}
+                      >
+                        <Text>Confirmar Agendamento</Text>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                </Flex>
+              )}
+            </Flex>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

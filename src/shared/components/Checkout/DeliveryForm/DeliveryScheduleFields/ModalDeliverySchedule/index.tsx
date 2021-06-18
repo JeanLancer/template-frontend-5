@@ -122,9 +122,10 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   useEffect(() => {
     apiGateway.get('/checkout/schedule_setting').then(response => {
       if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
-        const { days_of_week_enabled, turns_of_day } = response.data;
+        const { days_of_week_enabled, days_disabled, turns_of_day } =
+          response.data;
 
-        const daysOfWeekFormated: any = Object.keys(days_of_week_enabled).map(
+        const daysOfWeekFormatted: any = Object.keys(days_of_week_enabled).map(
           key => {
             if (days_of_week_enabled[key] === false) {
               switch (key) {
@@ -149,11 +150,18 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
           }
         );
 
+        const daysDisabledFormatted =
+          days_disabled !== ''
+            ? days_disabled.split('|').map((item: any) => {
+                return new Date(item);
+              })
+            : [];
+
         setScheduleSettings({
           ...response.data,
           turnsOfDay: turns_of_day,
-          daysOfWeekFormatted: daysOfWeekFormated,
-          daysDisabledFormatted: []
+          daysOfWeekFormatted,
+          daysDisabledFormatted
         });
       }
     });
@@ -193,7 +201,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                   handleDateChange={handleDateChange}
                   handleMonthChange={() => null}
                   disabledDaysOfWeek={scheduleSettings.daysOfWeekFormatted}
-                  disabledSpecificDays={[]}
+                  disabledSpecificDays={scheduleSettings.daysDisabledFormatted}
                 />
 
                 <Flex

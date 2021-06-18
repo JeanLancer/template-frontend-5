@@ -279,7 +279,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Manhã - entrega entre até ás 12h
+                              Manhã - entrega até ás 12h
                             </Text>
                           </Radio>
                         )}
@@ -294,7 +294,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Tarde - entrega entre até ás 18h
+                              Tarde - entrega até ás 18h
                             </Text>
                           </Radio>
                         )}
@@ -308,7 +308,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Noite - entrega entre até ás 20h
+                              Noite - entrega até ás 20h
                             </Text>
                           </Radio>
                         )}

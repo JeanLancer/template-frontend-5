@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
-import { Flex } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import Layout from '../shared/components/Layout';
 import { LayoutProvider } from '../shared/contexts/LayoutContext';

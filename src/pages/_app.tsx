@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
+import { Flex } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import Layout from '../shared/components/Layout';
 import { LayoutProvider } from '../shared/contexts/LayoutContext';
@@ -12,9 +13,20 @@ import FacebookPixel from '../shared/components/3rd-party/FacebookPixel';
 import GoogleAnalytics from '../shared/components/3rd-party/GoogleAnalytics';
 import GoogleAds from '../shared/components/3rd-party/GoogleAds';
 import ZendeskChat from '../shared/components/3rd-party/ZendeskChat';
+import apiGateway from '../shared/services/apiGateway';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { publicRuntimeConfig } = getConfig();
+
+  const [integrationsData, setIntegrationsData] = useState<any>(null);
+
+  useEffect(() => {
+    apiGateway.get<any>('/stores/setup').then(response => {
+      const { integrations } = response.data;
+
+      setIntegrationsData(integrations);
+    });
+  }, []);
 
   return (
     <>
@@ -31,7 +43,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           href={`/images/favicon-${publicRuntimeConfig.LOGO}`}
         />
 
-        {config.GOOGLE.TAG.ID && <GoogleAds />}
+        {integrationsData?.google_ads_id && (
+          <GoogleAds id={integrationsData?.google_ads_id} />
+        )}
 
         {config.GOOGLE.ANALYTICS.ID && <GoogleAnalytics />}
 

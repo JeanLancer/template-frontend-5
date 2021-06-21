@@ -10,7 +10,7 @@ var LOGO_WIDTH = "80px"
 var LOGO_HEIGHT = "80px"
 
 var TITLE = "Floricultura Beija Flor POA"
-var META_DESCRIPTION = "Floricultura Beija-Flor, buques, arranjos e muito mais, 30 anos em Porto Alegre, Av. protásio ALves, 1987, Porto Alegre, fone 51 3330.0155"
+var META_DESCRIPTION = "Somos a Floricultura Yumi Flor, ficamos localizados em Porto Alegre, atendemos de segunda a sábado, faça seus pedidos online ou pelo whats (51) 99982-4008"
 
 var HEADER_TEXT = "Atendimento 24 Horas"
 

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import config from '../../../config';
+interface GoogleAdsProps {
+  id: string;
+}
 
-const GoogleAds: React.FC = () => {
+const GoogleAds: React.FC<GoogleAdsProps> = ({ id }) => {
   return (
     <>
-      <script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${config.GOOGLE.TAG.ID}`}
-      />
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} />
 
       <script
         dangerouslySetInnerHTML={{
@@ -17,7 +16,7 @@ const GoogleAds: React.FC = () => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', '${config.GOOGLE.TAG.ID}');
+            gtag('config', '${id}');
           `
         }}
       />

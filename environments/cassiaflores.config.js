@@ -10,7 +10,7 @@ var LOGO_WIDTH = "144px"
 var LOGO_HEIGHT = "64px"
 
 var TITLE = "Floricultura Cassia"
-var META_DESCRIPTION = "Floricultura Cassia"
+var META_DESCRIPTION = "Somos a Floricultura Cassia Flores, ficamos localizados em Porto Belo, atendemos de segunda a sábado, faça seus pedidos online ou pelo whats (47) 99117-9191"
 
 var HEADER_TEXT = "Atendimento de Seg. a Sábado das 8h ás 18h"
 

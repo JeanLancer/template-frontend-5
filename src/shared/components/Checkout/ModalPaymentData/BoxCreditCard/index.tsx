@@ -14,6 +14,15 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
 }) => {
   const { cartData } = useCart();
 
+  const TEXT_INSTALLMENTS: any = {
+    1: 'á vista',
+    2: 'sem juros',
+    3: 'sem juros',
+    4: 'com juros',
+    5: 'com juros',
+    6: 'com juros'
+  };
+
   return (
     <Flex width="100%" flexDirection="column" mt="8px">
       <Flex width="100%" justifyContent="space-between">
@@ -62,7 +71,7 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
               <option value={index + 1}>
                 {`${index + 1}x de ${NumberUtils.toCurrency(
                   cartData.total / (index + 1)
-                )}`}
+                )} ${TEXT_INSTALLMENTS[index + 1]}`}
               </option>
             ))}
           </Select>

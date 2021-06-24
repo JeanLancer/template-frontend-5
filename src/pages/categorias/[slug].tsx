@@ -74,9 +74,18 @@ const CategoryPage: NextPage<CategoryPageProps> = ({
         <HeaderPage name={category.name} subtitle="Categorias" />
 
         {category && category?.products?.length > 0 && (
-          <Flex width="100%" maxWidth="1200px" flexWrap="wrap" mt="24px">
+          <Flex
+            key={category.id}
+            width="100%"
+            maxWidth="1200px"
+            flexWrap="wrap"
+            mt="24px"
+          >
             {category.products.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={`${category.id}-${product.id}`}
+                product={product}
+              />
             ))}
           </Flex>
         )}

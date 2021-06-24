@@ -8,6 +8,7 @@ import { FooterStyles, useLayout } from '../../../contexts/LayoutContext';
 import config from '../../../config';
 
 import eflorista from '../../../../assets/images/logo-eflorista.png';
+import siteseguro from '../../../../assets/images/siteseguro.png';
 import paymentMethods from '../../../../assets/images/payment-methods.png';
 import { useData } from '../../../hooks/data';
 
@@ -80,6 +81,16 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
             height={48}
             alt="Formas de Pagamento"
           />
+
+          <Flex ml="auto" mt="16px" mx="auto">
+            <Image
+              layout="fixed"
+              src={siteseguro}
+              width={104}
+              height={48}
+              alt="Site Seguro SSL"
+            />
+          </Flex>
         </Flex>
       </Flex>
       <Flex

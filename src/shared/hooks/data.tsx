@@ -33,6 +33,7 @@ interface StoreConfigContextData {
     complement: string;
 
     min_order_value: number;
+    is_free_delivery: boolean;
   };
   categories: {
     header: any[];

@@ -13,6 +13,7 @@ import apiGateway from '../shared/services/apiGateway';
 import { useLayout } from '../shared/contexts/LayoutContext';
 import config from '../shared/config/index';
 import '@brainhubeu/react-carousel/lib/style.css';
+import { useData } from '../shared/hooks/data';
 
 const Carousel = dynamic<CarouselProps>(
   () => {
@@ -49,6 +50,8 @@ const HomePage = ({
   const { globals } = useLayout();
 
   const [screenWidth, setScreenWidth] = useState(0);
+
+  const data = useData();
 
   useEffect(() => {
     const { innerWidth } = window;
@@ -147,6 +150,24 @@ const HomePage = ({
               </Flex>
             ))}
           </Carousel>
+          <Flex
+            width="100%"
+            position="absolute"
+            top="0"
+            justifyContent="center"
+          >
+            {data.general_settings?.is_free_delivery === true && (
+              <Flex
+                backgroundColor="brand.100"
+                color="white"
+                px="16px"
+                py="4px"
+                fontSize="14px"
+              >
+                <Text>ENTREGA GRÁTIS</Text>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">

@@ -82,10 +82,7 @@ const CategoryPage: NextPage<CategoryPageProps> = ({
             mt="24px"
           >
             {category.products.map((product: any) => (
-              <ProductCard
-                key={`${category.id}-${product.id}`}
-                product={product}
-              />
+              <ProductCard key={product.id} product={product} />
             ))}
           </Flex>
         )}

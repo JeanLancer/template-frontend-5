@@ -41,7 +41,6 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
         pl: '0px'
       }}
       cursor="pointer"
-      position="relative"
       onMouseEnter={() => {
         setIsHovered(true);
       }}
@@ -86,15 +85,13 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
 
       {isHovered && category.subcategories.length > 0 && (
         <Flex
-          mt="18px"
+          top="40px"
           flexDirection="column"
           backgroundColor="white"
           fontSize="12px"
-          left="0px"
           position="absolute"
           boxShadow="0 1px 3px rgba(0,0,0,0.12)"
           zIndex={1000}
-          minWidth="100%"
           onMouseLeave={() => {
             setIsHovered(false);
           }}
@@ -136,6 +133,7 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
       flexWrap="wrap"
       onMouseEnter={() => setIsHoveredMain(true)}
       onMouseLeave={() => setIsHoveredMain(false)}
+      position="relative"
     >
       <Flex
         display="flex"

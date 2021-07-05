@@ -9,15 +9,13 @@ import WhatsButton from '../shared/components/WhatsButton';
 import Fonts from '../shared/styles/Fonts';
 import Jivochat from '../shared/components/3rd-party/Jivochat';
 import FacebookPixel from '../shared/components/3rd-party/FacebookPixel';
-import GoogleAnalytics from '../shared/components/3rd-party/GoogleAnalytics';
-import GoogleAds from '../shared/components/3rd-party/GoogleAds';
 import ZendeskChat from '../shared/components/3rd-party/ZendeskChat';
 import apiGateway from '../shared/services/apiGateway';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { publicRuntimeConfig } = getConfig();
 
-  const [integrationsData, setIntegrationsData] = useState<any>(null);
+  const [, setIntegrationsData] = useState<any>(null);
 
   useEffect(() => {
     apiGateway.get<any>('/stores/setup').then(response => {
@@ -42,11 +40,47 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           href={`/images/favicon-${publicRuntimeConfig.LOGO}`}
         />
 
-        {integrationsData?.google_ads_id && (
-          <GoogleAds id={integrationsData?.google_ads_id} />
+        {config.GOOGLE.TAG.ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.GOOGLE.TAG.ID}`}
+            />
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${config.GOOGLE.TAG.ID}');
+              `
+              }}
+            />
+          </>
         )}
 
-        {config.GOOGLE.ANALYTICS.ID && <GoogleAnalytics />}
+        {config.GOOGLE.ANALYTICS.ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.GOOGLE.ANALYTICS.ID}`}
+            />
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${config.GOOGLE.ANALYTICS.ID}');
+              `
+              }}
+            />
+          </>
+        )}
 
         {config.JIVOCHAT && config.SITE_IS_ENABLED && <Jivochat />}
 

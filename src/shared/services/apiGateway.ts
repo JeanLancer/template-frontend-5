@@ -11,7 +11,7 @@ const apiGateway = axios.create({
 
 export const apiEflorista = axios.create({
   baseURL: 'https://app.eflorista.com.br/api/v1',
-  // baseURL: 'http://localhost:3222/api/v1',
+  // baseURL: 'http://localhost:3333/api/v1',
   headers: {
     store_id: config.KEY
   }

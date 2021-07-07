@@ -105,6 +105,10 @@ const CheckoutPage: React.FC = () => {
         {config.PAYMENT.PLATFORM === 'Mercado Pago' && (
           <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js" />
         )}
+
+        {config.PAYMENT.PLATFORM === 'Iugu' && (
+          <script type="text/javascript" src="https://js.iugu.com/v2" />
+        )}
       </Head>
       <Flex
         width="100%"

@@ -39,7 +39,7 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
           backgroundColor="white"
           flexDirection="column"
           position="absolute"
-          top="32px"
+          top="40px"
           fontSize="12px"
           textTransform="uppercase"
           fontWeight="500"

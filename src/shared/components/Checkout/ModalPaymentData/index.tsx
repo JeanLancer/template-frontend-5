@@ -150,6 +150,9 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
     if (method === 'CREDITCARD') {
       if (config.PAYMENT.PLATFORM === 'Mercado Pago') {
         (window as any).Mercadopago.setPublishableKey(config.PAYMENT.KEY);
+      } else if (config.PAYMENT.PLATFORM === 'Iugu') {
+        (window as any).Iugu.setAccountID(config.PAYMENT.KEY);
+        (window as any).Iugu.setTestMode(false);
       }
     }
 
@@ -326,6 +329,45 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
 
                 return;
               }
+            } else if (config.PAYMENT.PLATFORM === 'Iugu') {
+              const cardholderName = data.card_name.split(' ');
+              const cardholderFirstName = cardholderName[0];
+
+              cardholderName.shift();
+
+              const cardholderSecondName = cardholderName.join(' ');
+
+              const cc = (window as any).Iugu.CreditCard(
+                data.card_number.replace(/\D/g, ''),
+                expirationCardDate[0],
+                `20${expirationCardDate[1]}`,
+                cardholderFirstName,
+                cardholderSecondName,
+                data.card_code
+              );
+
+              await new Promise((resolve: any) => {
+                (window as any).Iugu.createPaymentToken(cc, (response: any) => {
+                  if (response.errors) {
+                    toast({
+                      title: 'Verifique os dados do cartão',
+                      description:
+                        'Cheque se os dados do cartão estão corretos',
+                      status: 'error',
+                      duration: 10000,
+                      isClosable: true
+                    });
+
+                    dataSubmitData.payment_token = '';
+                  } else {
+                    console.log(`Token criado:${response.id}`);
+
+                    dataSubmitData.payment_token = response.id;
+                  }
+
+                  resolve(dataSubmitData);
+                });
+              });
             }
           }
 

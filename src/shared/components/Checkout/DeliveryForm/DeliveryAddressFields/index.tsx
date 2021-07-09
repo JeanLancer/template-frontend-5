@@ -47,7 +47,12 @@ const DeliveryAddressFields: React.FC = () => {
       );
 
       if (city) {
-        setSelectedCity(city);
+        const citySorted = city;
+        citySorted.neighborhoods = city.neighborhoods.sort((a, b) =>
+          b.name > a.name ? -1 : 1
+        );
+
+        setSelectedCity(citySorted);
 
         if (deliverySettings.deliveryMethod.type === 'CITY') {
           addShippingValue(Number(city.price));

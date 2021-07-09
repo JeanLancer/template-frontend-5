@@ -45,6 +45,8 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
           fontWeight="500"
           zIndex={100000}
           boxShadow="0 1px 3px rgba(0,0,0,0.12)"
+          maxHeight="400px"
+          overflow="auto"
         >
           {config.CITIES.map((city: any) => (
             <>

@@ -134,6 +134,16 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               whiteSpace="pre-wrap"
               fontSize="14px"
               lineHeight="18px"
+              mt="16px"
+              color="brand.300"
+            >
+              {`Código: ${product.code_sku}`}
+            </Text>
+
+            <Text
+              whiteSpace="pre-wrap"
+              fontSize="14px"
+              lineHeight="18px"
               mt="48px"
               color="brand.300"
             >

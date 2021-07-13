@@ -6,7 +6,11 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { CarouselProps, arrowsPlugin } from '@brainhubeu/react-carousel';
+import {
+  CarouselProps,
+  arrowsPlugin,
+  autoplayPlugin
+} from '@brainhubeu/react-carousel';
 import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
 import ProductCard from '../shared/components/ProductCard';
 import apiGateway from '../shared/services/apiGateway';
@@ -120,6 +124,13 @@ const HomePage = ({
                           </Flex>
                         ),
                         addArrowClickHandler: true
+                      }
+                    },
+                    'infinite',
+                    {
+                      resolve: autoplayPlugin,
+                      options: {
+                        interval: 8000
                       }
                     }
                   ]

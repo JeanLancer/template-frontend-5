@@ -49,7 +49,18 @@ const DeliveryAddressFields: React.FC = () => {
       if (city) {
         const citySorted = city;
         citySorted.neighborhoods = city.neighborhoods.sort((a, b) =>
-          b.name > a.name ? -1 : 1
+          b.name
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/ /g, '') >
+          a.name
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/ /g, '')
+            ? -1
+            : 1
         );
 
         setSelectedCity(citySorted);
@@ -140,7 +151,7 @@ const DeliveryAddressFields: React.FC = () => {
             mb="4px"
             isChecked={showObservations === true}
           >
-            <Text fontSize="12px">Acrescentar observação</Text>
+            <Text fontSize="16px">Acrescentar observação</Text>
           </Checkbox>
 
           <Collapse in={showObservations}>

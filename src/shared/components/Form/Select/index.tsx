@@ -40,7 +40,7 @@ const Select: React.FC<IProps> = ({
   return (
     <Box width="100%" maxWidth={maxWidth} mb="2px">
       <Flex width="100%" textAlign="center">
-        <Text fontSize="12px">{label}</Text>
+        <Text fontSize="14px">{label}</Text>
         {isRequired && (
           <Text ml="4px" color="red.500">
             *

@@ -39,7 +39,7 @@ const Input: React.FC<Props> = ({
   return (
     <Flex width="100%" flexDirection="column" mb={mb}>
       <Flex width="100%" textAlign="center">
-        <Text fontSize="12px">{label}</Text>
+        <Text fontSize="14px">{label}</Text>
         {isRequired && (
           <Text ml="4px" color="red.500">
             *

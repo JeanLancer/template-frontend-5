@@ -40,7 +40,7 @@ const DeliveryDestinataryFields: React.FC = () => {
         </Flex>
       </Flex>
       <Flex width={['100%', '100%', '48%']} flexDirection="column">
-        <Text fontSize="12px">
+        <Text fontSize="14px">
           Mensagem para ser impressa no cartão (Opcional)
         </Text>
         <TextArea name="card_message" />
@@ -54,7 +54,7 @@ const DeliveryDestinataryFields: React.FC = () => {
           size="sm"
           colorScheme="green"
         >
-          <Text fontSize="12px">Quero ser identificado no cartão</Text>
+          <Text fontSize="14px">Quero ser identificado no cartão</Text>
         </Checkbox>
       </Flex>
     </Flex>

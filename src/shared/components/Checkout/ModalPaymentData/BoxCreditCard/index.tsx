@@ -51,12 +51,7 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
         </Flex>
 
         <Flex width="25%">
-          <Input
-            name="card_code"
-            type="number"
-            label="Cód. Segurança"
-            isRequired
-          />
+          <Input name="card_code" type="number" label="CVC" isRequired />
         </Flex>
 
         <Flex width="40%">

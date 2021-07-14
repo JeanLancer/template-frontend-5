@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { Flex, Text, Divider, Icon } from '@chakra-ui/react';
@@ -6,11 +6,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import {
-  CarouselProps,
-  arrowsPlugin,
-  autoplayPlugin
-} from '@brainhubeu/react-carousel';
+import { CarouselProps, arrowsPlugin } from '@brainhubeu/react-carousel';
 import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
 import ProductCard from '../shared/components/ProductCard';
 import apiGateway from '../shared/services/apiGateway';
@@ -62,6 +58,26 @@ const HomePage = ({
     setScreenWidth(innerWidth);
   }, []);
 
+  const [value, setValue] = useState(0);
+
+  const onChange = useCallback(
+    (index: any) => {
+      console.log('caiu aqui', index);
+      if (index === slides.length) {
+        setValue(0);
+      } else {
+        setValue(index);
+      }
+    },
+    [slides]
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      onChange(value + 1);
+    }, 5000);
+  }, [onChange, value]);
+
   return (
     <>
       <Head key="index">
@@ -79,6 +95,8 @@ const HomePage = ({
       >
         <Flex width="100%" maxWidth="1200px" mb="32px" position="relative">
           <Carousel
+            value={value}
+            onChange={onChange}
             plugins={
               slides.length > 1
                 ? [
@@ -125,24 +143,18 @@ const HomePage = ({
                         ),
                         addArrowClickHandler: true
                       }
-                    },
-                    'infinite',
-                    {
-                      resolve: autoplayPlugin,
-                      options: {
-                        interval: 8000
-                      }
                     }
                   ]
                 : []
             }
             draggable
+            animationSpeed={1000}
           >
             {slides.map((slide: any) => (
               <Flex
                 width="1200px"
                 height="400px"
-                backgroundColor="gray.700"
+                backgroundColor="white"
                 alignItems="center"
                 justifyContent="center"
                 key={slide.name}

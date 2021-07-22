@@ -133,6 +133,8 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
   const [orderCode, setOrderCode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isExteriorLocation, setIsExteriorLocation] = useState(false);
+
   useEffect(() => {
     apiGateway.get('/checkout/setup').then(response => {
       if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
@@ -177,7 +179,19 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
             // BUYER
             first_name: Yup.string().required('Nome não informado'),
             last_name: Yup.string().required('Sobrenome não informado'),
-            document: Yup.string().required('CPF não informado'),
+            document: Yup.string().when(
+              'payment_method_type',
+              (_payment_method_type: boolean, newSchema: any) => {
+                if (
+                  paymentSettings.platform.name === 'Pagarme' ||
+                  isExteriorLocation === false
+                ) {
+                  return newSchema.required('CPF não informado');
+                }
+
+                return newSchema;
+              }
+            ),
             email: Yup.string()
               .email('E-mail inválido')
               .required('E-mail não informado'),
@@ -442,15 +456,16 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
     },
     [
       isLoading,
-      DDI,
-      cartData,
-      cartForm,
-      orderCode,
       paymentMethod,
-      router,
+      DDI,
+      cartForm,
+      cartData,
+      paymentSettings,
+      orderCode,
+      isExteriorLocation,
       toast,
       clearCart,
-      paymentSettings
+      router
     ]
   );
 
@@ -506,7 +521,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                     <Input
                       label="CPF"
                       name="document"
-                      isRequired
+                      isRequired={!isExteriorLocation}
                       mb={['4px', '0px']}
                       mask="999.999.999-99"
                     />
@@ -1187,7 +1202,11 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
               </Flex>
 
               <Flex width="100%" mb="8px">
-                <Checkbox size="sm">
+                <Checkbox
+                  size="sm"
+                  onChange={() => setIsExteriorLocation(!isExteriorLocation)}
+                  isChecked={isExteriorLocation}
+                >
                   <Text fontSize="12px" textTransform="uppercase">
                     Moro no exterior
                   </Text>

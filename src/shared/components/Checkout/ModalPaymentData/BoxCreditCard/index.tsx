@@ -1,27 +1,60 @@
 import { Flex } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Input from '../../../Form/Input';
 import Select from '../../../Form/Select';
 import { useCart } from '../../../../hooks/cart';
 import NumberUtils from '../../../../utils/NumberUtils';
+import apiGateway from '../../../../services/apiGateway';
+import { HTTP_RESPONSE } from '../../../../constants';
 
 interface BoxCreditCardProps {
+  platform: string;
   maxNumInstallmensts?: number;
 }
 
-const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
-  maxNumInstallmensts = 6
-}) => {
+const BoxCreditCard: React.FC<BoxCreditCardProps> = ({ platform }) => {
   const { cartData } = useCart();
 
-  const TEXT_INSTALLMENTS: any = {
-    1: 'á vista',
-    2: 'sem juros',
-    3: 'sem juros',
-    4: 'com juros',
-    5: 'com juros',
-    6: 'com juros'
-  };
+  const [textInstallments, setTextInstallments] = useState([] as string[]);
+
+  useEffect(() => {
+    apiGateway
+      .get(
+        `/checkout/installment_setting?platform=${platform}&total_value=${cartData.total}`
+      )
+      .then(response => {
+        if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+          console.log(response.data);
+
+          const installmentsValue = response.data;
+
+          const newTextInstallment: string[] = [];
+
+          newTextInstallment.push(
+            `${NumberUtils.toCurrency(cartData.total)} á vista`
+          );
+
+          Object.keys(installmentsValue).map((key, index) => {
+            console.log(key);
+
+            if (key !== 'value_1x') {
+              const withOrNotFee =
+                installmentsValue[key] > 0 ? 'com juros' : 'sem juros';
+
+              newTextInstallment.push(
+                `${index + 1}x de ${NumberUtils.toCurrency(
+                  installmentsValue[`value_${index + 1}x`] / (index + 1)
+                )} ${withOrNotFee}`
+              );
+            }
+            return newTextInstallment;
+          });
+
+          setTextInstallments(newTextInstallment);
+        }
+      });
+  }, [cartData, platform]);
 
   return (
     <Flex width="100%" flexDirection="column" mt="8px">
@@ -62,11 +95,12 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({
             size="xs"
             fontSize="11px"
           >
-            {Array.from({ length: maxNumInstallmensts }, (_item, index) => (
-              <option value={index + 1}>
-                {`${index + 1}x de ${NumberUtils.toCurrency(
-                  cartData.total / (index + 1)
-                )} ${TEXT_INSTALLMENTS[index + 1]}`}
+            {textInstallments.map((item, index) => (
+              <option
+                key={new Date().getUTCMilliseconds()}
+                value={`${index + 1}`}
+              >
+                {item}
               </option>
             ))}
           </Select>

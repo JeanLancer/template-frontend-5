@@ -1250,7 +1250,9 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                   </RadioGroup>
                 </Flex>
 
-                {paymentMethod === 'CREDITCARD' && <BoxCreditCard />}
+                {paymentMethod === 'CREDITCARD' && paymentSettings && (
+                  <BoxCreditCard platform={paymentSettings.platform.name} />
+                )}
 
                 <Flex width="100%">
                   <Flex

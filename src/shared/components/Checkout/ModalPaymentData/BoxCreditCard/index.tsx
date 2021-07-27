@@ -40,7 +40,10 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({ platform }) => {
 
             if (key !== 'value_1x') {
               const withOrNotFee =
-                installmentsValue[key] > 0 ? 'com juros' : 'sem juros';
+                Number(installmentsValue[`value_${index + 1}x`]) <=
+                cartData.total
+                  ? 'sem juros'
+                  : 'com juros';
 
               newTextInstallment.push(
                 `${index + 1}x de ${NumberUtils.toCurrency(

@@ -341,6 +341,8 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                   isClosable: true
                 });
 
+                setIsLoading(false);
+
                 return;
               }
             } else if (config.PAYMENT.PLATFORM === 'Iugu') {

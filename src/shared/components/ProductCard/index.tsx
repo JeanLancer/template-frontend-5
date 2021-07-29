@@ -125,7 +125,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <Link href={`/${product.slug}`}>
             <Flex
-              backgroundColor="brand.100"
+              backgroundColor="#FF224B"
               color="white"
               alignItems="center"
               px="8px"

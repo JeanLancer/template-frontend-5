@@ -69,6 +69,10 @@ const DeliveryAddressFields: React.FC = () => {
           addShippingValue(Number(city.price));
         }
       }
+
+      if (value === 'Demais Cidades do Brasil') {
+        addShippingValue(300);
+      }
     },
     [addShippingValue, deliverySettings]
   );
@@ -113,6 +117,12 @@ const DeliveryAddressFields: React.FC = () => {
                     {city.name}
                   </option>
                 ))}
+              <option
+                key="Demais Cidades do Brasil"
+                value="Demais Cidades do Brasil"
+              >
+                Demais Cidades do Brasil
+              </option>
             </Select>
           </Flex>
 

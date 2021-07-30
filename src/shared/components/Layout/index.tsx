@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 import { useLayout } from '../../contexts/LayoutContext';

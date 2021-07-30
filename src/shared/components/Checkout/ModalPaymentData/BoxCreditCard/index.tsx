@@ -25,8 +25,6 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({ platform }) => {
       )
       .then(response => {
         if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
-          console.log(response.data);
-
           const installmentsValue = response.data;
 
           const newTextInstallment: string[] = [];
@@ -36,8 +34,6 @@ const BoxCreditCard: React.FC<BoxCreditCardProps> = ({ platform }) => {
           );
 
           Object.keys(installmentsValue).map((key, index) => {
-            console.log(key);
-
             if (key !== 'value_1x') {
               const withOrNotFee =
                 Number(installmentsValue[`value_${index + 1}x`]) <=

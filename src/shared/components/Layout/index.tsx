@@ -16,10 +16,6 @@ const Layout: React.FC = ({ children }) => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(config.SITE_IS_ENABLED);
-  }, []);
-
   return (
     <ChakraProvider theme={theme}>
       {(isSiteEnabled || router.pathname === '/acompanhar-meu-pedido') && (

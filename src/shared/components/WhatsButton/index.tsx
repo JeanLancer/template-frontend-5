@@ -31,7 +31,7 @@ const WhatsButton: React.FC = () => {
 
         <Flex
           mt="2px"
-          backgroundColor="brand.100"
+          backgroundColor="red.500"
           borderRadius="12px"
           alignItems="center"
           justifyContent="center"

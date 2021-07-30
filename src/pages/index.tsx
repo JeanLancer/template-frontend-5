@@ -62,7 +62,6 @@ const HomePage = ({
 
   const onChange = useCallback(
     (index: any) => {
-      console.log('caiu aqui', index);
       if (index === slides.length) {
         setValue(0);
       } else {

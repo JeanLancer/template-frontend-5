@@ -84,8 +84,6 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               duration: 4000,
               isClosable: true
             });
-
-            console.log('caiu aqui');
           }
         }
       } catch (e) {

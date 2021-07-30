@@ -25,8 +25,6 @@ const TrackOrderPage: React.FC = () => {
         .get(`/orders/details/${String(code).padStart(6, '0')}`)
         .then(response => {
           if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
-            console.log(response.data);
-
             if (response.data) {
               const email1 = String(response.data.buyer.email)
                 .toLowerCase()

@@ -376,8 +376,6 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
 
                     dataSubmitData.payment_token = '';
                   } else {
-                    console.log(`Token criado:${response.id}`);
-
                     dataSubmitData.payment_token = response.id;
                   }
 

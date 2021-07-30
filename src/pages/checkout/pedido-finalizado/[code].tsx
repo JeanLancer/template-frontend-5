@@ -99,8 +99,6 @@ const CheckoutLastPage: NextPage<CheckoutLastPageProps> = ({ order }) => {
               duration: 4000,
               isClosable: true
             });
-
-            console.log('caiu aqui');
           }
         }
       } catch (e) {

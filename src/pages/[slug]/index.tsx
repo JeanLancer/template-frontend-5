@@ -55,6 +55,13 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
           name="description"
           content={`${product.meta_description} - ${config.STORE.NAME}`}
         />
+
+        <meta
+          name="keywords"
+          content={`${String(
+            product.tags.map((item: any) => ` ${item.value}`)
+          ).trim()}`}
+        />
       </Head>
       <Flex
         width="100%"

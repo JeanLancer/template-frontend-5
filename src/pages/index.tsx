@@ -82,6 +82,7 @@ const HomePage = ({
       <Head key="index">
         <title>{config.SEO.TITLE}</title>
         <meta name="description" content={config.SEO.META_DESCRIPTION} />
+        <meta name="keywords" content={config.SEO.KEYWORDS} />
       </Head>
       <Flex
         fontSize="32px"

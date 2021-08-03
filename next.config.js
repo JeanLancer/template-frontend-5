@@ -28,6 +28,8 @@ module.exports = withImages({
 
     TITLE: process.env.TITLE,
     META_DESCRIPTION: process.env.META_DESCRIPTION,
+    KEYWORDS: process.env.KEYWORDS,
+
     PAYMENT_PLATFORM: process.env.PAYMENT_PLATFORM,
     PAYMENT_PLATFORM_KEY: process.env.PAYMENT_PLATFORM_KEY,
 

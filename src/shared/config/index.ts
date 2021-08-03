@@ -19,7 +19,8 @@ export default {
 
   SEO: {
     TITLE: publicRuntimeConfig.TITLE,
-    META_DESCRIPTION: publicRuntimeConfig.META_DESCRIPTION
+    META_DESCRIPTION: publicRuntimeConfig.META_DESCRIPTION,
+    KEYWORDS: publicRuntimeConfig.KEYWORDS || ''
   },
   PAYMENT: {
     PLATFORM: publicRuntimeConfig.PAYMENT_PLATFORM,

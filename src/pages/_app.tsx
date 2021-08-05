@@ -85,6 +85,13 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
         {config.JIVOCHAT && config.SITE_IS_ENABLED && <Jivochat />}
 
         {config.FACEBOOK.PIXEL.ID && <FacebookPixel />}
+
+        {config.FACEBOOK.DOMAIN_VERIFICATION && (
+          <meta
+            name="facebook-domain-verification"
+            content={config.FACEBOOK.DOMAIN_VERIFICATION}
+          />
+        )}
       </Head>
       <LayoutProvider>
         <Layout>

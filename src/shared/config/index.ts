@@ -37,6 +37,7 @@ export default {
     }
   },
   FACEBOOK: {
+    DOMAIN_VERIFICATION: publicRuntimeConfig.FACEBOOK_DOMAIN_VERIFICATION,
     PIXEL: {
       ID: publicRuntimeConfig.FACEBOOK_PIXEL_ID
     }

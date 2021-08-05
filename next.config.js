@@ -38,6 +38,7 @@ module.exports = withImages({
 
     GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
 
+    FACEBOOK_DOMAIN_VERIFICATION: process.env.FACEBOOK_DOMAIN_VERIFICATION,
     FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
 
     JIVOCHAT: process.env.JIVOCHAT,

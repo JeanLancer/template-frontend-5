@@ -8,7 +8,6 @@ import config from '../shared/config/index';
 import WhatsButton from '../shared/components/WhatsButton';
 import Fonts from '../shared/styles/Fonts';
 import Jivochat from '../shared/components/3rd-party/Jivochat';
-import FacebookPixel from '../shared/components/3rd-party/FacebookPixel';
 import ZendeskChat from '../shared/components/3rd-party/ZendeskChat';
 import apiGateway from '../shared/services/apiGateway';
 
@@ -84,12 +83,29 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
         {config.JIVOCHAT && config.SITE_IS_ENABLED && <Jivochat />}
 
-        {config.FACEBOOK.PIXEL.ID && <FacebookPixel />}
-
         {config.FACEBOOK.DOMAIN_VERIFICATION && (
           <meta
             name="facebook-domain-verification"
             content={config.FACEBOOK.DOMAIN_VERIFICATION}
+          />
+        )}
+
+        {config.FACEBOOK.PIXEL.ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                  fbq('init', '${config.FACEBOOK.PIXEL.ID}');
+                  fbq('track', 'PageView');
+                `
+            }}
           />
         )}
       </Head>
@@ -100,6 +116,19 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           <Fonts />
         </Layout>
         {config.ZENDESK && config.SITE_IS_ENABLED && <ZendeskChat />}
+        {config.FACEBOOK.PIXEL.ID && (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{
+                display: 'none'
+              }}
+              src={`https://www.facebook.com/tr?id=${config.FACEBOOK.PIXEL.ID}&ev=PageView&noscript=1`}
+              alt="Facebook Pixel"
+            />
+          </noscript>
+        )}
       </LayoutProvider>
     </>
   );

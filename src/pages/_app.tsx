@@ -97,6 +97,13 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
         {config.JIVOCHAT && config.SITE_IS_ENABLED && <Jivochat />}
 
+        {config.GOOGLE.DOMAIN_VERIFICATION && (
+          <meta
+            name="google-site-verification"
+            content={`${config.GOOGLE.DOMAIN_VERIFICATION}`}
+          />
+        )}
+
         {config.FACEBOOK.DOMAIN_VERIFICATION && (
           <meta
             name="facebook-domain-verification"

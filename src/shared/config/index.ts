@@ -33,6 +33,7 @@ export default {
       SEND_TO: publicRuntimeConfig.GOOGLE_TAG_SEND_TO,
       MANAGER: publicRuntimeConfig.GOOGLE_TAG_MANAGER
     },
+    DOMAIN_VERIFICATION: publicRuntimeConfig.GOOGLE_DOMAIN_VERIFICATION,
     ANALYTICS: {
       ID: publicRuntimeConfig.GOOGLE_ANALYTICS_ID
     }

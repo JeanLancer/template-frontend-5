@@ -60,6 +60,7 @@ const Input: React.FC<Props> = ({
               name={name}
               isInvalid={!!error}
               autoComplete="new-password"
+              spellCheck="false"
               autoSave="off"
               autoCorrect="off"
               errorBorderColor="red.500"
@@ -67,6 +68,11 @@ const Input: React.FC<Props> = ({
               size="sm"
               border="2px solid"
               borderColor="gray.200"
+              onFocus={e => {
+                if (e.target.autocomplete) {
+                  e.target.autocomplete = 'new-password';
+                }
+              }}
               {...inputProps}
               {...rest}
             />

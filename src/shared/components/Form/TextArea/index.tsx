@@ -29,7 +29,7 @@ const TextArea: React.FC<IProps> = ({ name }) => {
       focusBorderColor="none"
       borderRadius="2px"
       px="16px"
-      autoComplete="false"
+      autoComplete="new-password"
       autoSave="off"
       autoCorrect="off"
     />

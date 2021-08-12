@@ -68,11 +68,6 @@ const Input: React.FC<Props> = ({
               size="sm"
               border="2px solid"
               borderColor="gray.200"
-              onFocus={e => {
-                if (e.target.autocomplete) {
-                  e.target.autocomplete = 'new-password';
-                }
-              }}
               {...inputProps}
               {...rest}
             />

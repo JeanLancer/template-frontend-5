@@ -29,6 +29,9 @@ const TextArea: React.FC<IProps> = ({ name }) => {
       focusBorderColor="none"
       borderRadius="2px"
       px="16px"
+      autoComplete="false"
+      autoSave="off"
+      autoCorrect="off"
     />
   );
 };

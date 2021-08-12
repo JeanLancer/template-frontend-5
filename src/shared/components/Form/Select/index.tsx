@@ -57,6 +57,9 @@ const Select: React.FC<IProps> = ({
         size="sm"
         border="2px solid"
         borderColor="gray.200"
+        autoComplete="false"
+        autoSave="off"
+        autoCorrect="off"
         _placeholder={{
           pl: '0px'
         }}

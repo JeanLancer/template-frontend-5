@@ -44,8 +44,10 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
 
             <Flex width="100%" flexDirection="column" fontSize="12px">
               {data.categories?.footer.map(category => (
-                <Link key={category.slug} href={`/categoria/${category.slug}`}>
-                  <Text height="24px">{category.name}</Text>
+                <Link key={category.slug} href={`/categorias/${category.slug}`}>
+                  <Text height="24px" cursor="pointer">
+                    {category.name}
+                  </Text>
                 </Link>
               ))}
             </Flex>

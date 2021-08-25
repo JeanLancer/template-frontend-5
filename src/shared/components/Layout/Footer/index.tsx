@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -93,6 +93,30 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
               alt="Site Seguro SSL"
             />
           </Flex>
+
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            cursor="pointer"
+            display={['none', 'none', 'block']}
+            ml="auto"
+            mx="auto"
+            mt="24px"
+          >
+            <Text fontSize="14px">Desenvolvido por: </Text>
+            <Flex justifyContent="center">
+              <Link href="https://www.eflorista.com.br">
+                <Image
+                  layout="fixed"
+                  src={eflorista}
+                  width={80}
+                  height={32}
+                  alt="Sistema para floriculturas Eflorista"
+                  title="Sistema para floriculturas Eflorista"
+                />
+              </Link>
+            </Flex>
+          </Flex>
         </Flex>
       </Flex>
       <Flex
@@ -128,7 +152,12 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
             )}
           </Flex>
 
-          <Flex flexDirection="column" alignItems="flex-end" cursor="pointer">
+          <Flex
+            flexDirection="column"
+            alignItems="flex-end"
+            cursor="pointer"
+            display={['block', 'block', 'none']}
+          >
             <Link href="https://www.eflorista.com.br">
               <Image
                 layout="fixed"

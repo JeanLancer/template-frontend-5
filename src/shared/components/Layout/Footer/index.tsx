@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Icon } from '@chakra-ui/react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { FiMapPin } from 'react-icons/fi';
 import { FooterStyles, useLayout } from '../../../contexts/LayoutContext';
 import config from '../../../config';
 
@@ -51,6 +52,25 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
                 </Link>
               ))}
             </Flex>
+
+            {data.options?.footer.show_address && (
+              <Flex
+                width="100%"
+                alignItems="center"
+                mt={['24px', '24px', 'auto']}
+                mb={['24px', '24px', '0px']}
+              >
+                <Icon as={FiMapPin} mr="8px" />
+                <Text fontSize="14px">
+                  {`${data.general_settings.street}, nº ${
+                    data.general_settings.number
+                  }, ${` ${data.general_settings.complement} `}${
+                    data.general_settings.neighborhood
+                  }
+      - ${data.general_settings.city}/${config.STORE.LOCATION.STATE}`}
+                </Text>
+              </Flex>
+            )}
           </Flex>
 
           <Flex flexDirection="column" color="gray.600">
@@ -139,13 +159,11 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
           >
             <Text>{`Copyright © ${config.STORE.NAME}. Todos os direitos reservados.`}</Text>
 
-            {data.options?.footer.show_document &&
-              data.options?.footer.show_address && (
-                <Text textAlign="left">
-                  {`CNPJ n.º ${data.general_settings.document} / ${data.general_settings.street}, nº ${data.general_settings.number}, ${data.general_settings.neighborhood}
-                  - ${data.general_settings.city}/${config.STORE.LOCATION.STATE}.`}
-                </Text>
-              )}
+            {data.options?.footer.show_document && (
+              <Text textAlign="left">
+                {`CNPJ n.º ${data.general_settings.document}`}
+              </Text>
+            )}
 
             {data.options?.footer.show_email && (
               <Text>{`Email: ${data.general_settings.email_contact}`}</Text>

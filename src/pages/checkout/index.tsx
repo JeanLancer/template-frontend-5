@@ -134,21 +134,24 @@ const CheckoutPage: React.FC = () => {
                 <DeliveryForm />
                 <Cart />
                 <Flex width="100%" justifyContent="flex-end" mt="8px">
-                  <Flex
-                    width={['100%', '100%', 'auto']}
-                    backgroundColor="green.500"
-                    px="24px"
-                    py="4px"
-                    color="white"
-                    borderRadius="2px"
-                    fontWeight="500"
-                    cursor="pointer"
-                    justifyContent="center"
-                    fontSize="14px"
-                    onClick={() => cartFormRef.current?.submitForm()}
-                  >
-                    <Text>EFETUAR PAGAMENTO</Text>
-                  </Flex>
+                  {cartData.totalProducts >=
+                    dataConfig.general_settings?.min_order_value && (
+                    <Flex
+                      width={['100%', '100%', 'auto']}
+                      backgroundColor="green.500"
+                      px="24px"
+                      py="4px"
+                      color="white"
+                      borderRadius="2px"
+                      fontWeight="500"
+                      cursor="pointer"
+                      justifyContent="center"
+                      fontSize="14px"
+                      onClick={() => cartFormRef.current?.submitForm()}
+                    >
+                      <Text>EFETUAR PAGAMENTO</Text>
+                    </Flex>
+                  )}
                 </Flex>
               </>
             )}

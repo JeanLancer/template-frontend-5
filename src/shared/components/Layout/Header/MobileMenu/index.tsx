@@ -73,12 +73,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
     open: {
       opacity: 1,
       zIndex: 1000,
-      height: '100vh'
+      height: '100vh',
+      display: 'block'
     },
     closed: {
       opacity: 0,
       zIndex: 1000,
-      height: '0px'
+      height: '0px',
+      display: 'none'
     }
   };
 

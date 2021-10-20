@@ -16,7 +16,7 @@ export default {
   HEADER_TEXT: publicRuntimeConfig.HEADER_TEXT,
   CITIES: publicRuntimeConfig.CITIES,
   SITE_IS_ENABLED: publicRuntimeConfig.SITE_IS_ENABLED === 'true',
-
+  HOTJAR: publicRuntimeConfig.HOTJAR || null,
   SEO: {
     TITLE: publicRuntimeConfig.TITLE,
     META_DESCRIPTION: publicRuntimeConfig.META_DESCRIPTION,

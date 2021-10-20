@@ -151,6 +151,24 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           <Fonts />
         </Layout>
         {config.ZENDESK && config.SITE_IS_ENABLED && <ZendeskChat />}
+
+        {config.HOTJAR && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:${config.HOTJAR},hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            `
+            }}
+          />
+        )}
+
         {config.FACEBOOK.PIXEL.ID && (
           <noscript>
             <img

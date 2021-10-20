@@ -23,6 +23,7 @@ module.exports = withImages({
     HEADER_TEXT: process.env.HEADER_TEXT,
 
     CITIES: JSON.parse(process.env.CITIES),
+    HOTJAR: process.env.HOTJAR || null,
 
     SITE_IS_ENABLED: process.env.SITE_IS_ENABLED,
 

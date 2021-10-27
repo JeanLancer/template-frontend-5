@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import ParseHtml from 'html-react-parser';
 
 import { NextPage, GetServerSideProps, GetStaticPropsContext } from 'next';
 
@@ -31,7 +32,7 @@ const PaginasPage: NextPage<IProps> = ({ slug }) => {
     setPage(pages?.find(item => item.slug === slug) as any);
   }, [pages, setPage, slug]);
 
-  return (
+  return page ? (
     <>
       <Head key="page">
         <title>{`${page?.title} - ${config.SEO.TITLE}`}</title>
@@ -43,18 +44,14 @@ const PaginasPage: NextPage<IProps> = ({ slug }) => {
       <Flex width="100" flexDirection="column">
         <HeaderPage name={page?.title} subtitle="Paginas" />
 
-        <Flex width="100%" fontSize="24px">
-          <Box
-            width="100%"
-            py="8px"
-            fontSize="16px"
-            whiteSpace="pre-wrap"
-            dangerouslySetInnerHTML={{ __html: page?.content }}
-          />
-        </Flex>
+        {page?.content && (
+          <Flex width="100%" maxWidth="1200px" mt="24px">
+            {ParseHtml(page.content)}
+          </Flex>
+        )}
       </Flex>
     </>
-  );
+  ) : null;
 };
 
 export default PaginasPage;

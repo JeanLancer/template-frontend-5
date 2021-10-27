@@ -67,7 +67,9 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
                   }, ${` ${data.general_settings.complement} `}${
                     data.general_settings.neighborhood
                   }
-      - ${data.general_settings.city}/${config.STORE.LOCATION.STATE}`}
+                  - ${data.general_settings.city}/${
+                    config.STORE.LOCATION.STATE
+                  }`}
                 </Text>
               </Flex>
             )}
@@ -83,7 +85,9 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
 
               {data.pages?.map(page => (
                 <Link key={page.slug} href={`/paginas/${page.slug}`}>
-                  <Text height="24px">{page.title}</Text>
+                  <Text cursor="pointer" height="24px">
+                    {page.title}
+                  </Text>
                 </Link>
               ))}
             </Flex>

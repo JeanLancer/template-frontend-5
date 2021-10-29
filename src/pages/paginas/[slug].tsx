@@ -44,11 +44,7 @@ const PaginasPage: NextPage<IProps> = ({ slug }) => {
       <Flex width="100" flexDirection="column">
         <HeaderPage name={page?.title} subtitle="Paginas" />
 
-        {page?.content && (
-          <Flex width="100%" maxWidth="1200px" mt="24px">
-            {ParseHtml(page.content)}
-          </Flex>
-        )}
+        {page?.content && <div>{ParseHtml(page.content)}</div>}
       </Flex>
     </>
   ) : null;

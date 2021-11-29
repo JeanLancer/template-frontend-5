@@ -54,7 +54,7 @@ const Fonts = (): JSX.Element => (
         overflow: hidden;
         position: fixed;
         bottom: 30px;
-        right: 30px;
+        left: 30px;
         display: none;
       }
       .cookieConsentContainer .cookieTitle a {

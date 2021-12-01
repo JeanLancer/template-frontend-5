@@ -10,6 +10,7 @@ import Fonts from '../shared/styles/Fonts';
 import Jivochat from '../shared/components/3rd-party/Jivochat';
 import ZendeskChat from '../shared/components/3rd-party/ZendeskChat';
 import apiGateway from '../shared/services/apiGateway';
+import Cookie from '../shared/components/Cookie';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { publicRuntimeConfig } = getConfig();
@@ -182,6 +183,8 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
             />
           </noscript>
         )}
+
+        <Cookie />
       </LayoutProvider>
     </>
   );

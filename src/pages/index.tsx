@@ -34,6 +34,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       slides: banners.slides,
+      banner: banners.banner.length > 0 ? banners.banner[0] : null,
       highlights: products.highlights,
       others: products.others,
       specials: products.specials
@@ -43,6 +44,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const HomePage = ({
   slides,
+  banner,
   highlights,
   others,
   specials
@@ -194,15 +196,9 @@ const HomePage = ({
         </Flex>
 
         <Flex width="100%" maxWidth="1200px" flexDirection="column">
-          <Flex
-            width="100%"
-            flexDirection="column"
-            px="8px"
-            mb="16px"
-            alignItems="center"
-          >
-            <Text fontWeight="500" fontSize="26px" color="brand.300">
-              Produtos em Destaque
+          <Flex width="100%" flexDirection="column" px="8px" mb="16px">
+            <Text fontWeight="500" fontSize="22px" color="brand.300">
+              PRODUTOS EM DESTAQUE
             </Text>
             <Divider width="100%" size="md" />
           </Flex>
@@ -222,6 +218,22 @@ const HomePage = ({
           )}
         </Flex>
 
+        {banner && (
+          <Flex
+            width="100%"
+            maxWidth="1200px"
+            height="144px"
+            position="relative"
+            my="24px"
+          >
+            <Image
+              layout="fill"
+              src={screenWidth > 1024 ? banner.url_web : banner.url_mobile}
+              alt={banner.name}
+            />
+          </Flex>
+        )}
+
         {!config.SHOW_SPECIAL && (
           <Flex width="100%" maxWidth="1200px" flexDirection="column">
             <Flex
@@ -229,11 +241,10 @@ const HomePage = ({
               flexDirection="column"
               px="8px"
               mb="16px"
-              alignItems="center"
               justifyContent="center"
             >
-              <Text fontWeight="500" fontSize="26px" color="brand.300">
-                Demais Produtos
+              <Text fontWeight="500" fontSize="20px" color="brand.300">
+                TODOS OS PRODUTOS
               </Text>
               <Divider width="100%" size="md" />
             </Flex>

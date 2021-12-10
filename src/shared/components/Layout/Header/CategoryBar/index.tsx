@@ -4,11 +4,10 @@ import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import { Style } from '../../../../contexts/LayoutContext';
 import { useData } from '../../../../hooks/data';
 
 interface CategoryBarStyle {
-  style: Style;
+  style: any;
 }
 
 interface MenuDropDownProps {
@@ -36,7 +35,6 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
     <Flex
       display="flex"
       whiteSpace="nowrap"
-      color="gray.600"
       _first={{
         pl: '0px'
       }}
@@ -85,7 +83,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
 
       {isHovered && category.subcategories.length > 0 && (
         <Flex
-          top="40px"
+          top="64px"
           flexDirection="column"
           backgroundColor="white"
           fontSize="14px"
@@ -138,7 +136,6 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
       <Flex
         display="flex"
         whiteSpace="nowrap"
-        color="gray.600"
         _first={{
           pl: '0px'
         }}

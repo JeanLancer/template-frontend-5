@@ -13,7 +13,6 @@ interface Props extends InputProps {
   formatChars?: {
     [key: string]: string;
   };
-  maskChar?: string;
 }
 
 const Input: React.FC<Props> = ({

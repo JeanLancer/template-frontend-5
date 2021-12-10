@@ -1,37 +1,11 @@
 import React, { createContext, useContext } from 'react';
-import { extendTheme, FlexProps } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 import getConfig from 'next/config';
-
-export interface Style extends FlexProps {
-  focusBorderColor?: string;
-  size?: string;
-  src?: string;
-}
-
-export interface HeaderStyles {
-  contactBar: Style;
-  mainBar: Style;
-  logo: any;
-  searchBar: Style;
-  secondBar: Style;
-  categoryBar: Style;
-  categoryMenu: Style;
-  dropDownCities: Style;
-}
-
-export interface FooterStyles {
-  copyrightBar: Style;
-}
-
-interface LayoutStyles {
-  header: HeaderStyles;
-  footer: FooterStyles;
-}
 
 interface ContextData {
   globals: any;
   theme: any;
-  layoutStyles: LayoutStyles;
+  layoutStyles: any;
 }
 
 const LayoutContext = createContext({} as ContextData);
@@ -50,7 +24,8 @@ const LayoutProvider: React.FC = ({ children }) => {
     },
     colors: {
       brand: {
-        100: publicRuntimeConfig.PRIMARY_COLOR,
+        100:
+          publicRuntimeConfig.ACTIVE_MENU || publicRuntimeConfig.PRIMARY_COLOR,
         200: publicRuntimeConfig.SECOND_COLOR,
         300: publicRuntimeConfig.THIRD_COLOR
       },
@@ -62,7 +37,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         500: '#ebebeb'
       },
       red: {
-        500: '#FF224B'
+        500: publicRuntimeConfig.ACTIVE_MENU
       },
       green: {
         500: '#09B662'
@@ -73,22 +48,24 @@ const LayoutProvider: React.FC = ({ children }) => {
     }
   });
 
-  const layoutStyles: LayoutStyles = {
+  const layoutStyles: any = {
     header: {
       contactBar: {
         display: ['none', 'none', 'flex'],
-        backgroundColor: 'gray.500',
+        backgroundColor: publicRuntimeConfig.BACKGROUND_INFO || 'gray.500',
         height: '24px',
         justifyContent: 'space-between',
         px: globals.paddingX,
-        fontSize: ['11px', '12px'],
-        color: 'brand.300',
+        fontSize: ['11px', ' 12px'],
+        color: publicRuntimeConfig.DETAILS_INFO || 'brand.300',
         alignItems: 'center'
       },
 
       mainBar: {
-        backgroundColor: 'white',
-        color: '8px',
+        backgroundColor: publicRuntimeConfig.BACKGROUND_HEADER || 'white',
+        color:
+          publicRuntimeConfig.DETAILS_HEADER ||
+          publicRuntimeConfig.PRIMARY_COLOR,
         py: ['8px', '16px'],
         px: globals.paddingX,
         alignItems: 'center',
@@ -116,28 +93,32 @@ const LayoutProvider: React.FC = ({ children }) => {
       secondBar: {
         display: ['none', 'none', 'flex'],
         justifyContent: 'space-between',
-        backgroundColor: 'gray.500',
-        height: '40px',
+        backgroundColor: publicRuntimeConfig.BACKGROUND_MENU || 'gray.500',
+        height: '64px',
         px: globals.paddingX
       },
 
       categoryBar: {
-        color: '8px',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        color: publicRuntimeConfig.DETAILS_MENU || 'gray.800'
       },
 
       dropDownCities: {
         px: '16px',
         height: '100%',
-        backgroundColor: 'brand.100',
+        backgroundColor:
+          publicRuntimeConfig.ACTIVE_MENU || publicRuntimeConfig.PRIMARY_COLOR,
         color: 'white',
         whiteSpace: 'nowrap',
         alignItems: 'center',
         justifyContent: 'space-between'
-      },
+      }
+    },
 
-      categoryMenu: {
-        color: 'brand.300'
+    productCard: {
+      button: {
+        backgroundColor: publicRuntimeConfig.BACKGROUND_BUY || 'green.500',
+        color: publicRuntimeConfig.DETAILS_BUY || 'white'
       }
     },
 

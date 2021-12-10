@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Text, Flex, Heading, Icon } from '@chakra-ui/react';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { FiMinus, FiPlus } from 'react-icons/fi';
+import { AiOutlineColumnHeight, AiOutlineColumnWidth } from 'react-icons/ai';
 import Head from 'next/head';
+import { BiChevronRight } from 'react-icons/bi';
 import apiGateway from '../../shared/services/apiGateway';
 import NumberUtils from '../../shared/utils/NumberUtils';
 import { useLayout } from '../../shared/contexts/LayoutContext';
@@ -42,6 +44,17 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
   const { addToCart, removeToCart, hasOnCart } = useCart();
 
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const goToDescription = useCallback(() => {
+    const divRef: any = document.getElementById('description');
+
+    if (divRef) {
+      window.scrollTo({
+        top: divRef.getBoundingClientRect().top,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
 
   useEffect(() => {
     setSelectedImage(product.url_web);
@@ -127,6 +140,9 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
             flexDirection="column"
             px={['0px', '0px', '24px']}
             mt={['24px', '24px', '0px']}
+            border="2px solid"
+            borderColor="gray.200"
+            py="24px"
           >
             <Heading
               as="h1"
@@ -141,7 +157,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               whiteSpace="pre-wrap"
               fontSize="14px"
               lineHeight="18px"
-              mt="16px"
+              mt="8px"
               color="brand.300"
             >
               {`Código: ${product.code_sku}`}
@@ -154,78 +170,105 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               mt="48px"
               color="brand.300"
             >
-              {product.description}
+              {`${String(product.description || '').substring(0, 144)}...`}
             </Text>
+
+            <Flex
+              mt="16px"
+              justifyContent="flex-end"
+              borderBottom="2px solid"
+              borderColor="gray.200"
+              alignItems="center"
+              fontWeight="500"
+              color="brand.100"
+            >
+              <Text
+                whiteSpace="pre-wrap"
+                fontSize="14px"
+                lineHeight="18px"
+                cursor="pointer"
+                onClick={() => goToDescription()}
+              >
+                ver descrição completa
+              </Text>
+
+              <Icon as={BiChevronRight} />
+            </Flex>
+
+            {product?.height && product?.weight && (
+              <Flex width="100%" alignItems="center" my="24px">
+                <Text fontWeight="500" mr="16px">
+                  Medidas
+                </Text>
+
+                <Flex flexDirection="column" alignItems="center" mr="24px">
+                  <Icon as={AiOutlineColumnHeight} fontSize="32px" />
+                  <Text fontSize="12px">{product?.height || '12cm'}</Text>
+                </Flex>
+
+                <Flex flexDirection="column" alignItems="center">
+                  <Icon as={AiOutlineColumnWidth} fontSize="32px" />
+                  <Text fontSize="12px">{product?.width || '12cm'}</Text>
+                </Flex>
+              </Flex>
+            )}
+
+            <Flex
+              border="2px solid"
+              borderColor="gray.200"
+              backgroundColor="gray.100"
+              fontSize="14px"
+              px="8px"
+              py="4px"
+            >
+              <Text flexWrap="nowrap">
+                <Text fontWeight="500">Sobre a Entrega:</Text>
+                Todos os produtos disponíveis no site seram entregues em um
+                prazo de 2 a 3 horas, não trabalhamos com horário marcado, seu
+                produto irá ser produzido e entregue com todo o cuidado dentro
+                do prazo.
+              </Text>
+            </Flex>
 
             <Flex width="100%" mt="48px" flexDirection="column">
               <Flex>
                 {!product.is_promotional && (
-                  <Flex>
-                    <Text color="brand.800" fontSize="18px">
+                  <Flex alignItems="center">
+                    <Text color="brand.800" fontSize="18px" mr="8px">
                       {NumberUtils.toCurrency(product.price_sale * quantity)}
+                    </Text>
+
+                    <Text fontSize="12px" fontWeight="400">
+                      Em até 3x sem juros
                     </Text>
                   </Flex>
                 )}
 
                 {product.is_promotional && (
-                  <Flex flexDirection="column">
+                  <Flex flexDirection="column" fontWeight="500">
                     <Text
                       textDecoration="line-through"
-                      color="gray.500"
+                      color="gray.800"
                       fontSize="16px"
                     >
                       {`De ${NumberUtils.toCurrency(
                         product.price_sale * quantity
                       )}`}
                     </Text>
-                    <Text color="gray.800" fontSize="20px">
-                      {`Por Apenas ${NumberUtils.toCurrency(
-                        product.price_promotional * quantity
-                      )}`}
-                    </Text>
+                    <Flex alignItems="center">
+                      <Text color="gray.800" fontSize="18px" mr="8px">
+                        {`Por Apenas ${NumberUtils.toCurrency(
+                          product.price_promotional * quantity
+                        )}`}
+                      </Text>
+
+                      <Text fontSize="12px" fontWeight="400">
+                        Em até 3x sem juros
+                      </Text>
+                    </Flex>
                   </Flex>
                 )}
               </Flex>
-
-              {true && (
-                <Flex mt="8px" fontSize="14px" alignItems="center">
-                  <Flex
-                    width="24px"
-                    height="24px"
-                    backgroundColor="green.500"
-                    borderRadius="2px"
-                    alignItems="center"
-                    justifyContent="center"
-                    color="white"
-                    cursor="pointer"
-                    onClick={() =>
-                      setQuantity(oldState =>
-                        oldState !== 1 ? oldState - 1 : 1
-                      )
-                    }
-                  >
-                    <Icon as={FiMinus} />
-                  </Flex>
-
-                  <Text mx="14px" fontSize="14px">
-                    {quantity}
-                  </Text>
-
-                  <Flex
-                    width="24px"
-                    height="24px"
-                    backgroundColor="green.500"
-                    borderRadius="2px"
-                    alignItems="center"
-                    justifyContent="center"
-                    color="white"
-                    cursor="pointer"
-                    onClick={() => setQuantity(oldState => oldState + 1)}
-                  >
-                    <Icon as={FiPlus} />
-                  </Flex>
-                </Flex>
-              )}
             </Flex>
 
             <Flex
@@ -233,67 +276,104 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               mt="24px"
               fontSize={['10px', '11px', '11px', '12px']}
               textTransform="uppercase"
-              whiteSpace="nowrap"
             >
-              {true && (
-                <>
-                  {!hasOnCart(product) && (
-                    <Flex
-                      width="208px"
-                      py="6px"
-                      backgroundColor="white"
-                      borderRadius="2px"
-                      color="green.500"
-                      fontWeight="500"
-                      justifyContent="center"
-                      mr="8px"
-                      border="2px solid"
-                      borderColor="green.500"
-                      cursor="pointer"
-                      onClick={() => addToCart(product, quantity)}
-                    >
-                      <Text>Adicionar no carrinho</Text>
-                    </Flex>
-                  )}
+              <Flex fontSize="14px" alignItems="center" mr="16px">
+                <Flex
+                  width="32px"
+                  height="32px"
+                  backgroundColor="green.500"
+                  borderRadius="2px"
+                  alignItems="center"
+                  justifyContent="center"
+                  color="white"
+                  cursor="pointer"
+                  onClick={() =>
+                    setQuantity(oldState => (oldState !== 1 ? oldState - 1 : 1))
+                  }
+                >
+                  <Icon as={FiMinus} />
+                </Flex>
 
-                  {hasOnCart(product) && (
-                    <Flex
-                      width="208px"
-                      py="6px"
-                      backgroundColor="red.500"
-                      borderRadius="2px"
-                      color="white"
-                      fontWeight="500"
-                      justifyContent="center"
-                      mr="8px"
-                      border="2px solid"
-                      borderColor="red.500"
-                      cursor="pointer"
-                      onClick={() => removeToCart(product)}
-                    >
-                      <Text>Remover do Carrinho</Text>
-                    </Flex>
-                  )}
+                <Text mx="16px" fontSize="24px">
+                  {quantity}
+                </Text>
 
-                  <Flex
-                    width="208px"
-                    py="8px"
-                    backgroundColor="green.500"
-                    borderRadius="2px"
-                    color="white"
-                    fontWeight="500"
-                    justifyContent="center"
-                    cursor="pointer"
-                    onClick={() =>
-                      addToCart(product, quantity, {
-                        redirect: true
-                      })
-                    }
-                  >
-                    <Text>Comprar Agora</Text>
-                  </Flex>
-                </>
+                <Flex
+                  width="32px"
+                  height="32px"
+                  backgroundColor="green.500"
+                  borderRadius="2px"
+                  alignItems="center"
+                  justifyContent="center"
+                  color="white"
+                  cursor="pointer"
+                  onClick={() => setQuantity(oldState => oldState + 1)}
+                >
+                  <Icon as={FiPlus} />
+                </Flex>
+              </Flex>
+
+              {!hasOnCart(product) && (
+                <Flex
+                  width="208px"
+                  py="6px"
+                  px="4px"
+                  backgroundColor="white"
+                  borderRadius="2px"
+                  color="brand.100"
+                  fontWeight="500"
+                  justifyContent="center"
+                  mr="8px"
+                  border="2px solid"
+                  borderColor="brand.100"
+                  cursor="pointer"
+                  onClick={() => addToCart(product, quantity)}
+                  alignItems="center"
+                >
+                  <Text>Adicionar no carrinho</Text>
+                </Flex>
               )}
+
+              {hasOnCart(product) && (
+                <Flex
+                  width="208px"
+                  py="6px"
+                  px="4px"
+                  backgroundColor="red.500"
+                  borderRadius="2px"
+                  color="white"
+                  fontWeight="500"
+                  justifyContent="center"
+                  mr="8px"
+                  border="2px solid"
+                  borderColor="red.500"
+                  cursor="pointer"
+                  onClick={() => removeToCart(product)}
+                  alignItems="center"
+                >
+                  <Text>Remover do Carrinho</Text>
+                </Flex>
+              )}
+
+              <Flex
+                width="208px"
+                py="8px"
+                px="4px"
+                backgroundColor="brand.100"
+                borderRadius="2px"
+                color="white"
+                fontWeight="500"
+                justifyContent="center"
+                cursor="pointer"
+                onClick={() =>
+                  addToCart(product, quantity, {
+                    redirect: true
+                  })
+                }
+                alignItems="center"
+              >
+                <Text>Comprar Agora</Text>
+              </Flex>
 
               {product.is_enable === false && (
                 <Flex
@@ -311,6 +391,18 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               )}
             </Flex>
           </Flex>
+        </Flex>
+
+        <Flex id="description" width="100%" mt="24px" mb="24px">
+          <Text
+            whiteSpace="pre-wrap"
+            fontSize="16px"
+            lineHeight="18px"
+            mt="48px"
+            color="brand.300"
+          >
+            {product.description}
+          </Text>
         </Flex>
 
         <Flex width="100%" mt="24px">

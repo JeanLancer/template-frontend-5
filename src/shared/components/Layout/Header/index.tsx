@@ -6,7 +6,6 @@ import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { HeaderStyles } from '../../../contexts/LayoutContext';
 import ButtonsBar from './ButtonsBar';
 import CategoryBar from './CategoryBar';
 import DropDownCities from './DropDownCities';
@@ -21,7 +20,7 @@ const MobileMenu = dynamic<MobileMenuProps>((): any => {
 });
 
 interface HeaderProps {
-  styles: HeaderStyles;
+  styles: any;
 }
 
 const Header: React.FC<HeaderProps> = ({ styles }) => {
@@ -102,7 +101,6 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               <Link href="/acompanhar-meu-pedido">
                 <Text
                   fontSize="10px"
-                  color="brand.100"
                   textTransform="uppercase"
                   fontWeight="500"
                   cursor="pointer"

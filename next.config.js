@@ -9,6 +9,7 @@ module.exports = withImages({
       'www.wsuite.com.br'
     ]
   },
+
   publicRuntimeConfig: {
     STORE_KEY: process.env.STORE_KEY,
     STORE_NAME: process.env.STORE_NAME,
@@ -53,8 +54,19 @@ module.exports = withImages({
     THIRD_COLOR: process.env.THIRD_COLOR,
     WHITE_COLOR: process.env.WHITE_COLOR,
 
-    SHOW_SPECIAL: process.env.SHOW_SPECIAL
+    SHOW_SPECIAL: process.env.SHOW_SPECIAL,
+
+    BACKGROUND_INFO: process.env.BACKGROUND_INFO,
+    DETAILS_INFO: process.env.DETAILS_INFO,
+    BACKGROUND_HEADER: process.env.BACKGROUND_HEADER,
+    DETAILS_HEADER: process.env.DETAILS_HEADER,
+    BACKGROUND_MENU: process.env.BACKGROUND_MENU,
+    DETAILS_MENU: process.env.DETAILS_MENU,
+    ACTIVE_MENU: process.env.ACTIVE_MENU,
+    BACKGROUND_BUY: process.env.BACKGROUND_BUY,
+    DETAILS_BUY: process.env.DETAILS_BUY,
   },
+
   distDir: process.env.BUILD_DIR || '.next',
   webpack: config => {
     return config;

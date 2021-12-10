@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import ProductPrices from './ProductPrices';
 import ProductImageLoader from './ProductImageLoader';
+import { useLayout } from '../../contexts/LayoutContext';
 
 interface ProductDTO {
   id: string;
@@ -25,6 +26,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  const { layoutStyles } = useLayout();
 
   const variants: Variants = {
     loaded: {
@@ -125,15 +128,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <Link href={`/${product.slug}`}>
             <Flex
-              backgroundColor="red.500"
-              color="white"
+              backgroundColor={layoutStyles.productCard.button.backgroundColor}
+              color={layoutStyles.productCard.button.color}
               alignItems="center"
               px="8px"
               py="8px"
               cursor="pointer"
               borderRadius="2px"
             >
-              <Text fontSize="12px" fontWeight="500" mr="8px">
+              <Text fontSize="12px" fontWeight="500" mr="8px" color="white">
                 COMPRAR
               </Text>
 

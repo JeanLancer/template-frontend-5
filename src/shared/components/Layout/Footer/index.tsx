@@ -5,7 +5,7 @@ import { Flex, Text, Icon } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiMapPin } from 'react-icons/fi';
-import { FooterStyles, useLayout } from '../../../contexts/LayoutContext';
+import { useLayout } from '../../../contexts/LayoutContext';
 import config from '../../../config';
 
 import eflorista from '../../../../assets/images/logo-eflorista.png';
@@ -13,11 +13,7 @@ import siteseguro from '../../../../assets/images/siteseguro.png';
 import paymentMethods from '../../../../assets/images/payment-methods.png';
 import { useData } from '../../../hooks/data';
 
-interface FooterProps {
-  styles: FooterStyles;
-}
-
-const Footer: React.FC<FooterProps> = ({ styles }) => {
+const Footer: React.FC<any> = ({ styles }) => {
   const { backgroundColor, ...rest } = styles.copyrightBar;
   const data = useData();
   const { globals } = useLayout();
@@ -80,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ styles }) => {
 
             <Flex width="100%" flexDirection="column" fontSize="12px">
               <Link key="Acompanhar meu pedido" href="/acompanhar-meu-pedido">
-                <Text height="24px">Acompanhar meu Pedido</Text>
+                <Text>Acompanhar meu Pedido</Text>
               </Link>
 
               {data.pages?.map(page => (

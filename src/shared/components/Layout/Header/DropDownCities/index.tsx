@@ -3,12 +3,10 @@ import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 
-import { Style } from '../../../../contexts/LayoutContext';
-
 import config from '../../../../config/index';
 
 interface DropDownCitiesStyle {
-  style: Style;
+  style: any;
 }
 
 const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
@@ -39,7 +37,7 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
           backgroundColor="white"
           flexDirection="column"
           position="absolute"
-          top="40px"
+          top="64px"
           fontSize="12px"
           textTransform="uppercase"
           fontWeight="500"

@@ -18,15 +18,8 @@ const ButtonsBar: React.FC<ButtonsBarProps> = ({
   const { cartData } = useCart();
 
   return (
-    <Stack
-      direction="row"
-      fontSize="24px"
-      color="gray.500"
-      alignItems="center"
-      ml="24px"
-    >
+    <Stack direction="row" fontSize="24px" alignItems="center" ml="24px">
       <Icon
-        color="brand.100"
         as={isOpen ? FiX : FiMenu}
         mr="4px"
         display={['block', 'block', 'none']}
@@ -35,7 +28,7 @@ const ButtonsBar: React.FC<ButtonsBarProps> = ({
 
       <Link href="/checkout">
         <Box position="relative" cursor="pointer">
-          <Icon color="brand.100" as={BiCartAlt} />
+          <Icon as={BiCartAlt} />
 
           {cartData.itens.length > 0 && (
             <Flex

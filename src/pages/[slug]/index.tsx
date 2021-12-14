@@ -12,6 +12,7 @@ import { useLayout } from '../../shared/contexts/LayoutContext';
 import { useCart } from '../../shared/hooks/cart';
 import config from '../../shared/config/index';
 import ComplementsList from '../../shared/components/ComplementsList';
+import { HTTP_RESPONSE } from '../../shared/constants';
 
 interface ProductDetailsPageProps {
   product: any;
@@ -45,6 +46,8 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [deliveryMessage, setDeliveryMessage] = useState('');
+
   const goToDescription = useCallback(() => {
     const divRef: any = document.getElementById('description');
 
@@ -58,6 +61,14 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
   useEffect(() => {
     setSelectedImage(product.url_web);
+
+    apiGateway.get('/checkout/schedule_setting').then(response => {
+      if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+        const { delivery_message } = response.data;
+
+        setDeliveryMessage(delivery_message);
+      }
+    });
   }, [product]);
 
   return (
@@ -195,7 +206,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               <Icon as={BiChevronRight} />
             </Flex>
 
-            {product?.height && product?.weight && (
+            {product?.height && product?.width && (
               <Flex width="100%" alignItems="center" my="24px">
                 <Text fontWeight="500" mr="16px">
                   Medidas
@@ -203,32 +214,31 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
                 <Flex flexDirection="column" alignItems="center" mr="24px">
                   <Icon as={AiOutlineColumnHeight} fontSize="32px" />
-                  <Text fontSize="12px">{product?.height || '12cm'}</Text>
+                  <Text fontSize="12px">{`${product?.height}cm`}</Text>
                 </Flex>
 
                 <Flex flexDirection="column" alignItems="center">
                   <Icon as={AiOutlineColumnWidth} fontSize="32px" />
-                  <Text fontSize="12px">{product?.width || '12cm'}</Text>
+                  <Text fontSize="12px">{`${product?.width}cm`}</Text>
                 </Flex>
               </Flex>
             )}
 
-            <Flex
-              border="2px solid"
-              borderColor="gray.200"
-              backgroundColor="gray.100"
-              fontSize="14px"
-              px="8px"
-              py="4px"
-            >
-              <Text flexWrap="nowrap">
-                <Text fontWeight="500">Sobre a Entrega:</Text>
-                Todos os produtos disponíveis no site seram entregues em um
-                prazo de 2 a 3 horas, não trabalhamos com horário marcado, seu
-                produto irá ser produzido e entregue com todo o cuidado dentro
-                do prazo.
-              </Text>
-            </Flex>
+            {deliveryMessage && (
+              <Flex
+                border="2px solid"
+                borderColor="gray.200"
+                backgroundColor="gray.100"
+                fontSize="14px"
+                px="8px"
+                py="4px"
+              >
+                <Text flexWrap="nowrap">
+                  <Text fontWeight="500">Sobre a Entrega:</Text>
+                  {deliveryMessage}
+                </Text>
+              </Flex>
+            )}
 
             <Flex width="100%" mt="48px" flexDirection="column">
               <Flex>

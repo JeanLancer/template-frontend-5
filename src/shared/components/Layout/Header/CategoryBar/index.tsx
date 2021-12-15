@@ -103,6 +103,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
                 mb="4px"
                 _last={{ mb: '0px' }}
                 flexDirection="column"
+                color="gray.800"
                 _hover={{
                   backgroundColor: 'brand.100',
                   color: 'white'

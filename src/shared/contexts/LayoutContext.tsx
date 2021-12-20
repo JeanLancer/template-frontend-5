@@ -58,6 +58,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         px: globals.paddingX,
         fontSize: ['11px', ' 12px'],
         color: publicRuntimeConfig.DETAILS_INFO || 'brand.300',
+        color2: publicRuntimeConfig.DETAILS_INFO_2 || 'brand.300',
         alignItems: 'center'
       },
 
@@ -118,7 +119,8 @@ const LayoutProvider: React.FC = ({ children }) => {
     productCard: {
       button: {
         backgroundColor: publicRuntimeConfig.BACKGROUND_BUY || 'green.500',
-        color: publicRuntimeConfig.DETAILS_BUY || 'white'
+        color: publicRuntimeConfig.DETAILS_BUY || 'white',
+        color2: publicRuntimeConfig.DETAILS_BUY_2 || 'white'
       }
     },
 

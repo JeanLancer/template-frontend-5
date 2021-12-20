@@ -140,7 +140,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 COMPRAR
               </Text>
 
-              <Icon as={BiCartAlt} fontSize="18px" />
+              <Icon
+                as={BiCartAlt}
+                fontSize="18px"
+                color={layoutStyles.productCard.button.color2}
+              />
             </Flex>
           </Link>
         </Flex>

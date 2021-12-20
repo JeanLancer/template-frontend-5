@@ -58,6 +58,7 @@ module.exports = withImages({
 
     BACKGROUND_INFO: process.env.BACKGROUND_INFO,
     DETAILS_INFO: process.env.DETAILS_INFO,
+    DETAILS_INFO_2: process.env.DETAILS_INFO_2,
     BACKGROUND_HEADER: process.env.BACKGROUND_HEADER,
     DETAILS_HEADER: process.env.DETAILS_HEADER,
     BACKGROUND_MENU: process.env.BACKGROUND_MENU,
@@ -65,6 +66,7 @@ module.exports = withImages({
     ACTIVE_MENU: process.env.ACTIVE_MENU,
     BACKGROUND_BUY: process.env.BACKGROUND_BUY,
     DETAILS_BUY: process.env.DETAILS_BUY,
+    DETAILS_BUY_2: process.env.DETAILS_BUY_2,
   },
 
   distDir: process.env.BUILD_DIR || '.next',

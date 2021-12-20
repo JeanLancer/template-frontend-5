@@ -157,3 +157,4 @@ export default memo(ProductCard, (prevProps, nextProps) => {
   return Object.is(prevProps.product, nextProps.product);
 });
 // #
+//

@@ -59,6 +59,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         fontSize: ['11px', ' 12px'],
         color: publicRuntimeConfig.DETAILS_INFO || 'brand.300',
         color2: publicRuntimeConfig.DETAILS_INFO_2 || 'brand.300',
+        color3: publicRuntimeConfig.DETAILS_INFO_3 || 'brand.300',
         alignItems: 'center'
       },
 

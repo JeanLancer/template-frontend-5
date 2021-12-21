@@ -59,6 +59,7 @@ module.exports = withImages({
     BACKGROUND_INFO: process.env.BACKGROUND_INFO,
     DETAILS_INFO: process.env.DETAILS_INFO,
     DETAILS_INFO_2: process.env.DETAILS_INFO_2,
+    DETAILS_INFO_3: process.env.DETAILS_INFO_3,
     BACKGROUND_HEADER: process.env.BACKGROUND_HEADER,
     DETAILS_HEADER: process.env.DETAILS_HEADER,
     BACKGROUND_MENU: process.env.BACKGROUND_MENU,

@@ -48,7 +48,9 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
             <Flex>
               <Flex alignItems="center" mr="24px">
                 <Icon as={FaPhone} mr="8px" color={styles.contactBar.color2} />
-                <Text>{data.general_settings?.telephone}</Text>
+                <Text color={styles.contactBar.color3}>
+                  {data.general_settings?.telephone}
+                </Text>
               </Flex>
 
               <Flex
@@ -69,7 +71,9 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
                   mr="8px"
                   color={styles.contactBar.color2}
                 />
-                <Text>{data.general_settings?.whatsapp}</Text>
+                <Text color={styles.contactBar.color3}>
+                  {data.general_settings?.whatsapp}
+                </Text>
               </Flex>
             </Flex>
           </Flex>

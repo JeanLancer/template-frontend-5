@@ -8,6 +8,7 @@ import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 import Dropzone from 'react-dropzone';
 import { FiAlertTriangle, FiCheck } from 'react-icons/fi';
 import { BiCloudUpload } from 'react-icons/bi';
+import axios from 'axios';
 import imgObrigado from '../../../assets/images/tela-obrigado.png';
 import config from '../../../shared/config/index';
 import { useLayout } from '../../../shared/contexts/LayoutContext';
@@ -18,6 +19,7 @@ import NumberUtils from '../../../shared/utils/NumberUtils';
 interface CheckoutLastPageProps {
   order: any;
   payment: any;
+  picpayData?: any;
 }
 
 export const getServerSideProps: GetServerSideProps = async (
@@ -27,10 +29,45 @@ export const getServerSideProps: GetServerSideProps = async (
     `/orders/details/${ctx.params?.code}`
   );
 
-  return { props: { order: response.data } };
+  const order = response.data;
+
+  let picpayData = null;
+  if (order.payment_method.type === 'PICPAY') {
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 1);
+
+    const responsePicpay = await axios.post(
+      'https://appws.picpay.com/ecommerce/public/payments',
+      {
+        referenceId: `${order.code} - ${Date.now()}`,
+        callbackUrl: 'http://localhost/mockVtexPostCallback/?httpStatus=200',
+        expiresAt,
+        returnUrl: 'http://www.picpay.com/#transacaoConcluida',
+        value: order.total_value,
+        additionalInfo: [null],
+        buyer: {
+          firstName: order.buyer.name.split(' ')[0],
+          lastName: order.buyer.name.split(' ')[1],
+          document: order.buyer.document
+        }
+      },
+      {
+        headers: {
+          'x-picpay-token': '850ec79a-eb64-4e7d-8fb2-68bbbfeb1bb1'
+        }
+      }
+    );
+
+    picpayData = responsePicpay.data;
+  }
+
+  return { props: { order, picpayData } };
 };
 
-const CheckoutLastPage: NextPage<CheckoutLastPageProps> = ({ order }) => {
+const CheckoutLastPage: NextPage<CheckoutLastPageProps> = ({
+  order,
+  picpayData
+}) => {
   const { globals } = useLayout();
 
   const toast = useToast();
@@ -163,6 +200,39 @@ const CheckoutLastPage: NextPage<CheckoutLastPageProps> = ({ order }) => {
             <Text mr="8px">Número do seu Pedido:</Text>
             <Text color="green.500">{order.code}</Text>
           </Flex>
+
+          {order.payment_method.type === 'PICPAY' && (
+            <Flex
+              mt="48px"
+              flexDirection="column"
+              width="100%"
+              maxWidth="600px"
+              textAlign="center"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text color="green.500" fontSize="18px" fontWeight="500">
+                Escaneie seu QR Code Picpay
+              </Text>
+
+              <Flex width="200px" height="200px">
+                <Image src={picpayData.qrcode.base64} />
+              </Flex>
+
+              <Flex
+                mt="16px"
+                width="100%"
+                fontSize="16px"
+                justifyContent="center"
+                textTransform="uppercase"
+              >
+                <Text>Valor a ser pago: </Text>
+                <Text ml="8px" color="black">
+                  {NumberUtils.toCurrency(order.total_value)}
+                </Text>
+              </Flex>
+            </Flex>
+          )}
 
           {order.payment_method.type === 'DEPOSIT' && (
             <Flex

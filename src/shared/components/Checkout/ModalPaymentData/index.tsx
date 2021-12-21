@@ -97,7 +97,7 @@ interface ICheckoutSubmitData {
   neighborhood_id: string;
 }
 
-type PaymentMethod = 'CREDITCARD' | 'DEPOSIT' | 'PAY_IN_STORE';
+type PaymentMethod = 'CREDITCARD' | 'DEPOSIT' | 'PAY_IN_STORE' | 'PICPAY';
 
 interface SetupCheckout {
   paymentMethods: any[];
@@ -108,7 +108,8 @@ const paymentMethodName: any = {
   'Cartão de Crédito': 'Cartão de Crédito',
   Depósito: 'Transferência/Pix',
   'Depósito/Pix': 'Transferência/Pix',
-  'Direto na Loja': 'Direto na Loja'
+  'Direto na Loja': 'Direto na Loja',
+  PicPay: 'Pagar com PicPay'
 };
 
 const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
@@ -181,9 +182,10 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
             last_name: Yup.string().required('Sobrenome não informado'),
             document: Yup.string().when(
               'payment_method_type',
-              (_payment_method_type: boolean, newSchema: any) => {
+              (payment_method_type: any, newSchema: any) => {
                 if (
-                  paymentSettings.platform.name === 'Pagarme' ||
+                  (payment_method_type === 'CREDITCARD' &&
+                    paymentSettings.platform?.name === 'Pagarme') ||
                   isExteriorLocation === false
                 ) {
                   return newSchema.required('CPF não informado');
@@ -311,7 +313,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
             num_installments:
               paymentMethod === 'CREDITCARD' ? data.num_installments : 1,
             store_name: config.STORE.NAME,
-            platform_name: paymentSettings.platform.name,
+            platform_name: paymentSettings?.platform?.name || paymentMethod,
             neighborhood_id: cartForm.neighborhoodId
           };
 

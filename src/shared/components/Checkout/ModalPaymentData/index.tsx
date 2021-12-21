@@ -108,7 +108,7 @@ const paymentMethodName: any = {
   'Cartão de Crédito': 'Cartão de Crédito',
   Depósito: 'Transferência/Pix',
   'Depósito/Pix': 'Transferência/Pix',
-  'Retirada na Loja': 'Retirada na Loja'
+  'Direto na Loja': 'Direto na Loja'
 };
 
 const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({

@@ -339,19 +339,6 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
 
                       <Flex
                         width="100%"
-                        border="2px solid"
-                        borderColor="yellow.500"
-                        backgroundColor="yellow.100"
-                        px="16px"
-                        py="8px"
-                      >
-                        <Text fontSize="14px">
-                          Prazo médio de entrega de 2 a 3 horas.
-                        </Text>
-                      </Flex>
-
-                      <Flex
-                        width="100%"
                         backgroundColor="green.500"
                         fontSize="12px"
                         justifyContent="center"

@@ -111,6 +111,7 @@ const paymentMethodName: any = {
   'Direto na Loja': 'Direto na Loja',
   PicPay: 'Pagar com PicPay'
 };
+//
 
 const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
   isOpen,

@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (
       'https://appws.picpay.com/ecommerce/public/payments',
       {
         referenceId: `${order.code} - ${Date.now()}`,
-        callbackUrl: 'http://localhost/mockVtexPostCallback/?httpStatus=200',
+        callbackUrl: `https://master.wsuite.com.br/api/v1/orders/payment_status?status=APROVADO&store_id=3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3&order_code=${order.code}`,
         expiresAt,
         returnUrl: 'http://www.picpay.com/#transacaoConcluida',
         value: order.total_value,
@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (
       },
       {
         headers: {
-          'x-picpay-token': '850ec79a-eb64-4e7d-8fb2-68bbbfeb1bb1'
+          'x-picpay-token': 'a8afcc80-d747-474c-84ba-0201a29f1a9e'
         }
       }
     );

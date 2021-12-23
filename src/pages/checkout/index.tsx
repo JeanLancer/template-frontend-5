@@ -109,6 +109,10 @@ const CheckoutPage: React.FC = () => {
         {config.PAYMENT.PLATFORM === 'Iugu' && (
           <script type="text/javascript" src="https://js.iugu.com/v2" />
         )}
+
+        {config.PAYMENT.PLATFORM === 'Pagseguro' && (
+          <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js" />
+        )}
       </Head>
       <Flex
         width="100%"

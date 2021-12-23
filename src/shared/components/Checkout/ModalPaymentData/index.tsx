@@ -385,6 +385,23 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                   resolve(dataSubmitData);
                 });
               });
+            } else if (config.PAYMENT.PLATFORM === 'Pagseguro') {
+              const card = (window as any).PagSeguro.encryptCard({
+                publicKey: config.PAYMENT.KEY,
+                holder: data.card_name,
+                number: data.card_number.replace(/\D/g, ''),
+                expMonth: expirationCardDate[0],
+                expYear: `20${expirationCardDate[1]}`,
+                securityCode: data.card_code
+              });
+
+              if (card.hasError === false) {
+                dataSubmitData.payment_token = '';
+              } else {
+                dataSubmitData.payment_token = card.encryptedCard;
+              }
+
+              console.log('pagseguro card: ', card);
             }
           }
 

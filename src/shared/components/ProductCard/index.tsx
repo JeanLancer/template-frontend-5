@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <Flex
-      width={['100%', '50%', '50%', '25%']}
+      width={['100%', '50%', '50%', '33%', '25%']}
       flexDirection="column"
       alignItems="center"
       px="8px"

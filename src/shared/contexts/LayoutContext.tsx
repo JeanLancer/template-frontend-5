@@ -1,5 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { extendTheme } from '@chakra-ui/react';
+import { createBreakpoints } from '@chakra-ui/theme-tools';
+
 import getConfig from 'next/config';
 
 interface ContextData {
@@ -17,7 +19,16 @@ const LayoutProvider: React.FC = ({ children }) => {
 
   const { publicRuntimeConfig } = getConfig();
 
+  const breakpoints = createBreakpoints({
+    sm: '464px',
+    md: '768px',
+    lg: '960px',
+    xl: '1200px',
+    '2xl': '1536px'
+  });
+
   const theme = extendTheme({
+    breakpoints,
     fonts: {
       heading: 'CentraNube',
       body: 'CentraNube'

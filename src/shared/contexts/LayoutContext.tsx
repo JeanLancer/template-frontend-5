@@ -20,7 +20,7 @@ const LayoutProvider: React.FC = ({ children }) => {
   const { publicRuntimeConfig } = getConfig();
 
   const breakpoints = createBreakpoints({
-    sm: '464px',
+    sm: '360px',
     md: '768px',
     lg: '960px',
     xl: '1200px',

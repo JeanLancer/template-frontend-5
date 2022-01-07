@@ -123,6 +123,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           alignItems="center"
           justifyContent="space-between"
           mt="auto"
+          flexDirection={['row', 'column', 'row']}
         >
           <ProductPrices
             isPromotional={product.is_promotional}
@@ -132,6 +133,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <Link href={`/${product.slug}`}>
             <Flex
+              mt="16px"
               backgroundColor={layoutStyles.productCard.button.backgroundColor}
               color={layoutStyles.productCard.button.color}
               alignItems="center"

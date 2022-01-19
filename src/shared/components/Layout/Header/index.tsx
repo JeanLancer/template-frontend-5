@@ -14,6 +14,7 @@ import SearchBar from './SearchBar';
 import { MobileMenuProps } from './MobileMenu';
 import config from '../../../config/index';
 import { useData } from '../../../hooks/data';
+import Info from './Info';
 
 const MobileMenu = dynamic<MobileMenuProps>((): any => {
   return import('./MobileMenu');
@@ -43,7 +44,9 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           justifyContent="center"
         >
           <Flex width="100%" maxWidth="1200px" {...styles.contactBar}>
-            <Text>{config.HEADER_TEXT}</Text>
+            <Text>
+              <Info />
+            </Text>
 
             <Flex>
               <Flex alignItems="center" mr="24px">

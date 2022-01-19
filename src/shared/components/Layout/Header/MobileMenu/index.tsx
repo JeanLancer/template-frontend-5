@@ -7,7 +7,7 @@ import { useRouter } from 'next/dist/client/router';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 import ArrowBox from '../../../ArrowBox';
 import { useData } from '../../../../hooks/data';
-import config from '../../../../config/index';
+import Info from '../Info';
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -130,7 +130,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
             px="16px"
             boxShadow="0 1px 3px rgba(0,0,0,0.12)"
           >
-            <Text width="50%">{config.HEADER_TEXT}</Text>
+            <Text width="50%">
+              <Info />
+            </Text>
             <Flex
               fontSize="12px"
               width="50%"

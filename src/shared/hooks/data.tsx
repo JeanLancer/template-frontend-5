@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import apiGateway from '../services/apiGateway';
+import { HTTP_RESPONSE } from '../constants';
+import apiGateway, { apiEflorista } from '../services/apiGateway';
 
 interface Options {
   show_document: boolean;
@@ -17,6 +18,11 @@ interface Page {
 }
 
 interface StoreConfigContextData {
+  info: {
+    days_of_service: 'MON_FRY' | 'MON_SAT' | 'MON_SUN';
+    weekday_hours: string;
+    weekend_hour: string;
+  };
   general_settings: {
     store_name: string;
     document: string;
@@ -55,16 +61,28 @@ const ConfigProvider: React.FC = ({ children }) => {
     apiGateway.get('/stores/setup').then(response => {
       const { general_settings, categories, options, pages } = response.data;
 
-      setData(() => {
-        return {
-          general_settings: {
-            ...general_settings,
-            store_name: general_settings.name
-          },
-          categories,
-          options,
-          pages
-        };
+      apiEflorista.get('/settings/schedule_settings').then(response2 => {
+        if (response2.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+          const { days_of_service, weekday_hours, weekend_hour } =
+            response2.data;
+
+          setData(() => {
+            return {
+              info: {
+                days_of_service,
+                weekday_hours,
+                weekend_hour
+              },
+              general_settings: {
+                ...general_settings,
+                store_name: general_settings.name
+              },
+              categories,
+              options,
+              pages
+            };
+          });
+        }
       });
     });
   }, []);

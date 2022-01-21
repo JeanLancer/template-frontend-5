@@ -26,6 +26,12 @@ const WhatsButton: React.FC = () => {
           /\D/g,
           ''
         )}`}
+        onClick={() =>
+          `return gtag_report_conversion('https://wa.me/55${data.general_settings?.whatsapp?.replace(
+            /\D/g,
+            ''
+          )}');`
+        }
       >
         <img width="40px" src={whats} alt="Nosso whatsapp" />
 

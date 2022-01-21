@@ -44,6 +44,7 @@ interface StoreConfigContextData {
   categories: {
     header: any[];
     footer: any[];
+    pages: any[];
   };
   options: {
     header: Options;
@@ -66,6 +67,10 @@ const ConfigProvider: React.FC = ({ children }) => {
           const { days_of_service, weekday_hours, weekend_hour } =
             response2.data;
 
+          console.log(
+            pages.filter((item: any) => item.show_in_header === 'true')
+          );
+
           setData(() => {
             return {
               info: {
@@ -77,7 +82,12 @@ const ConfigProvider: React.FC = ({ children }) => {
                 ...general_settings,
                 store_name: general_settings.name
               },
-              categories,
+              categories: {
+                ...categories,
+                pages: pages
+                  ? pages.filter((item: any) => item.show_in_header === 'true')
+                  : []
+              },
               options,
               pages
             };

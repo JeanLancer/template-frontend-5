@@ -19,6 +19,60 @@ interface MenuDropDownProps {
   isHoveredMain: boolean;
 }
 
+const MenuDropDownPage: React.FC<any> = ({ page, isHoveredMain }) => {
+  const [, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (!isHoveredMain) {
+      setIsHovered(false);
+    }
+  }, [isHoveredMain]);
+
+  return (
+    <Flex
+      display="flex"
+      whiteSpace="nowrap"
+      _first={{
+        pl: '0px'
+      }}
+      cursor="pointer"
+      onMouseEnter={() => {
+        setIsHovered(true);
+      }}
+    >
+      <Link href={`/paginas/${page.slug}`}>
+        <Flex
+          width="100%"
+          height="100%"
+          alignItems="center"
+          justifyContent="center"
+          px="12px"
+          _hover={{
+            backgroundColor: 'brand.100',
+            color: 'white'
+          }}
+          onMouseLeave={() => {
+            if (isHoveredMain === false) {
+              setIsHovered(false);
+            }
+          }}
+        >
+          <Text
+            fontSize="12px"
+            textTransform="uppercase"
+            mr="4px"
+            _last={{ mr: '0px' }}
+            fontWeight="500"
+            lineHeight="14PX"
+          >
+            {page.title}
+          </Text>
+        </Flex>
+      </Link>
+    </Flex>
+  );
+};
+
 const MenuDropDown: React.FC<MenuDropDownProps> = ({
   category,
   isHoveredMain
@@ -173,6 +227,15 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
           <MenuDropDown
             key={category.id}
             category={category}
+            isHoveredMain={isHoveredMain}
+          />
+        ))}
+
+      {data &&
+        data.categories?.pages.map(page => (
+          <MenuDropDownPage
+            key={page.id}
+            page={page}
             isHoveredMain={isHoveredMain}
           />
         ))}

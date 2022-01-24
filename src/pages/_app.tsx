@@ -151,6 +151,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           <WhatsButton />
           <Fonts />
         </Layout>
+
         {config.ZENDESK && config.SITE_IS_ENABLED && <ZendeskChat />}
 
         {config.HOTJAR && (

@@ -45,6 +45,7 @@ export default {
     }
   },
 
+  INSTAGRAM: publicRuntimeConfig.INSTAGRAM,
   JIVOCHAT: publicRuntimeConfig.JIVOCHAT,
   ZENDESK: publicRuntimeConfig.ZENDESK,
 

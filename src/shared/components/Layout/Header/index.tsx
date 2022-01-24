@@ -6,6 +6,7 @@ import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { FiInstagram } from 'react-icons/fi';
 import ButtonsBar from './ButtonsBar';
 import CategoryBar from './CategoryBar';
 import DropDownCities from './DropDownCities';
@@ -57,6 +58,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               </Flex>
 
               <Flex
+                mr="24px"
                 cursor="pointer"
                 alignItems="center"
                 onClick={() => {
@@ -78,6 +80,18 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
                   {data.general_settings?.whatsapp}
                 </Text>
               </Flex>
+
+              {config.INSTAGRAM && (
+                <Flex alignItems="center" cursor="pointer">
+                  <Link href={`https://www.instagram.com/${config.INSTAGRAM}/`}>
+                    <Icon
+                      as={FiInstagram}
+                      mr="8px"
+                      color={styles.contactBar.color2}
+                    />
+                  </Link>
+                </Flex>
+              )}
             </Flex>
           </Flex>
         </Flex>

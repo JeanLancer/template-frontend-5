@@ -45,6 +45,7 @@ module.exports = withImages({
     FACEBOOK_DOMAIN_VERIFICATION: process.env.FACEBOOK_DOMAIN_VERIFICATION,
     FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
 
+    INSTAGRAM: process.env.INSTAGRAM,
     JIVOCHAT: process.env.JIVOCHAT,
     ZENDESK: process.env.ZENDESK,
 

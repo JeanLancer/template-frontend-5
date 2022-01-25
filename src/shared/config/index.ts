@@ -49,5 +49,7 @@ export default {
   JIVOCHAT: publicRuntimeConfig.JIVOCHAT,
   ZENDESK: publicRuntimeConfig.ZENDESK,
 
-  SHOW_SPECIAL: publicRuntimeConfig.SHOW_SPECIAL === 'true'
+  SHOW_SPECIAL: publicRuntimeConfig.SHOW_SPECIAL === 'true',
+
+  REQUIRED_CARD_MESSAGE: publicRuntimeConfig.REQUIRED_CARD_MESSAGE === 'true'
 };

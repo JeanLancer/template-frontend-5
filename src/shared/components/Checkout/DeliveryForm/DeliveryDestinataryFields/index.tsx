@@ -1,4 +1,4 @@
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Divider, Flex, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 import Input from '../../../Form/Input';
 
@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css';
 import TextArea from '../../../Form/TextArea';
 import { useCart } from '../../../../hooks/cart';
 import Checkbox from '../../../Form/Checkbox';
+import config from '../../../../config';
 
 const DeliveryDestinataryFields: React.FC = () => {
   const { cartForm, handleChangeCartForm } = useCart();
@@ -41,7 +42,22 @@ const DeliveryDestinataryFields: React.FC = () => {
       </Flex>
       <Flex width={['100%', '100%', '48%']} flexDirection="column">
         <Text fontSize="14px">
-          Mensagem para ser impressa no cartão (Opcional)
+          {config.REQUIRED_CARD_MESSAGE ? (
+            <Text>
+              Mensagem para ser escrita no cartão. Obs: É necessário incluir um
+              dos modelos de cartão no carrinho para que esse campo seja válido.
+              <Link
+                href="/categorias/cartoes"
+                textDecor="underline"
+                cursor="pointer"
+                ml="8px"
+              >
+                Clique aqui para escolher um cartão
+              </Link>
+            </Text>
+          ) : (
+            <Text>Mensagem para ser impressa no cartão (Opcional)</Text>
+          )}
         </Text>
         <TextArea name="card_message" />
         <Checkbox

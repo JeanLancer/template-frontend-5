@@ -56,6 +56,7 @@ module.exports = withImages({
     WHITE_COLOR: process.env.WHITE_COLOR,
 
     SHOW_SPECIAL: process.env.SHOW_SPECIAL,
+    REQUIRED_CARD_MESSAGE: process.env.REQUIRED_CARD_MESSAGE,
 
     BACKGROUND_INFO: process.env.BACKGROUND_INFO,
     DETAILS_INFO: process.env.DETAILS_INFO,

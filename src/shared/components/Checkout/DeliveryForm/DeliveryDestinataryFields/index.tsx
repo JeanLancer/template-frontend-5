@@ -58,7 +58,7 @@ const DeliveryDestinataryFields: React.FC = () => {
       <Flex width={['100%', '100%', '48%']} flexDirection="column">
         <Text fontSize="14px">
           {config.REQUIRED_CARD_MESSAGE && showMessage ? (
-            <Text color={publicRuntimeConfig.BACKGROUND_MENU} fontWeight={500}>
+            <Text color={publicRuntimeConfig.ACTIVE_MENU} fontWeight={500}>
               Obs: você ainda um cartão para enviar junto ao presente,caso
               queira adicionar um
               <Link

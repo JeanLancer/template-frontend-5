@@ -1,5 +1,7 @@
 import { Divider, Flex, Link, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import getConfig from 'next/config';
+
 import Input from '../../../Form/Input';
 
 import 'react-day-picker/lib/style.css';
@@ -10,6 +12,19 @@ import config from '../../../../config';
 
 const DeliveryDestinataryFields: React.FC = () => {
   const { cartForm, handleChangeCartForm } = useCart();
+
+  const [showMessage, setShowMessage] = useState(true);
+
+  const { publicRuntimeConfig } = getConfig();
+  const { cartData } = useCart();
+
+  useEffect(() => {
+    const ifExists = !!cartData.itens.find(item =>
+      item.product.name.split(/\s+/).includes('Cartão')
+    );
+
+    setShowMessage(!ifExists);
+  }, [cartData]);
 
   return (
     <Flex
@@ -42,18 +57,21 @@ const DeliveryDestinataryFields: React.FC = () => {
       </Flex>
       <Flex width={['100%', '100%', '48%']} flexDirection="column">
         <Text fontSize="14px">
-          {config.REQUIRED_CARD_MESSAGE ? (
-            <Text>
-              Mensagem para ser escrita no cartão. Obs: É necessário incluir um
-              dos modelos de cartão no carrinho para que esse campo seja válido.
+          {config.REQUIRED_CARD_MESSAGE && showMessage ? (
+            <Text color={publicRuntimeConfig.BACKGROUND_MENU} fontWeight={500}>
+              Obs: você ainda um cartão para enviar junto ao presente,caso
+              queira adicionar um
               <Link
                 href="/categorias/cartoes"
                 textDecor="underline"
                 cursor="pointer"
-                ml="8px"
+                mx="8px"
+                color="black"
               >
-                Clique aqui para escolher um cartão
+                clique aqui
               </Link>
+              e veja as opções, ou se não adicionou nenhum, desconsidere o campo
+              abaixo.
             </Text>
           ) : (
             <Text>Mensagem para ser impressa no cartão (Opcional)</Text>

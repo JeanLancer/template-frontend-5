@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
@@ -12,11 +12,14 @@ interface CategoryBarStyle {
 
 interface MenuDropDownProps {
   category: {
+    id: string;
     name: string;
     slug: string;
     subcategories: any[];
   };
   isHoveredMain: boolean;
+  isHover: boolean;
+  onHoverChild: any;
 }
 
 const MenuDropDownPage: React.FC<any> = ({ page, isHoveredMain }) => {
@@ -75,15 +78,15 @@ const MenuDropDownPage: React.FC<any> = ({ page, isHoveredMain }) => {
 
 const MenuDropDown: React.FC<MenuDropDownProps> = ({
   category,
-  isHoveredMain
+  isHoveredMain,
+  isHover,
+  onHoverChild
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   useEffect(() => {
     if (!isHoveredMain) {
-      setIsHovered(false);
+      onHoverChild(category.id, false);
     }
-  }, [isHoveredMain]);
+  }, [category, isHoveredMain, onHoverChild]);
 
   return (
     <Flex
@@ -93,9 +96,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
         pl: '0px'
       }}
       cursor="pointer"
-      onMouseEnter={() => {
-        setIsHovered(true);
-      }}
+      position="relative"
     >
       <Link href={`/categorias/${category.slug}`}>
         <Flex
@@ -108,8 +109,7 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
             backgroundColor: 'brand.100',
             color: 'white'
           }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => onHoverChild(category.id, true)}
         >
           <Text
             fontSize="12px"
@@ -122,17 +122,17 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
             {category.name}
           </Text>
 
-          {!isHovered && category.subcategories.length > 0 && (
+          {!isHover && category.subcategories.length > 0 && (
             <Icon as={BiChevronRight} fontSize="16px" />
           )}
 
-          {isHovered && category.subcategories.length > 0 && (
+          {isHover && category.subcategories.length > 0 && (
             <Icon as={BiChevronDown} fontSize="16px" />
           )}
         </Flex>
       </Link>
 
-      {isHovered && category.subcategories.length > 0 && (
+      {isHover && category.subcategories.length > 0 && (
         <Flex
           top="64px"
           flexDirection="column"
@@ -141,9 +141,6 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
           position="absolute"
           boxShadow="0 1px 3px rgba(0,0,0,0.12)"
           zIndex={1000}
-          onMouseLeave={() => {
-            setIsHovered(false);
-          }}
         >
           {category.subcategories.map(subcategory => (
             <Link href={`/categorias/${subcategory.slug}`}>
@@ -176,6 +173,27 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
   const data = useData();
 
   const [isHoveredMain, setIsHoveredMain] = useState(false);
+  const [isHoveredChild, setIsHoveredChild] = useState({} as any);
+
+  const handleHoverChild = useCallback((id: string, value: boolean) => {
+    setIsHoveredChild((oldState: any) => {
+      const updatedState = oldState;
+
+      if (updatedState[id] === undefined) {
+        updatedState[id] = false;
+      } else {
+        Object.keys(updatedState).forEach(key => {
+          if (key === id) {
+            updatedState[key] = value;
+          } else {
+            updatedState[key] = false;
+          }
+        });
+      }
+
+      return { ...updatedState };
+    });
+  }, []);
 
   return (
     <Flex
@@ -225,6 +243,8 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
             key={category.id}
             category={category}
             isHoveredMain={isHoveredMain}
+            isHover={isHoveredChild[category.id]}
+            onHoverChild={handleHoverChild}
           />
         ))}
 

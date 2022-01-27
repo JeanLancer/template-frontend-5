@@ -108,11 +108,8 @@ const MenuDropDown: React.FC<MenuDropDownProps> = ({
             backgroundColor: 'brand.100',
             color: 'white'
           }}
-          onMouseLeave={() => {
-            if (isHoveredMain === false) {
-              setIsHovered(false);
-            }
-          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <Text
             fontSize="12px"

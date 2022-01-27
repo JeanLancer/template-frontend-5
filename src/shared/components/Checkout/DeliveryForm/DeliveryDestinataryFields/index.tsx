@@ -59,8 +59,8 @@ const DeliveryDestinataryFields: React.FC = () => {
         <Text fontSize="14px">
           {config.REQUIRED_CARD_MESSAGE && showMessage ? (
             <Text color={publicRuntimeConfig.ACTIVE_MENU} fontWeight={500}>
-              Obs: você ainda um cartão para enviar junto ao presente,caso
-              queira adicionar um
+              Obs: você ainda não adicionou um cartão para enviar junto ao
+              presente, caso queira adicionar um,
               <Link
                 href="/categorias/cartoes"
                 textDecor="underline"
@@ -68,13 +68,16 @@ const DeliveryDestinataryFields: React.FC = () => {
                 mx="8px"
                 color="black"
               >
-                clique aqui
+                clique aqui para ver as opções
               </Link>
-              e veja as opções, ou se não for adicionar um cartão, desconsidere
-              o campo abaixo.
+              ou se não for adicionar um cartão, desconsidere o campo mensagem
+              abaixo.
+              <Text color="black" mt="6px" fontWeight="400">
+                Mensagem para ser escrita no cartão
+              </Text>
             </Text>
           ) : (
-            <Text>Mensagem para ser impressa no cartão (Opcional)</Text>
+            <Text>Mensagem para ser escrita no cartão (Opcional)</Text>
           )}
         </Text>
         <TextArea name="card_message" />

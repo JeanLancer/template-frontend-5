@@ -70,8 +70,8 @@ const DeliveryDestinataryFields: React.FC = () => {
               >
                 clique aqui
               </Link>
-              e veja as opções, ou se não adicionou nenhum, desconsidere o campo
-              abaixo.
+              e veja as opções, ou se não for adicionar um cartão, desconsidere
+              o campo abaixo.
             </Text>
           ) : (
             <Text>Mensagem para ser impressa no cartão (Opcional)</Text>

@@ -35,9 +35,14 @@ const DeliveryDestinataryFields: React.FC = () => {
     >
       <Flex width={['100%', '100%', '48%']} flexDirection="column">
         <Flex width="100%" flexDirection="column">
-          <Text textTransform="uppercase" color="gray.600">
-            Dados do Destinatário
-          </Text>
+          <Flex>
+            <Text textTransform="uppercase" color="gray.600">
+              Dados do Destinatário
+            </Text>
+            <Text ml="4px" color="red.400" fontWeight="500">
+              (Quem vai ganhar o presente)
+            </Text>
+          </Flex>
 
           <Divider />
         </Flex>

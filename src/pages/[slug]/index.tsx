@@ -248,9 +248,11 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                       {NumberUtils.toCurrency(product.price_sale * quantity)}
                     </Text>
 
-                    <Text fontSize="12px" fontWeight="400">
-                      Em até 3x sem juros
-                    </Text>
+                    {config.KEY !== '3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3' && (
+                      <Text fontSize="12px" fontWeight="400">
+                        Em até 3x sem juros
+                      </Text>
+                    )}
                   </Flex>
                 )}
 

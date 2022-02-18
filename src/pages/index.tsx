@@ -155,7 +155,7 @@ const HomePage = ({
             {slides.map((slide: any) => (
               <Flex
                 width="1200px"
-                height="400px"
+                height={['200px', '200px', '400px']}
                 backgroundColor="white"
                 alignItems="center"
                 justifyContent="center"

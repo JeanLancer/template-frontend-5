@@ -165,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
                   width="800px"
                   flexDirection="column"
                   justifyContent="flex-end"
-                  alignItems="flex-end"
+                  alignItems="center"
                   mr="24px"
                   whiteSpace="nowrap"
                 >

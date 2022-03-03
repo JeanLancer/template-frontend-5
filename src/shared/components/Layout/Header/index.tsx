@@ -44,8 +44,13 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           backgroundColor={styles.contactBar.backgroundColor}
           justifyContent="center"
         >
-          <Flex width="100%" maxWidth="1200px" {...styles.contactBar}>
-            <Text>
+          <Flex
+            width="100%"
+            maxWidth="1200px"
+            {...styles.contactBar}
+            justifyContent={['flex-end', 'flex-end', 'space-between']}
+          >
+            <Text display={['none', 'none', 'block']}>
               <Info />
             </Text>
 
@@ -144,6 +149,31 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               isOpen={isOpenMenu}
               menuButtonFunction={handleClickMenuButton}
             />
+          </Flex>
+        </Flex>
+
+        <Flex
+          display={['block', 'block', 'none']}
+          width="100%"
+          height="80px"
+          maxWidth="100vh"
+        >
+          <Flex width="100%" overflow="auto" px="16px">
+            {data.categories?.default.map(category => (
+              <Link href={`/categorias/${category.slug}`}>
+                <Flex
+                  width="800px"
+                  flexDirection="column"
+                  justifyContent="end"
+                  mr="24px"
+                  whiteSpace="nowrap"
+                >
+                  <Image src={category.icon_url} width="60px" height="60px" />
+
+                  <Text>{category.name}</Text>
+                </Flex>
+              </Link>
+            ))}
           </Flex>
         </Flex>
 

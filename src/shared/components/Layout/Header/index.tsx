@@ -160,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
         >
           <Flex width="100%" overflow="auto" px="16px">
             {data.categories?.default.map(category => (
-              <Link href={`/categorias/${category.slug}`}>
+              <Link key={category.id} href={`/categorias/${category.slug}`}>
                 <Flex
                   width="800px"
                   flexDirection="column"

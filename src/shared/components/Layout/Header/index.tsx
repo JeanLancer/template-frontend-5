@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 
-import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, Image as ImageChakra } from '@chakra-ui/react';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -162,16 +162,24 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
             {data.categories?.default.map(category => (
               <Link key={category.id} href={`/categorias/${category.slug}`}>
                 <Flex
-                  width="800px"
+                  minWidth="80px"
                   flexDirection="column"
                   justifyContent="flex-end"
                   alignItems="center"
                   mr="24px"
                   whiteSpace="nowrap"
+                  _last={{
+                    mr: 0
+                  }}
                 >
-                  <Image src={category.icon_url} width="60px" height="60px" />
+                  <ImageChakra
+                    display="flex"
+                    width="100%"
+                    height="100%"
+                    src={category.icon_url}
+                  />
 
-                  <Text>{category.name}</Text>
+                  <Text fontSize="12px">{category.name}</Text>
                 </Flex>
               </Link>
             ))}

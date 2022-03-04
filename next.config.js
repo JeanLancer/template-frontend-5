@@ -2,6 +2,7 @@ const withImages = require('next-images');
 
 module.exports = withImages({
   images: {
+    minimumCacheTTL: 60,
     domains: [
       'localhost',
       'app.eflorista.com.br',

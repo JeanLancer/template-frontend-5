@@ -42,6 +42,7 @@ interface StoreConfigContextData {
     is_free_delivery: boolean;
   };
   categories: {
+    default: any[];
     header: any[];
     footer: any[];
     pages: any[];
@@ -67,9 +68,7 @@ const ConfigProvider: React.FC = ({ children }) => {
           const { days_of_service, weekday_hours, weekend_hour } =
             response2.data;
 
-          console.log(
-            pages.filter((item: any) => item.show_in_header === 'true')
-          );
+          console.log(categories);
 
           setData(() => {
             return {

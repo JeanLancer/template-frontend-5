@@ -62,7 +62,7 @@ const LayoutProvider: React.FC = ({ children }) => {
   const layoutStyles: any = {
     header: {
       contactBar: {
-        display: ['none', 'none', 'flex'],
+        display: ['flex', 'flex', 'flex'],
         backgroundColor: publicRuntimeConfig.BACKGROUND_INFO || 'gray.500',
         height: '24px',
         justifyContent: 'space-between',

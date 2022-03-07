@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 
-import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, Image as ImageChakra } from '@chakra-ui/react';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -44,8 +44,13 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
           backgroundColor={styles.contactBar.backgroundColor}
           justifyContent="center"
         >
-          <Flex width="100%" maxWidth="1200px" {...styles.contactBar}>
-            <Text>
+          <Flex
+            width="100%"
+            maxWidth="1200px"
+            {...styles.contactBar}
+            justifyContent={['flex-end', 'flex-end', 'space-between']}
+          >
+            <Text display={['none', 'none', 'block']}>
               <Info />
             </Text>
 
@@ -144,6 +149,40 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               isOpen={isOpenMenu}
               menuButtonFunction={handleClickMenuButton}
             />
+          </Flex>
+        </Flex>
+
+        <Flex
+          display={['block', 'block', 'none']}
+          width="100%"
+          height="80px"
+          maxWidth="100vh"
+        >
+          <Flex width="100%" overflow="auto" px="16px">
+            {data.categories?.default.map(category => (
+              <Link key={category.id} href={`/categorias/${category.slug}`}>
+                <Flex
+                  minWidth="80px"
+                  flexDirection="column"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  mr="24px"
+                  whiteSpace="nowrap"
+                  _last={{
+                    mr: 0
+                  }}
+                >
+                  <ImageChakra
+                    display="flex"
+                    width="100%"
+                    height="100%"
+                    src={category.icon_url}
+                  />
+
+                  <Text fontSize="12px">{category.name}</Text>
+                </Flex>
+              </Link>
+            ))}
           </Flex>
         </Flex>
 

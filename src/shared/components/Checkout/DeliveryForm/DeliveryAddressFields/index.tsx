@@ -117,12 +117,12 @@ const DeliveryAddressFields: React.FC = () => {
                     {city.name}
                   </option>
                 ))}
-              <option
+              {/* <option
                 key="Demais Cidades do Brasil"
                 value="Demais Cidades do Brasil"
               >
                 Demais Cidades do Brasil
-              </option>
+              </option> */}
             </Select>
           </Flex>
 

@@ -44,14 +44,17 @@ interface ScheduleSettings {
     morning: {
       isEnabled: boolean;
       lastHourAccepted: string;
+      endTime: string;
     };
     evening: {
       isEnabled: boolean;
       lastHourAccepted: string;
+      endTime: string;
     };
     night: {
       isEnabled: boolean;
       lastHourAccepted: string;
+      endTime: string;
     };
   };
   daysDisabled: Date[];
@@ -279,7 +282,10 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Manhã - entrega até ás 12h
+                              {`Manhã - entrega até às ${
+                                scheduleSettings.turnsOfDay.morning.endTime ||
+                                '12h'
+                              }`}
                             </Text>
                           </Radio>
                         )}
@@ -294,7 +300,10 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Tarde - entrega até ás 18h
+                              {`Tarde - entrega até às ${
+                                scheduleSettings.turnsOfDay.evening.endTime ||
+                                '18h'
+                              }`}
                             </Text>
                           </Radio>
                         )}
@@ -308,7 +317,10 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              Noite - entrega até ás 20h
+                              {`Noite - entrega até às ${
+                                scheduleSettings.turnsOfDay.night.endTime ||
+                                '22h'
+                              }`}
                             </Text>
                           </Radio>
                         )}

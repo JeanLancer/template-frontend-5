@@ -263,5 +263,4 @@ const HomePage = ({
 
 export default HomePage;
 
-// # TESTE FINAL
 // # UPSTREAM

@@ -126,6 +126,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
                   'https://connect.facebook.net/en_US/fbevents.js');
                   fbq('init', '${config.FACEBOOK.PIXEL.ID}');
                   fbq('track', 'PageView');
+                  fbq('track', 'ViewContent');
                 `
             }}
           />
@@ -192,4 +193,5 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 };
 
 export default MyApp;
+//
 //

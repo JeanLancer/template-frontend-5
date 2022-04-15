@@ -26,6 +26,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     `/catalog/products/${slug}/detailed`
   );
 
+  console.log('teste: ', response.data);
+
   const response2 = await apiGateway.get<any[]>('/catalog/complements');
 
   const product = response.data;
@@ -205,6 +207,72 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
               <Icon as={BiChevronRight} />
             </Flex>
+
+            {product.variants.sizes.length > 0 && (
+              <Flex width="100%" flexDirection="column" mt="8px" py="8px">
+                <Text fontWeight="500" mb="8px">
+                  Tamanhos Disponíveis
+                </Text>
+
+                <Flex>
+                  {product.variants.colors.map(size => (
+                    <Flex
+                      width="80px"
+                      height="40px"
+                      justifyContent="center"
+                      alignItems="center"
+                      border="2px solid"
+                      borderColor="gray.500"
+                      mr="24px"
+                      _last={{
+                        mr: '0px'
+                      }}
+                      cursor="pointer"
+                    >
+                      <Text fontSize="12px" fontWeight="500">
+                        {size.name}
+                      </Text>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Flex>
+            )}
+
+            {product.variants.colors.length > 0 && (
+              <Flex width="100%" flexDirection="column" mt="8px" py="8px">
+                <Text fontWeight="500" mb="8px">
+                  Cores Disponíveis
+                </Text>
+
+                <Flex>
+                  {product.variants.colors.map(color => (
+                    <Flex
+                      flexDirection="column"
+                      alignItems="center"
+                      mr="40px"
+                      _last={{
+                        mr: '0px'
+                      }}
+                      cursor="pointer"
+                    >
+                      <Flex
+                        width="40px"
+                        height="40px"
+                        justifyContent="center"
+                        alignItems="center"
+                        borderRadius="50%"
+                        border="2px solid"
+                        borderColor="gray.500"
+                      />
+
+                      <Text fontSize="12px" fontWeight="500">
+                        {color.name}
+                      </Text>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Flex>
+            )}
 
             {product?.height && product?.width && (
               <Flex width="100%" alignItems="center" my="24px">

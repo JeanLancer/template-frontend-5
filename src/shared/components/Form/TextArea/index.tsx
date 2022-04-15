@@ -32,6 +32,7 @@ const TextArea: React.FC<IProps> = ({ name }) => {
       autoComplete="new-password"
       autoSave="off"
       autoCorrect="off"
+      maxLength={500}
     />
   );
 };

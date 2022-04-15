@@ -3,6 +3,7 @@ import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 
+import getConfig from 'next/config';
 import config from '../../../../config/index';
 
 interface DropDownCitiesStyle {
@@ -11,6 +12,7 @@ interface DropDownCitiesStyle {
 
 const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { publicRuntimeConfig } = getConfig();
 
   return (
     <Flex
@@ -24,7 +26,9 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
           textTransform="uppercase"
           fontSize={['11px', '12px']}
         >
-          Cidades Atendidas
+          {publicRuntimeConfig.STORE_NAME === 'Jardim SP'
+            ? 'Bairros de SP'
+            : 'Cidades Atendidas'}
         </Text>
 
         {isHovered && <Icon as={BiChevronDown} fontSize="18px" />}

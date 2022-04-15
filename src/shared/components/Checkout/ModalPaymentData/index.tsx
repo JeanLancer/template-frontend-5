@@ -279,7 +279,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
               last_name: data.last_name,
               document: data.document,
               telephone: `${DDI}${data.telephone}`,
-              email: data.email
+              email: String(data.email).replace(/\s/g, '')
             },
             delivery_address: {
               zipcode: config.STORE.LOCATION.ZIPCODE,

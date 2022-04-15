@@ -248,6 +248,23 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
           />
         ))}
 
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        px="12px"
+        cursor="pointer"
+        _hover={{
+          backgroundColor: 'brand.100',
+          color: 'white'
+        }}
+        fontSize="12px"
+        fontWeight="500"
+      >
+        <Link href="/complementos">
+          <Text>COMPLEMENTOS</Text>
+        </Link>
+      </Flex>
+
       {data &&
         data.categories?.pages.map(page => (
           <MenuDropDownPage

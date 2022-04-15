@@ -26,8 +26,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     `/catalog/products/${slug}/detailed`
   );
 
-  console.log('teste: ', response.data);
-
   const response2 = await apiGateway.get<any[]>('/catalog/complements');
 
   const product = response.data;
@@ -215,7 +213,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                 </Text>
 
                 <Flex>
-                  {product.variants.colors.map(size => (
+                  {product.variants.colors.map((size: any) => (
                     <Flex
                       width="80px"
                       height="40px"
@@ -245,7 +243,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                 </Text>
 
                 <Flex>
-                  {product.variants.colors.map(color => (
+                  {product.variants.colors.map((color: any) => (
                     <Flex
                       flexDirection="column"
                       alignItems="center"

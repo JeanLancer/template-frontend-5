@@ -14,6 +14,7 @@ const DeliveryDestinataryFields: React.FC = () => {
   const { cartForm, handleChangeCartForm } = useCart();
 
   const [showMessage, setShowMessage] = useState(true);
+  const [numCharacters, setNumCharacters] = useState(0);
 
   const { publicRuntimeConfig } = getConfig();
   const { cartData } = useCart();
@@ -85,7 +86,11 @@ const DeliveryDestinataryFields: React.FC = () => {
             <Text>Mensagem para ser escrita no cartão (Opcional)</Text>
           )}
         </Text>
-        <TextArea name="card_message" />
+        <TextArea
+          name="card_message"
+          onChange={e => setNumCharacters(e.currentTarget.value.length)}
+        />
+        <Text fontSize="10px">{`Num. Caracteres ${numCharacters}`}</Text>
         <Checkbox
           mt="8px"
           name="identify_sender"

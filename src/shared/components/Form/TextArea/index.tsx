@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 
-import { Textarea as ChakraTextarea } from '@chakra-ui/react';
+import { Textarea as ChakraTextarea, TextareaProps } from '@chakra-ui/react';
 import { useField } from '@unform/core';
 
-interface IProps {
+interface IProps extends TextareaProps {
   name: string;
 }
 
-const TextArea: React.FC<IProps> = ({ name }) => {
+const TextArea: React.FC<IProps> = ({ name, ...rest }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const { fieldName, registerField } = useField(name);
@@ -33,6 +33,7 @@ const TextArea: React.FC<IProps> = ({ name }) => {
       autoSave="off"
       autoCorrect="off"
       maxLength={500}
+      {...rest}
     />
   );
 };

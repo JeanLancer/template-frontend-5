@@ -177,6 +177,10 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
 
           data.payment_method_type = paymentMethod;
 
+          if (data.email) {
+            data.email = String(data.email).replace(/\s/g, '');
+          }
+
           const schema = Yup.object().shape({
             // BUYER
             first_name: Yup.string().required('Nome não informado'),
@@ -279,7 +283,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
               last_name: data.last_name,
               document: data.document,
               telephone: `${DDI}${data.telephone}`,
-              email: String(data.email).replace(/\s/g, '')
+              email: data.email
             },
             delivery_address: {
               zipcode: config.STORE.LOCATION.ZIPCODE,

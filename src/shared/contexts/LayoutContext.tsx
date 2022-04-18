@@ -48,7 +48,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         500: '#ebebeb'
       },
       red: {
-        500: publicRuntimeConfig.ACTIVE_MENU
+        500: publicRuntimeConfig.PRIMARY_COLOR
       },
       green: {
         500: '#09B662'

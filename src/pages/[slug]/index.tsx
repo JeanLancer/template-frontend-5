@@ -48,6 +48,47 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
   const [deliveryMessage, setDeliveryMessage] = useState('');
 
+  const [sizeSelected, setSizeSelected] = useState(() => {
+    if (product?.variants?.sizes.length > 0) {
+      return product?.variants?.sizes[0];
+    }
+
+    return null;
+  });
+  const [colorSelected, setColorSelected] = useState(() => {
+    if (product?.variants?.colors.length > 0) {
+      return product?.variants?.colors[0];
+    }
+
+    return null;
+  });
+
+  const [variantPrice, setVariantPrice] = useState(0);
+
+  const handleChangeVariant = useCallback(() => {
+    let newVariantPrice = 0;
+
+    if (sizeSelected) {
+      if (sizeSelected.price_type === 'sub') {
+        newVariantPrice -= Number(sizeSelected.price);
+      } else {
+        newVariantPrice += Number(sizeSelected.price);
+      }
+    }
+
+    if (colorSelected) {
+      if (colorSelected.price_type === 'sub') {
+        newVariantPrice -= Number(colorSelected.price);
+      } else {
+        newVariantPrice += Number(colorSelected.price);
+      }
+    }
+
+    console.log(newVariantPrice);
+
+    setVariantPrice(newVariantPrice);
+  }, [colorSelected, sizeSelected]);
+
   const goToDescription = useCallback(() => {
     const divRef: any = document.getElementById('description');
 
@@ -60,7 +101,11 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
   }, []);
 
   useEffect(() => {
-    setSelectedImage(product.url_web);
+    console.log(colorSelected);
+    setSelectedImage(
+      colorSelected?.image_url ? colorSelected?.image_url : product.url_web
+    );
+    handleChangeVariant();
 
     apiGateway.get('/checkout/schedule_setting').then(response => {
       if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
@@ -69,7 +114,7 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
         setDeliveryMessage(delivery_message);
       }
     });
-  }, [product]);
+  }, [colorSelected, handleChangeVariant, product]);
 
   return (
     <>
@@ -213,19 +258,31 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                 </Text>
 
                 <Flex>
-                  {product.variants.colors.map((size: any) => (
+                  {product.variants.sizes.map((size: any) => (
                     <Flex
                       width="80px"
                       height="40px"
                       justifyContent="center"
                       alignItems="center"
-                      border="2px solid"
-                      borderColor="gray.500"
+                      border={
+                        sizeSelected?.name === size.name
+                          ? '4px solid'
+                          : '2px solid'
+                      }
+                      borderColor={
+                        sizeSelected?.name === size.name
+                          ? 'red.500'
+                          : 'gray.500'
+                      }
                       mr="24px"
                       _last={{
                         mr: '0px'
                       }}
                       cursor="pointer"
+                      onClick={() => {
+                        setSizeSelected(size);
+                        handleChangeVariant();
+                      }}
                     >
                       <Text fontSize="12px" fontWeight="500">
                         {size.name}
@@ -252,6 +309,10 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                         mr: '0px'
                       }}
                       cursor="pointer"
+                      onClick={() => {
+                        setColorSelected(color);
+                        handleChangeVariant();
+                      }}
                     >
                       <Flex
                         width="40px"
@@ -259,8 +320,16 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                         justifyContent="center"
                         alignItems="center"
                         borderRadius="50%"
-                        border="2px solid"
-                        borderColor="gray.500"
+                        border={
+                          colorSelected?.name === color.name
+                            ? '4px solid'
+                            : '2px solid'
+                        }
+                        borderColor={
+                          colorSelected?.name === color.name
+                            ? 'red.500'
+                            : 'gray.500'
+                        }
                       />
 
                       <Text fontSize="12px" fontWeight="500">
@@ -311,12 +380,17 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                 {!product.is_promotional && (
                   <Flex alignItems="center">
                     <Text color="brand.800" fontSize="18px" mr="8px">
-                      {NumberUtils.toCurrency(product.price_sale * quantity)}
+                      {NumberUtils.toCurrency(
+                        (Number(product.price_sale) + Number(variantPrice)) *
+                          quantity
+                      )}
                     </Text>
 
                     {config.KEY !== '3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3' && (
                       <Text fontSize="12px" fontWeight="400">
-                        Em até 3x sem juros
+                        {`Em até ${
+                          config.STORE.NAME === 'Cassia Flores' ? '2x' : '3x'
+                        } sem juros`}
                       </Text>
                     )}
                   </Flex>
@@ -330,18 +404,20 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                       fontSize="16px"
                     >
                       {`De ${NumberUtils.toCurrency(
-                        product.price_sale * quantity
+                        (product.price_sale + variantPrice) * quantity
                       )}`}
                     </Text>
                     <Flex alignItems="center">
                       <Text color="gray.800" fontSize="18px" mr="8px">
                         {`Por Apenas ${NumberUtils.toCurrency(
-                          product.price_promotional * quantity
+                          (product.price_promotional + variantPrice) * quantity
                         )}`}
                       </Text>
 
                       <Text fontSize="12px" fontWeight="400">
-                        Em até 3x sem juros
+                        {`Em até ${
+                          config.STORE.NAME === 'Cassia Flores' ? '2x' : '3x'
+                        } sem juros`}
                       </Text>
                     </Flex>
                   </Flex>

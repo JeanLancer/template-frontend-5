@@ -84,8 +84,6 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
       }
     }
 
-    console.log(newVariantPrice);
-
     setVariantPrice(newVariantPrice);
   }, [colorSelected, sizeSelected]);
 
@@ -404,7 +402,8 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                       fontSize="16px"
                     >
                       {`De ${NumberUtils.toCurrency(
-                        (product.price_sale + variantPrice) * quantity
+                        (Number(product.price_sale) + Number(variantPrice)) *
+                          quantity
                       )}`}
                     </Text>
                     <Flex alignItems="center">

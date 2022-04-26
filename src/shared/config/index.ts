@@ -24,7 +24,8 @@ export default {
   },
   PAYMENT: {
     PLATFORM: publicRuntimeConfig.PAYMENT_PLATFORM,
-    KEY: publicRuntimeConfig.PAYMENT_PLATFORM_KEY
+    KEY: publicRuntimeConfig.PAYMENT_PLATFORM_KEY,
+    EMAIL: publicRuntimeConfig.PAYMENT_PLATFORM_EMAIL
   },
 
   GOOGLE: {

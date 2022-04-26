@@ -249,24 +249,25 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
           />
         ))}
 
-      {config.STORE.NAME !== 'Flor da Mar' && (
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          px="12px"
-          cursor="pointer"
-          _hover={{
-            backgroundColor: 'brand.100',
-            color: 'white'
-          }}
-          fontSize="12px"
-          fontWeight="500"
-        >
-          <Link href="/complementos">
-            <Text>COMPLEMENTOS</Text>
-          </Link>
-        </Flex>
-      )}
+      {config.STORE.NAME !== 'Flor da Mar' &&
+        config.STORE.NAME !== 'Floricultura Se Flor para Ser' && (
+          <Flex
+            justifyContent="center"
+            alignItems="center"
+            px="12px"
+            cursor="pointer"
+            _hover={{
+              backgroundColor: 'brand.100',
+              color: 'white'
+            }}
+            fontSize="12px"
+            fontWeight="500"
+          >
+            <Link href="/complementos">
+              <Text>COMPLEMENTOS</Text>
+            </Link>
+          </Flex>
+        )}
 
       {data &&
         data.categories?.pages.map(page => (

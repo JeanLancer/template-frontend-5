@@ -111,7 +111,10 @@ const CheckoutPage: React.FC = () => {
         )}
 
         {config.PAYMENT.PLATFORM === 'Pagseguro' && (
-          <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js" />
+          <script
+            type="text/javascript"
+            src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"
+          />
         )}
       </Head>
       <Flex

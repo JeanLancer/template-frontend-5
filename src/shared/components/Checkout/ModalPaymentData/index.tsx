@@ -1348,7 +1348,19 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                     onClick={() => paymentFormRef.current?.submitForm()}
                   >
                     {!isLoading && <Text>Finalizar Pagamento</Text>}
-                    {isLoading && <Spinner size="md" />}
+                    {isLoading && (
+                      <Flex
+                        width="100%"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        px="16px"
+                      >
+                        <Text fontSize="12px">
+                          Aguarde, estamos processando seu pagamento
+                        </Text>
+                        <Spinner size="md" mr="16px" />
+                      </Flex>
+                    )}
                   </Flex>
                 </Flex>
               </Flex>

@@ -10,6 +10,7 @@ import config from '../../../config';
 
 import eflorista from '../../../../assets/images/logo-eflorista.png';
 import siteseguro from '../../../../assets/images/siteseguro.png';
+import grupoflordamar from '../../../../assets/images/grupo-flordamar.jpg';
 import paymentMethods from '../../../../assets/images/payment-methods.png';
 import { useData } from '../../../hooks/data';
 
@@ -104,37 +105,51 @@ const Footer: React.FC<any> = ({ styles }) => {
             alt="Formas de Pagamento"
           />
 
-          <Flex ml="auto" mt="16px" mx="auto">
-            <Image
-              layout="fixed"
-              src={siteseguro}
-              width={104}
-              height={48}
-              alt="Site Seguro SSL"
-            />
-          </Flex>
+          <Flex mt="24px">
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              cursor="pointer"
+              ml="auto"
+              mx="auto"
+            >
+              <Flex flexDirection="column" display={['none', 'none', 'block']}>
+                <Text fontSize="14px">Desenvolvido por: </Text>
+                <Flex justifyContent="center">
+                  <Link href="https://www.eflorista.com.br">
+                    <Image
+                      layout="fixed"
+                      src={eflorista}
+                      width={80}
+                      height={32}
+                      alt="Sistema para floriculturas Eflorista"
+                      title="Sistema para floriculturas Eflorista"
+                    />
+                  </Link>
+                </Flex>
+              </Flex>
 
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            cursor="pointer"
-            display={['none', 'none', 'block']}
-            ml="auto"
-            mx="auto"
-            mt="24px"
-          >
-            <Text fontSize="14px">Desenvolvido por: </Text>
-            <Flex justifyContent="center">
-              <Link href="https://www.eflorista.com.br">
-                <Image
-                  layout="fixed"
-                  src={eflorista}
-                  width={80}
-                  height={32}
-                  alt="Sistema para floriculturas Eflorista"
-                  title="Sistema para floriculturas Eflorista"
-                />
-              </Link>
+              {config.STORE.NAME === 'Flordamar' && (
+                <Flex ml="16px" mt="24px" alignSelf="flex-start">
+                  <Image
+                    layout="fixed"
+                    src={grupoflordamar}
+                    width={80}
+                    height={64}
+                    alt="Site Seguro SSL"
+                  />
+                </Flex>
+              )}
+            </Flex>
+
+            <Flex ml="auto" mt="16px" mx="auto">
+              <Image
+                layout="fixed"
+                src={siteseguro}
+                width={104}
+                height={48}
+                alt="Site Seguro SSL"
+              />
             </Flex>
           </Flex>
         </Flex>

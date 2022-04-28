@@ -27,7 +27,7 @@ import BoxCreditCard from './BoxCreditCard';
 import ErrorUtils from '../../../utils/ErrorUtils';
 import { useCart } from '../../../hooks/cart';
 import config from '../../../config/index';
-import apiGateway from '../../../services/apiGateway';
+import apiGateway, { apiEflorista } from '../../../services/apiGateway';
 import { HTTP_RESPONSE } from '../../../constants';
 import MercadoPagoUtils from '../../../utils/MercadoPagoUtils';
 
@@ -93,8 +93,9 @@ interface ICheckoutSubmitData {
 
   num_installments: number;
 
-  payment_token?: string;
   neighborhood_id: string;
+  payment_token?: string;
+  hash?: string;
 }
 
 type PaymentMethod = 'CREDITCARD' | 'DEPOSIT' | 'PAY_IN_STORE' | 'PICPAY';
@@ -150,13 +151,27 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
     });
   }, []);
 
-  const handleChangePaymentMethod = useCallback((method: any) => {
+  const handleChangePaymentMethod = useCallback(async (method: any) => {
     if (method === 'CREDITCARD') {
       if (config.PAYMENT.PLATFORM === 'Mercado Pago') {
         (window as any).Mercadopago.setPublishableKey(config.PAYMENT.KEY);
       } else if (config.PAYMENT.PLATFORM === 'Iugu') {
         (window as any).Iugu.setAccountID(config.PAYMENT.KEY);
         (window as any).Iugu.setTestMode(false);
+      } else if (config.PAYMENT.PLATFORM === 'Pagseguro') {
+        let sessionID = null;
+
+        const response = await apiEflorista.post('/pagseguro/sessions', {
+          email: config.PAYMENT.EMAIL,
+          token: config.PAYMENT.KEY
+        });
+
+        if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+          const [id] = response.data.session.id;
+          sessionID = id;
+        }
+
+        (window as any).PagSeguroDirectPayment.setSessionId(sessionID);
       }
     }
 
@@ -390,22 +405,62 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                 });
               });
             } else if (config.PAYMENT.PLATFORM === 'Pagseguro') {
-              const card = (window as any).PagSeguro.encryptCard({
-                publicKey: config.PAYMENT.KEY,
-                holder: data.card_name,
-                number: data.card_number.replace(/\D/g, ''),
-                expMonth: expirationCardDate[0],
-                expYear: `20${expirationCardDate[1]}`,
-                securityCode: data.card_code
+              const cardNumber = data.card_number.replace(/\D/g, '');
+
+              await new Promise(resolve => {
+                (window as any).PagSeguroDirectPayment.getBrand({
+                  cardBin: String(cardNumber).substring(0, 6),
+                  success(res1: any) {
+                    (window as any).PagSeguroDirectPayment.createCardToken({
+                      cardNumber,
+                      brand: res1.name,
+                      cvv: data.card_code,
+                      expirationMonth: expirationCardDate[0],
+                      expirationYear: `20${expirationCardDate[1]}`,
+                      success(res2: any) {
+                        dataSubmitData.payment_token = res2?.card?.token || '';
+
+                        (
+                          window as any
+                        ).PagSeguroDirectPayment.onSenderHashReady(
+                          (res3: any) => {
+                            if (res3.status === 'error') {
+                              console.log(res3.message);
+                            }
+
+                            dataSubmitData.hash = res3.senderHash;
+
+                            resolve(true);
+                          }
+                        );
+                      },
+                      error() {
+                        toast({
+                          title: 'Erro ao processar comprar',
+                          description: 'Não foi possível processar sua compra',
+                          status: 'error',
+                          duration: 10000,
+                          isClosable: true
+                        });
+
+                        resolve(true);
+                      }
+                    });
+                  },
+                  error() {
+                    toast({
+                      title: 'Verifique os dados do cartão',
+                      description:
+                        'Não foi possível identificar a bandeira do cartão',
+                      status: 'error',
+                      duration: 10000,
+                      isClosable: true
+                    });
+
+                    resolve(true);
+                  }
+                });
               });
-
-              if (card.hasError === false) {
-                dataSubmitData.payment_token = '';
-              } else {
-                dataSubmitData.payment_token = card.encryptedCard;
-              }
-
-              console.log('pagseguro card: ', card);
             }
           }
 
@@ -438,7 +493,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
               toast({
                 title: 'Transação em Análise',
                 description: checkoutResponse.data.message,
-                status: 'error',
+                status: 'warning',
                 duration: 10000,
                 isClosable: true
               });
@@ -1293,7 +1348,19 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                     onClick={() => paymentFormRef.current?.submitForm()}
                   >
                     {!isLoading && <Text>Finalizar Pagamento</Text>}
-                    {isLoading && <Spinner size="md" />}
+                    {isLoading && (
+                      <Flex
+                        width="100%"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        px="16px"
+                      >
+                        <Text fontSize="12px">
+                          Aguarde, estamos processando seu pagamento
+                        </Text>
+                        <Spinner size="md" mr="16px" />
+                      </Flex>
+                    )}
                   </Flex>
                 </Flex>
               </Flex>

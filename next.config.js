@@ -35,6 +35,7 @@ module.exports = withImages({
 
     PAYMENT_PLATFORM: process.env.PAYMENT_PLATFORM,
     PAYMENT_PLATFORM_KEY: process.env.PAYMENT_PLATFORM_KEY,
+    PAYMENT_PLATFORM_EMAIL: process.env.PAYMENT_PLATFORM_EMAIL,
 
     GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
     GOOGLE_TAG_SEND_TO: process.env.GOOGLE_TAG_SEND_TO,

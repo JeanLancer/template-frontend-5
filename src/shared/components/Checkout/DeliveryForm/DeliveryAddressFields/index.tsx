@@ -8,6 +8,7 @@ import apiGateway from '../../../../services/apiGateway';
 import { HTTP_RESPONSE } from '../../../../constants';
 import DeliveryNeighborhoodFields from './DeliveryNeighborhoodFields';
 import { useCart } from '../../../../hooks/cart';
+import config from '../../../../config';
 
 export interface DeliveryNeighborhood {
   id: string;
@@ -117,12 +118,15 @@ const DeliveryAddressFields: React.FC = () => {
                     {city.name}
                   </option>
                 ))}
-              {/* <option
-                key="Demais Cidades do Brasil"
-                value="Demais Cidades do Brasil"
-              >
-                Demais Cidades do Brasil
-              </option> */}
+
+              {config.STORE.NAME === 'MC Flores' && (
+                <option
+                  key="Demais Cidades do Brasil"
+                  value="Demais Cidades do Brasil"
+                >
+                  Demais Cidades do Brasil
+                </option>
+              )}
             </Select>
           </Flex>
 

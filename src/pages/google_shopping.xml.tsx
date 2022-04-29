@@ -31,7 +31,6 @@ const createSitemap = (
               } BRL</g:price>
               <g:shipping_weight>0 kg</g:shipping_weight>
               <g:brand>${config.SEO.TITLE}</g:brand>
-              <g:gtin>7890291177603</g:gtin>
               <g:mpn></g:mpn>
               <g:age_group>adult</g:age_group>
               <g:gender>unisex</g:gender>

@@ -308,7 +308,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             value="Tarde"
                             isDisabled={checkIfHourIsAvailable(
                               scheduleSettings.timeSettings[selectedDayOfWeek]
-                                .EVENING.endHour
+                                .EVENING.startHour
                             )}
                           >
                             <Text fontSize="12px">
@@ -324,7 +324,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             value="Noite"
                             isDisabled={checkIfHourIsAvailable(
                               scheduleSettings.timeSettings[selectedDayOfWeek]
-                                .NIGHT.endHour
+                                .NIGHT.startHour
                             )}
                           >
                             <Text fontSize="12px">
@@ -340,7 +340,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             value="Integral"
                             isDisabled={checkIfHourIsAvailable(
                               scheduleSettings.timeSettings[selectedDayOfWeek]
-                                .UNIQUE.endHour
+                                .UNIQUE.startHour
                             )}
                           >
                             <Text fontSize="12px">

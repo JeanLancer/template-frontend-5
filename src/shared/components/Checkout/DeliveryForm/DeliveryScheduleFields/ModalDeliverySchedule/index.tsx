@@ -40,27 +40,20 @@ interface ScheduleSettings {
     friday: boolean;
     saturday: boolean;
   };
-  turnsOfDay: {
-    morning: {
-      isEnabled: boolean;
-      lastHourAccepted: string;
-      endTime: string;
-    };
-    evening: {
-      isEnabled: boolean;
-      lastHourAccepted: string;
-      endTime: string;
-    };
-    night: {
-      isEnabled: boolean;
-      lastHourAccepted: string;
-      endTime: string;
-    };
-  };
   daysDisabled: Date[];
 
-  daysOfWeekFormatted: number[];
+  daysOfWeekDisabledFormatted: number[];
   daysDisabledFormatted: Date[];
+
+  timeSettings: {
+    [key: string]: {
+      [key: string]: {
+        startHour: string;
+        endHour: string;
+        isActive: boolean;
+      };
+    };
+  };
 }
 
 const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
@@ -77,6 +70,20 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   const [deliveryDate, setDeliveryDate] = useState<Date>(null as any);
   const [deliveryHour, setDeliveryHour] = useState<string>(null as any);
 
+  const DAYS_OF_WEEK = [
+    'SUNDAY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY'
+  ];
+
+  const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(() => {
+    return DAYS_OF_WEEK[new Date().getDay()];
+  });
+
   const [scheduleSettings, setScheduleSettings] = useState<ScheduleSettings>(
     null as any
   );
@@ -84,10 +91,11 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   const handleDateChange = useCallback(
     (date: Date, modifiers: DayModifiers) => {
       if (!modifiers.disabled) {
+        setSelectedDayOfWeek(DAYS_OF_WEEK[date.getDay()]);
         setDeliveryDate(date);
       }
     },
-    []
+    [DAYS_OF_WEEK]
   );
 
   const checkIfHourIsAvailable = useCallback(
@@ -125,24 +133,24 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
   useEffect(() => {
     apiGateway.get('/checkout/schedule_setting').then(response => {
       if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
-        const { days_of_week_enabled, days_disabled, turns_of_day } =
-          response.data;
+        const { days_disabled, time_settings } = response.data;
 
-        const daysOfWeekFormatted: any = Object.keys(days_of_week_enabled).map(
+        const daysOfWeekDisabledFormatted: any = Object.keys(time_settings).map(
           key => {
-            if (days_of_week_enabled[key] === false) {
+            console.log(time_settings[key].isActive);
+            if (time_settings[key].isActive === false) {
               switch (key) {
-                case 'sunday':
+                case 'SUNDAY':
                   return 0;
-                case 'monday':
+                case 'MONDAY':
                   return 1;
-                case 'tuesday':
+                case 'TUESDAY':
                   return 2;
-                case 'wednesday':
+                case 'WEDNESDAY':
                   return 3;
-                case 'thursday':
+                case 'THURSDAY':
                   return 4;
-                case 'friday':
+                case 'FRIDAY':
                   return 5;
                 default:
                   return 6;
@@ -162,9 +170,9 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
 
         setScheduleSettings({
           ...response.data,
-          turnsOfDay: turns_of_day,
-          daysOfWeekFormatted,
-          daysDisabledFormatted
+          daysOfWeekDisabledFormatted,
+          daysDisabledFormatted,
+          timeSettings: time_settings
         });
       }
     });
@@ -203,7 +211,9 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                   selectedDate={deliveryDate}
                   handleDateChange={handleDateChange}
                   handleMonthChange={() => null}
-                  disabledDaysOfWeek={scheduleSettings.daysOfWeekFormatted}
+                  disabledDaysOfWeek={
+                    scheduleSettings.daysOfWeekDisabledFormatted
+                  }
                   disabledSpecificDays={scheduleSettings.daysDisabledFormatted}
                 />
 
@@ -272,55 +282,69 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                       onChange={value => setDeliveryHour(value)}
                     >
                       <Stack spacing={1} direction="column">
-                        {scheduleSettings.turnsOfDay.morning.isEnabled && (
+                        {scheduleSettings.timeSettings[selectedDayOfWeek]
+                          .MORNING.isActive && (
                           <Radio
                             colorScheme="green"
                             value="Manhã"
                             isDisabled={checkIfHourIsAvailable(
-                              scheduleSettings.turnsOfDay.morning
-                                .lastHourAccepted
+                              scheduleSettings.timeSettings[selectedDayOfWeek]
+                                .MORNING.endHour
                             )}
                           >
                             <Text fontSize="12px">
                               {`Manhã - entrega até às ${
-                                scheduleSettings.turnsOfDay.morning.endTime ||
-                                '12h'
+                                scheduleSettings.timeSettings[selectedDayOfWeek]
+                                  .MORNING.endHour || '12h'
                               }`}
                             </Text>
                           </Radio>
                         )}
 
-                        {scheduleSettings.turnsOfDay.evening.isEnabled && (
+                        {scheduleSettings.timeSettings[selectedDayOfWeek]
+                          .EVENING.isActive && (
                           <Radio
                             colorScheme="green"
                             value="Tarde"
                             isDisabled={checkIfHourIsAvailable(
-                              scheduleSettings.turnsOfDay.evening
-                                .lastHourAccepted
+                              scheduleSettings.timeSettings[selectedDayOfWeek]
+                                .EVENING.endHour
                             )}
                           >
                             <Text fontSize="12px">
-                              {`Tarde - entrega até às ${
-                                scheduleSettings.turnsOfDay.evening.endTime ||
-                                '18h'
-                              }`}
+                              {`Tarde - entrega até às ${scheduleSettings.timeSettings[selectedDayOfWeek].EVENING.endHour}`}
                             </Text>
                           </Radio>
                         )}
 
-                        {scheduleSettings.turnsOfDay.night.isEnabled && (
+                        {scheduleSettings.timeSettings[selectedDayOfWeek].NIGHT
+                          .isActive && (
                           <Radio
                             colorScheme="green"
                             value="Noite"
                             isDisabled={checkIfHourIsAvailable(
-                              scheduleSettings.turnsOfDay.night.lastHourAccepted
+                              scheduleSettings.timeSettings[selectedDayOfWeek]
+                                .NIGHT.endHour
                             )}
                           >
                             <Text fontSize="12px">
-                              {`Noite - entrega até às ${
-                                scheduleSettings.turnsOfDay.night.endTime ||
-                                '22h'
-                              }`}
+                              {`Noite - entrega até às ${scheduleSettings.timeSettings[selectedDayOfWeek].NIGHT.endHour}`}
+                            </Text>
+                          </Radio>
+                        )}
+
+                        {scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE
+                          .isActive && (
+                          <Radio
+                            colorScheme="green"
+                            value="Integral"
+                            isDisabled={checkIfHourIsAvailable(
+                              scheduleSettings.timeSettings[selectedDayOfWeek]
+                                .UNIQUE.endHour
+                            )}
+                          >
+                            <Text fontSize="12px">
+                              {`Integral - entrega das ${scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE.startHour} até às ${scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE.endHour}`}
                             </Text>
                           </Radio>
                         )}

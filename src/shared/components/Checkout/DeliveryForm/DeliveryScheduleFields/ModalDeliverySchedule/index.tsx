@@ -340,7 +340,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             value="Integral"
                             isDisabled={checkIfHourIsAvailable(
                               scheduleSettings.timeSettings[selectedDayOfWeek]
-                                .UNIQUE.endHour
+                                .UNIQUE.startHour
                             )}
                           >
                             <Text fontSize="12px">

@@ -344,7 +344,7 @@ const ModalDeliverySchedule: React.FC<ModalDeliveryScheduleProps> = ({
                             )}
                           >
                             <Text fontSize="12px">
-                              {`Integral - entrega das ${scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE.startHour} até às ${scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE.endHour}`}
+                              {`Integral - entrega até às ${scheduleSettings.timeSettings[selectedDayOfWeek].UNIQUE.endHour}`}
                             </Text>
                           </Radio>
                         )}

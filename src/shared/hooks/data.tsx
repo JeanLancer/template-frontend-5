@@ -52,6 +52,7 @@ interface StoreConfigContextData {
     footer: Options;
   };
   pages: Page[];
+  cities: any[];
 }
 
 const StoreConfigContext = createContext({} as StoreConfigContextData);
@@ -61,7 +62,8 @@ const ConfigProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     apiGateway.get('/stores/setup').then(response => {
-      const { general_settings, categories, options, pages } = response.data;
+      const { general_settings, categories, options, pages, cities } =
+        response.data;
 
       apiEflorista.get('/settings/schedule_settings').then(response2 => {
         if (response2.status === HTTP_RESPONSE.STATUS.SUCCESS) {
@@ -88,7 +90,8 @@ const ConfigProvider: React.FC = ({ children }) => {
                   : []
               },
               options,
-              pages
+              pages,
+              cities
             };
           });
         }

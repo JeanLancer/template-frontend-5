@@ -3,7 +3,6 @@ import React from 'react';
 import { NextPage, NextPageContext } from 'next';
 import config from '../shared/config/index';
 import apiGateway from '../shared/services/apiGateway';
-import TextUtils from '../shared/utils/TextUtils';
 
 const BASE_URL = config.STORE.DOMAIN;
 
@@ -17,9 +16,7 @@ const createSitemap = (
             <item>
               <g:id>${product.code_sku}</g:id>
               <title>${product.name}</title>
-              <description>${TextUtils.unescapeHTML(
-                product.description
-              )}</description>
+              <description>${product.description}</description>
               <link>${BASE_URL}/${product.slug}</link>
               <g:image_link>${product.url_web}</g:image_link>
               <g:condition>new</g:condition>

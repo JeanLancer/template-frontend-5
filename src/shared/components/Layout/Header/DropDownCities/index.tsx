@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 
 import { Divider, Flex, Icon, Text } from '@chakra-ui/react';
 
 import getConfig from 'next/config';
 import config from '../../../../config/index';
+import { useData } from '../../../../hooks/data';
 
 interface DropDownCitiesStyle {
   style: any;
@@ -13,6 +14,18 @@ interface DropDownCitiesStyle {
 const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { publicRuntimeConfig } = getConfig();
+
+  const { cities: citiesData } = useData();
+
+  const [cities, setCities] = useState(() => config.CITIES);
+
+  useEffect(() => {
+    if (citiesData?.length > 0) {
+      const updatedCities = citiesData.map(item => item.name);
+
+      setCities(updatedCities);
+    }
+  }, [citiesData]);
 
   return (
     <Flex
@@ -50,7 +63,7 @@ const DropDownCities: React.FC<DropDownCitiesStyle> = ({ style }) => {
           maxHeight="400px"
           overflow="auto"
         >
-          {config.CITIES.map((city: any) => (
+          {cities.map((city: any) => (
             <>
               <Flex
                 width="100%"

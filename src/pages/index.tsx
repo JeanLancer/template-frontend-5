@@ -225,6 +225,11 @@ const HomePage = ({
             height="144px"
             position="relative"
             my="24px"
+            onClick={() => {
+              if (banner.link) {
+                window.location.href = banner.link;
+              }
+            }}
           >
             <Image
               layout="fill"

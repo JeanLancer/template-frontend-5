@@ -10,7 +10,7 @@ import config from '../../../config';
 
 import eflorista from '../../../../assets/images/logo-eflorista.png';
 import siteseguro from '../../../../assets/images/siteseguro.png';
-import grupoflordamar from '../../../../assets/images/grupo-flordamar.jpg';
+import grupoflordamar from '../../../../assets/images/grupo-flordamar.png';
 import paymentMethods from '../../../../assets/images/payment-methods.png';
 import { useData } from '../../../hooks/data';
 
@@ -132,11 +132,10 @@ const Footer: React.FC<any> = ({ styles }) => {
               {config.STORE.NAME === 'Flordamar' && (
                 <Flex ml="16px" mt="24px" alignSelf="flex-start">
                   <Image
-                    layout="fixed"
                     src={grupoflordamar}
-                    width={80}
-                    height={64}
-                    alt="Site Seguro SSL"
+                    width={160}
+                    height={40}
+                    alt="Grupo Flordamar"
                   />
                 </Flex>
               )}

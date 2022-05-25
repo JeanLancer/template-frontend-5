@@ -384,13 +384,14 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                       )}
                     </Text>
 
-                    {config.KEY !== '3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3' && (
-                      <Text fontSize="12px" fontWeight="400">
-                        {`Em até ${
-                          config.STORE.NAME === 'Cassia Flores' ? '2x' : '3x'
-                        } sem juros`}
-                      </Text>
-                    )}
+                    {config.KEY !== '3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3' &&
+                      config.STORE.NAME !== 'Floricultura Helena' && (
+                        <Text fontSize="12px" fontWeight="400">
+                          {`Em até ${
+                            config.STORE.NAME === 'Cassia Flores' ? '2x' : '3x'
+                          } sem juros`}
+                        </Text>
+                      )}
                   </Flex>
                 )}
 
@@ -413,11 +414,16 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                         )}`}
                       </Text>
 
-                      <Text fontSize="12px" fontWeight="400">
-                        {`Em até ${
-                          config.STORE.NAME === 'Cassia Flores' ? '2x' : '3x'
-                        } sem juros`}
-                      </Text>
+                      {config.KEY !== '3e4ab6bd-ba02-4d50-8b0b-beaf9f289eb3' &&
+                        config.STORE.NAME !== 'Floricultura Helena' && (
+                          <Text fontSize="12px" fontWeight="400">
+                            {`Em até ${
+                              config.STORE.NAME === 'Cassia Flores'
+                                ? '2x'
+                                : '3x'
+                            } sem juros`}
+                          </Text>
+                        )}
                     </Flex>
                   </Flex>
                 )}

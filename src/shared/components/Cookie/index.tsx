@@ -51,7 +51,7 @@ const Cookie: React.FC<any> = () => {
               textDecor="underline"
               mb="8px"
               cursor="pointer"
-              href="https://eflorista.com.br/lgpd"
+              href="https://www.eflorista.com.br/lgpd/index.html"
               target="_blank"
             >
               Política de Cookies.

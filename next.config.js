@@ -39,6 +39,7 @@ module.exports = withImages({
 
     GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
     GOOGLE_TAG_SEND_TO: process.env.GOOGLE_TAG_SEND_TO,
+    GOOGLE_TAG_SEND_TO_WHATS: process.env.GOOGLE_TAG_SEND_TO_WHATS,
     GOOGLE_TAG_MANAGER: process.env.GOOGLE_TAG_MANAGER,
 
     GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,

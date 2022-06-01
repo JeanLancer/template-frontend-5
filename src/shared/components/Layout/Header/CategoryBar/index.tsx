@@ -251,7 +251,8 @@ const CategoryBar: React.FC<CategoryBarStyle> = ({ style }) => {
 
       {config.STORE.NAME !== 'Flor da Mar' &&
         config.STORE.NAME !== 'Floricultura Se Flor para Ser' &&
-        config.STORE.NAME !== 'Acalanto' && (
+        config.STORE.NAME !== 'Acalanto' &&
+        config.STORE.NAME !== 'Florescer Floripa' && (
           <Flex
             justifyContent="center"
             alignItems="center"

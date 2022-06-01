@@ -32,6 +32,7 @@ export default {
     TAG: {
       ID: publicRuntimeConfig.GOOGLE_TAG_ID,
       SEND_TO: publicRuntimeConfig.GOOGLE_TAG_SEND_TO,
+      SEND_TO_WHATS: publicRuntimeConfig.GOOGLE_TAG_SEND_TO_WHATS,
       MANAGER: publicRuntimeConfig.GOOGLE_TAG_MANAGER
     },
     DOMAIN_VERIFICATION: publicRuntimeConfig.GOOGLE_DOMAIN_VERIFICATION,

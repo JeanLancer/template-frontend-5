@@ -1274,6 +1274,7 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
                         name="telephone"
                         isRequired
                         mb="0px"
+                        mask="(99) 9999-99999"
                       />
                     </Flex>
                   </Flex>

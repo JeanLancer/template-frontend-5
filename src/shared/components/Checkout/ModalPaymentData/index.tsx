@@ -94,6 +94,7 @@ interface ICheckoutSubmitData {
   num_installments: number;
 
   neighborhood_id: string;
+  cupon: string;
   payment_token?: string;
   hash?: string;
 }
@@ -334,7 +335,8 @@ const ModalPaymentData: React.FC<ModalPaymentDataProps> = ({
               paymentMethod === 'CREDITCARD' ? data.num_installments : 1,
             store_name: config.STORE.NAME,
             platform_name: paymentSettings?.platform?.name || paymentMethod,
-            neighborhood_id: cartForm.neighborhoodId
+            neighborhood_id: cartForm.neighborhoodId,
+            cupon: cartForm.cupon
           };
 
           if (paymentMethod === 'CREDITCARD') {

@@ -41,6 +41,7 @@ interface CartForm {
   };
   neighborhoodId: string;
   identifySender: boolean;
+  cupon: string;
 }
 
 interface ICartContextData {
@@ -89,7 +90,8 @@ const CartProvider: React.FC = ({ children }) => {
           deliveryHour: null
         },
         neighborhoodId: null,
-        identifySender: true
+        identifySender: true,
+        cupon: null
       } as any)
   );
 

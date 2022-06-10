@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Divider, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
 import { BiCalendarEdit } from 'react-icons/bi';
+import { FiChevronRight } from 'react-icons/fi';
 import ModalDeliverySchedule from './ModalDeliverySchedule';
 import { useCart } from '../../../../hooks/cart';
 import DateUtils from '../../../../utils/DateUtils';
+import { HTTP_RESPONSE } from '../../../../constants';
+import { apiEflorista } from '../../../../services/apiGateway';
+import Input from '../../../Form/Input';
 
 const DeliveryScheduleFields: React.FC = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const { cartForm } = useCart();
+  const { cartData, cartForm, addDiscount, handleChangeCartForm } = useCart();
+
+  const [isValidCupon, setIsValidCupon] = useState(false);
+
+  const [cupon, setCupon] = useState('');
+
+  const handleValidCupon = useCallback(() => {
+    if (!isValidCupon) {
+      handleChangeCartForm('cupon', cupon);
+
+      apiEflorista.get(`/cupons/${cupon}`).then(response => {
+        if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+          const { data } = response;
+
+          if (data?.id) {
+            setIsValidCupon(true);
+
+            const { type, value } = data;
+
+            const discountValue =
+              type === 'FIXO'
+                ? Number(value)
+                : cartData.total * (Number(value) / 100);
+
+            addDiscount(discountValue);
+          }
+        }
+      });
+    }
+  }, [addDiscount, cartData, cupon, handleChangeCartForm, isValidCupon]);
 
   return (
     <Flex width={['100%', '100%', '48%']} flexDirection="column">
@@ -106,6 +139,40 @@ const DeliveryScheduleFields: React.FC = () => {
               </Text>
             </Flex>
           </Flex>
+        )}
+      </Flex>
+
+      <Flex width="40%" position="relative" mt="32px">
+        <Flex flexDirection="column">
+          <Input
+            name="cupon"
+            label="Utilizar Cupom"
+            onChange={e => {
+              setCupon(String(e.currentTarget.value).trim());
+            }}
+          />
+        </Flex>
+        <Flex
+          backgroundColor="green.500"
+          color="white"
+          alignItems="center"
+          justifyContent="center"
+          width="40px"
+          height="33px"
+          mt="auto"
+          mb="3px"
+          borderRadius="2px"
+          onClick={() => handleValidCupon()}
+          cursor="pointer"
+        >
+          <FiChevronRight size={24} />
+        </Flex>
+      </Flex>
+      <Flex>
+        {isValidCupon && (
+          <Text color="green.500" fontWeight="500" fontSize="11px">
+            CUPOM ADICIONADO
+          </Text>
         )}
       </Flex>
 

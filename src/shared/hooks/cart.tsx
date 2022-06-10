@@ -48,6 +48,7 @@ interface ICartContextData {
   cartForm: CartForm;
 
   addShippingValue: (value: number) => void;
+  addDiscount: (value: number) => void;
   addToCart(product: any, quantity?: number, options?: any): void;
   removeToCart(product: any): void;
   hasOnCart(product: any): boolean;
@@ -109,6 +110,18 @@ const CartProvider: React.FC = ({ children }) => {
         ...oldState,
         shippingValue: value,
         total: totalProducts + value - discountsValue
+      };
+    });
+  }, []);
+
+  const addDiscount = useCallback((value: number) => {
+    setCartData(oldState => {
+      const { totalProducts, shippingValue } = oldState;
+
+      return {
+        ...oldState,
+        discountsValue: value,
+        total: totalProducts + shippingValue - value
       };
     });
   }, []);
@@ -245,6 +258,7 @@ const CartProvider: React.FC = ({ children }) => {
         cartForm,
 
         addShippingValue,
+        addDiscount,
         addToCart,
         removeToCart,
         hasOnCart,

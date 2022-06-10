@@ -1,5 +1,5 @@
 import { Divider, Flex, Link, Text } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import getConfig from 'next/config';
 
 import Input from '../../../Form/Input';
@@ -9,15 +9,45 @@ import TextArea from '../../../Form/TextArea';
 import { useCart } from '../../../../hooks/cart';
 import Checkbox from '../../../Form/Checkbox';
 import config from '../../../../config';
+import { FiChevronRight } from 'react-icons/fi';
+import { apiEflorista } from '../../../../services/apiGateway';
+import { HTTP_RESPONSE } from '../../../../constants';
 
 const DeliveryDestinataryFields: React.FC = () => {
-  const { cartForm, handleChangeCartForm } = useCart();
+  const { cartForm, handleChangeCartForm, addDiscount } = useCart();
 
   const [showMessage, setShowMessage] = useState(true);
   const [numCharacters, setNumCharacters] = useState(0);
 
+  const [cupon, setCupon] = useState('');
+
   const { publicRuntimeConfig } = getConfig();
   const { cartData } = useCart();
+
+  const [isValidCupon, setIsValidCupon] = useState(false);
+
+  const handleValidCupon = useCallback(() => {
+    if (!isValidCupon) {
+      apiEflorista.get(`/cupons/${cupon}`).then(response => {
+        if (response.status === HTTP_RESPONSE.STATUS.SUCCESS) {
+          const { data } = response;
+
+          if (data?.id) {
+            setIsValidCupon(true);
+
+            const { type, value } = data;
+
+            const discountValue =
+              type === 'FIXO'
+                ? Number(value)
+                : cartData.total * (Number(value) / 100);
+
+            addDiscount(discountValue);
+          }
+        }
+      });
+    }
+  }, [addDiscount, cartData, cupon, isValidCupon]);
 
   useEffect(() => {
     const ifExists = !!cartData.itens.find(item =>
@@ -103,6 +133,38 @@ const DeliveryDestinataryFields: React.FC = () => {
         >
           <Text fontSize="14px">Quero ser identificado no cartão</Text>
         </Checkbox>
+
+        <Flex width="40%" mt="32px" position="relative">
+          <Flex flexDirection="column">
+            <Input
+              name="cupon"
+              label="Utilizar Cupom"
+              onChange={e => setCupon(e.currentTarget.value)}
+            />
+          </Flex>
+          <Flex
+            backgroundColor="green.500"
+            color="white"
+            alignItems="center"
+            justifyContent="center"
+            width="40px"
+            height="33px"
+            mt="auto"
+            mb="3px"
+            borderRadius="2px"
+            onClick={() => handleValidCupon()}
+            cursor="pointer"
+          >
+            <FiChevronRight size={24} />
+          </Flex>
+        </Flex>
+        <Flex>
+          {isValidCupon && (
+            <Text color="green.500" fontWeight="500" fontSize="11px">
+              CUPOM ADICIONADO
+            </Text>
+          )}
+        </Flex>
       </Flex>
     </Flex>
   );

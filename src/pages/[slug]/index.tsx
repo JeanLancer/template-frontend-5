@@ -46,6 +46,8 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [collapseDescription, setCollapseDescription] = useState(true);
+
   const [deliveryMessage, setDeliveryMessage] = useState('');
 
   const [sizeSelected, setSizeSelected] = useState(() => {
@@ -86,17 +88,6 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
 
     setVariantPrice(newVariantPrice);
   }, [colorSelected, sizeSelected]);
-
-  const goToDescription = useCallback(() => {
-    const divRef: any = document.getElementById('description');
-
-    if (divRef) {
-      window.scrollTo({
-        top: divRef.getBoundingClientRect().top,
-        behavior: 'smooth'
-      });
-    }
-  }, []);
 
   useEffect(() => {
     console.log(colorSelected);
@@ -224,7 +215,9 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
               mt="48px"
               color="brand.300"
             >
-              {`${String(product.description || '').substring(0, 144)}...`}
+              {collapseDescription
+                ? `${String(product.description || '').substring(0, 144)}...`
+                : product.description}
             </Text>
 
             <Flex
@@ -241,9 +234,11 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({
                 fontSize="14px"
                 lineHeight="18px"
                 cursor="pointer"
-                onClick={() => goToDescription()}
+                onClick={() => setCollapseDescription(!collapseDescription)}
               >
-                ver descrição completa
+                {collapseDescription
+                  ? 'ver descrição completa'
+                  : 'mostrar menos'}
               </Text>
 
               <Icon as={BiChevronRight} />

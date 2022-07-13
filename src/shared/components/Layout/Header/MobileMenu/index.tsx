@@ -219,6 +219,18 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, setIsOpenMenu }) => {
                 handleClickMenu={handleClickMenu}
               />
             ))}
+
+            <Flex
+              width="100%"
+              alignItems="center"
+              px="24px"
+              py="8px"
+              color="gray.800"
+              onClick={() => handleClickMenu('complementos')}
+            >
+              <Icon as={BiFilterAlt} mr="16px" fontSize="20px" />
+              <Text fontSize="14px">Complementos</Text>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>

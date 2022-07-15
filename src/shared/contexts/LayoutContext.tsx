@@ -121,7 +121,7 @@ const LayoutProvider: React.FC = ({ children }) => {
         height: '100%',
         backgroundColor:
           publicRuntimeConfig.ACTIVE_MENU || publicRuntimeConfig.PRIMARY_COLOR,
-        color: 'white',
+        color: publicRuntimeConfig.ACTIVE_MENU_FONT || 'white',
         whiteSpace: 'nowrap',
         alignItems: 'center',
         justifyContent: 'space-between'

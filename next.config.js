@@ -70,6 +70,7 @@ module.exports = withImages({
     BACKGROUND_MENU: process.env.BACKGROUND_MENU,
     DETAILS_MENU: process.env.DETAILS_MENU,
     ACTIVE_MENU: process.env.ACTIVE_MENU,
+    ACTIVE_MENU_FONT: process.env.ACTIVE_MENU_FONT,
     BACKGROUND_BUY: process.env.BACKGROUND_BUY,
     DETAILS_BUY: process.env.DETAILS_BUY,
     DETAILS_BUY_2: process.env.DETAILS_BUY_2,
